@@ -211,12 +211,7 @@ au FileType haskell nnoremap <buffer>          <Leader>t     :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <Leader><ESC> :HdevtoolsClear<CR>
 au FileType haskell nnoremap <buffer> <silent> <Leader>i     :call MyMark()<CR>:HdevtoolsInfo<CR>
 function! GHCInteract()
-  if !isdirectory(".cabal-sandbox")
-    exe "!GHCI_LOAD=" . @% . " ghci"
-  else
-    exe "!GHCI_LOAD=" . @% . " ghci -no-user-package-db -package-db .cabal-sandbox/*-packages.conf.d"
-  endif
-
+  exe "!cabal repl " . @%
 endfunction
 au FileType haskell nnoremap <buffer> <silent> <Leader>:     :call GHCInteract()<CR>
 

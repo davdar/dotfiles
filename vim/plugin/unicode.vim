@@ -28,10 +28,10 @@ noremap! \-\|>           ⇾
 noremap! \<\|-\|>        ⇿
 noremap! \~~>            ⇝
 noremap! \zd             ↯
-noremap! \>>             ≫
+noremap! \>>>            ≫
 noremap! \>>=            ≫=
 noremap! \=<<            =≪
-noremap! \<<             ≪
+noremap! \<<<            ≪
 noremap! \=>>            =≫
 noremap! \<<=            ≪=
 
@@ -125,14 +125,15 @@ noremap! \bigi           ⋂
 noremap! \u.             ⊍
 noremap! \u+             ⨄
 noremap! \swap           ⤨
-noremap! \oplus          ⊕
-noremap! \otimes         ⊗
+noremap! \o+             ⊕
+noremap! \ox             ⊗
 noremap! \d              ◇
 noremap! \d.             ⟐
 noremap! \box            □
 noremap! \lbox           ⬜
-noremap! \bplus          ⊞
-noremap! \bdot           ⊡
+noremap! \s+             ⊞
+noremap! \s.             ⊡
+noremap! \sx             ⊠
 noremap! \qed            ∎
 
 " logical

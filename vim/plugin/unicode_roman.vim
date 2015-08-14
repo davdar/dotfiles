@@ -1,5 +1,9 @@
 set iskeyword+=\
 
+" Weierstrass p
+
+noremap! \wp               ℘
+
 " bold
 
 noremap! \bldA             𝐀
