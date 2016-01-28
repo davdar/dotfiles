@@ -115,11 +115,13 @@ set clipboard=unnamed
 
 " let g:syntastic_tex_checkers=['chktex']
 let g:syntastic_tex_checkers=[]
+let g:syntastic_markdown_checkers=[]
 
 " Make Syntastic always update the errors window
 let g:syntastic_auto_loc_list=1
-let g:syntastic_haskell_checkers=['hdevtools']
-let g:syntastic_markdown_checkers=[]
+" let g:syntastic_haskell_checkers=['ghc-mod']
+"
+" let g:syntastic_rust_rustc_args="-Zno-trans --allow=dead_code --crate-type=lib"
 
 " Load Custom HDevtools Options
 " let g:hdevtools_options = ""
@@ -210,13 +212,25 @@ map <silent> <Leader><Space> :ll<CR>
 au FileType haskell nnoremap <buffer>          <Leader>t     :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <Leader><ESC> :HdevtoolsClear<CR>
 au FileType haskell nnoremap <buffer> <silent> <Leader>i     :call MyMark()<CR>:HdevtoolsInfo<CR>
-function! GHCInteract()
-  exe "!cabal repl " . @%
+function! Get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
 endfunction
-au FileType haskell nnoremap <buffer> <silent> <Leader>:     :call GHCInteract()<CR>
+au FileType haskell  noremap <buffer> <silent> <Leader>te     :call VimuxSendText(Get_visual_selection() . "\n")<CR>
+
+au FileType haskell nnoremap <buffer> <silent> <Leader>t:     :call VimuxRunCommand("./ghci " . @%)<CR>
+au FileType haskell nnoremap <buffer> <silent> <Leader>tl     :call VimuxRunCommand(":load " . @%)<CR>
+au FileType haskell nnoremap <buffer> <silent> <Leader>tr     :call VimuxSendText(":re\n")<CR>
+au FileType haskell nnoremap <buffer> <silent> <Leader>tp     :call VimuxSendText(":pp\n")<CR>
+au FileType haskell nnoremap <buffer> <silent> <Leader>tq     :call VimuxSendText(":q\n")<CR>
 
 " Hoogle
-au FileType haskell nnoremap <buffer>          <Leader>/      :Hoogle<Space>
+" au FileType haskell nnoremap <buffer>          <Leader>/      :Hoogle<Space>
 
 " File Hooks
 augroup DD_CUSTOM
