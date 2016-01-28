@@ -29,6 +29,7 @@ emacsEscape = concatMap escapeChar
   where
     escapeChar :: Char -> String
     escapeChar '\\' = "\\\\"
+    escapeChar '\"' = "\\\""
     escapeChar c = [c]
 
 genVimScript :: String
