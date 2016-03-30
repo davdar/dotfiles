@@ -1,3 +1,5 @@
 vim/backup
 *.swp
 *.DS_Store
+emacs.d/auto-save-list/
+emacs.d/elpa/
