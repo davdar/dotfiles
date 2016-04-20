@@ -455,6 +455,7 @@ codes =
   , code "⁂" "***"
   , code "∫" "int"
   , code "¢" "cent"
+  , code "⧂" "nip"
  
   -- Logic
   , lcode "∈" "in" "\\in"

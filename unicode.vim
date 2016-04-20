@@ -289,6 +289,7 @@ noremap! \ddag ‡
 noremap! \*** ⁂
 noremap! \int ∫
 noremap! \cent ¢
+noremap! \nip ⧂
 noremap! \in ∈
 noremap! \in. ⋵
 noremap! \in\| ⋳
