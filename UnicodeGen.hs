@@ -18,6 +18,8 @@ main = do
   writeFile "unicode.el" genEmacsScript
   writeFile "unicode.vim" genVimScript
   writeFile "latex-unicode.sed" genSedScript
+  writeFile "latex-unicode-escape.sed" genSedEscapeScript
+  writeFile "latex-unicode-unescape.sed" genSedUnescapeScript
   putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed"
 
 data Code = Code 
@@ -112,10 +114,32 @@ genSedScript = do
   command code
     where
       command :: Code -> String
-      command (Code u _ l _) = 
+      command (Code u e l _) = 
         if l == "" 
            then ""
            else "s/" ++ sedEscape u ++ "/" ++ sedEscape l ++ "/g\n"
+
+genSedEscapeScript :: String
+genSedEscapeScript = do
+  code <- codes
+  command code
+    where
+      command :: Code -> String
+      command (Code u e l _) = 
+        if l == "" 
+           then ""
+           else "s/" ++ "‹" ++ sedEscape u ++ "›/‹‹" ++ sedEscape e ++ "››/g\n"
+
+genSedUnescapeScript :: String
+genSedUnescapeScript = do
+  code <- codes
+  command code
+    where
+      command :: Code -> String
+      command (Code u e l _) = 
+        if l == "" 
+           then ""
+           else "s/‹‹" ++ sedEscape e ++ "››/" ++ sedEscape u ++ "/g\n"
 
 codes :: [Code]
 codes = 
@@ -136,8 +160,8 @@ codes =
   -- - open
   , lcode "⇒" "=>" "\\Rightarrow"
   , lcode "⇐" "=<" "\\Leftarrow"
-  , lcode "⇑" "=up" "\\Uparrow"
-  , lcode "⇓" "=down" "\\Downarrow"
+  , lcode "⇑" "=u" "\\Uparrow"
+  , lcode "⇓" "=d" "\\Downarrow"
   , lcode "⇔" "<=>" "\\Leftrightarrow"
   -- - long
   , lcode "⟹" "==>" "\\implies"
@@ -145,8 +169,8 @@ codes =
   -- - closed
   , lcode "⇨" "|>" "\\rightwhitearrow"
   , lcode "⇦" "|<" "\\leftwhitearrow"
-  , lcode "⇧" "|up" "\\upwhitearrow"
-  , lcode "⇩" "|down" "\\downwhitearrow"
+  , lcode "⇧" "|u" "\\upwhitearrow"
+  , lcode "⇩" "|d" "\\downwhitearrow"
   , code "⬄" "<|>"
   , code "⇰"  "|=>"
   -- - partial
@@ -164,7 +188,7 @@ codes =
   , lcode "⇽" "t<-" "\\leftarrowtriangle"
   , lcode "⇿" "t<->" "\\leftrightarrowtriangle"
   -- - squiggle
-  , code "↝" "~>"
+  , lcode "↝" "~>" "\\rightsquigarrow"
   , code "↜" "~<"
   , code "↭" "<~>"
   -- - double squiggle
@@ -360,13 +384,16 @@ codes =
   , code "⩎" "hm"
 
   -- Quotes
-  , lcodet "“" "``" "``"
-  , lcodet "”" "''" "''"
+  , lcodet "“" "\"<" "``"
+  , lcodet "”" "\">" "''"
   , lcodet "–" "--" "--"
   , lcodet "—" "---" "---"
-  , code "′" "'"
-  , code "″" "'2"
-  , code "‴" "'3"
+  , lcode "′" "'" "^{\\prime}"
+  , lcode "″" "''" "^{\\prime\\prime}"
+  , code "‴" "'''"
+  , code "‵" "`"
+  , code "‶" "``"
+  , code "‷" "```"
 
   -- Operators
   , lcode "⋅" "." "\\cdotp"
@@ -397,8 +424,13 @@ codes =
   , lcode "♭" "b" "\\flat"
   , lcode "♮" "n" "\\natural"
   , lcode "⋕" "=||" "\\hash"
+  , code "¿" "d?"
+  , code "¡" "d!"
   , code "⁇" "??"
-  , code "⧺" "++"
+  , code "‼" "!!"
+  , code "⁈" "?!"
+  , code "⁉" "!?"
+  , lcode "⧺" "++" "\\mathbin{{+}\\mspace{-8mu}{+}}"
   , lcode "×" "x" "\\times"
   , code "⨯" "xx"
   , code "⨳" "XX"
@@ -432,7 +464,7 @@ codes =
   , code "⧆" "s*"
   , code "⧇" "so"
   , code "⧈" "ss"
-  , code "⧉" "sjoin"
+  , code "⧉" "link"
   , lcode "∎" "qed" "\\blacksquare"
   , lcode "⌿" "-/" "\\notslash"
   , code "∿" "sin"
@@ -494,9 +526,11 @@ codes =
   , lcode "≔" ":=" "\\coloneqq"
   , lcode "⩴" "::=" "\\Coloneqq"
   , lcode "≠" "=/" "\\neq"
-  , code "≟" "=?"
+  , lcode "≟" "=?" "\\stackrel{?}{=}"
   , lcode "≜" "=t" "\\triangleq"
   , code "≝" "=def"
+  , code "≍" "eqv"
+  , code "≭" "eqv/"
  
   -- Subscripts
   , lcode "₊" "_+" "_+"
@@ -1386,8 +1420,14 @@ codes =
   , lcodet "ᴢ" "scz" "\\textsc{z}"
 
   -- Roman Accents and Gylphs
-  , lcode "é" "e'" "\\'e"
-  , lcode "è" "e`" "\\`e"
-  , lcode "ö" "o.." "\\\"o"
-  , lcode "æ" "ae" "\\ae"
+  , lcodet  "À" "A`" "\\`A"
+  , lcodet  "Á" "A'" "\\'A"
+  , lcodet  "È" "E`" "\\`E"
+  , lcodet  "É" "E'" "\\'E"
+  , lcodet  "à" "a`" "\\`a"
+  , lcodet  "á" "a'" "\\'a"
+  , lcodet "è" "e`" "\\`e"
+  , lcodet "é" "e'" "\\'e"
+  , lcodet "ö" "o.." "\\\"o"
+  , lcodet "æ" "ae" "\\ae"
   ]

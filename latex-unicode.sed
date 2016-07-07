@@ -27,6 +27,7 @@ s/↞/\\twoheadleftarrow /g
 s/⇾/\\rightarrowtriangle /g
 s/⇽/\\leftarrowtriangle /g
 s/⇿/\\leftrightarrowtriangle /g
+s/↝/\\rightsquigarrow /g
 s/⇝/\\rightsquigarrow /g
 s/⇜/\\leftsquigarrow /g
 s/⇢/\\dashrightarrow /g
@@ -97,6 +98,8 @@ s/“/``/g
 s/”/''/g
 s/–/--/g
 s/—/---/g
+s/′/\^{\\prime} /g
+s/″/\^{\\prime\\prime} /g
 s/⋅/\\cdotp /g
 s/∶/: /g
 s/∴/\\therefore /g
@@ -112,6 +115,7 @@ s/♯/\\sharp /g
 s/♭/\\flat /g
 s/♮/\\natural /g
 s/⋕/\\hash /g
+s/⧺/\\mathbin{{+}\\mspace{-8mu}{+}} /g
 s/×/\\times /g
 s/⊙/\\odot /g
 s/⊕/\\oplus /g
@@ -149,6 +153,7 @@ s/≈/\\approx /g
 s/≔/\\coloneqq /g
 s/⩴/\\Coloneqq /g
 s/≠/\\neq /g
+s/≟/\\stackrel{?}{=} /g
 s/≜/\\triangleq /g
 s/₊/_+ /g
 s/₋/_- /g
@@ -600,7 +605,13 @@ s/ᴠ/\\textsc{v}/g
 s/ᴡ/\\textsc{w}/g
 s/ʏ/\\textsc{y}/g
 s/ᴢ/\\textsc{z}/g
-s/é/\\'e /g
-s/è/\\`e /g
-s/ö/\\"o /g
-s/æ/\\ae /g
+s/À/\\`A/g
+s/Á/\\'A/g
+s/È/\\`E/g
+s/É/\\'E/g
+s/à/\\`a/g
+s/á/\\'a/g
+s/è/\\`e/g
+s/é/\\'e/g
+s/ö/\\"o/g
+s/æ/\\ae/g
