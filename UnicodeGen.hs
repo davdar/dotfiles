@@ -20,6 +20,7 @@ main = do
   writeFile "latex-unicode.sed" genSedScript
   writeFile "latex-unicode-escape.sed" genSedEscapeScript
   writeFile "latex-unicode-unescape.sed" genSedUnescapeScript
+  writeFile "latex-unicode-mark.sed" genSedMarkScript
   putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed"
 
 data Code = Code 
@@ -70,15 +71,21 @@ sedEscape :: String -> String
 sedEscape = concatMap escapeChar
   where
     escapeChar :: Char -> String
-    escapeChar '\\' = "\\\\"
     escapeChar '/'  = "\\/"
-    escapeChar '&'  = "\\&"
-    escapeChar '$'  = "\\$"
     escapeChar '.'  = "\\."
-    escapeChar '*'  = "\\*"
     escapeChar '^'  = "\\^"
+    escapeChar '$'  = "\\$"
+    escapeChar '*'  = "\\*"
+    escapeChar '+'  = "\\+"
+    escapeChar '?'  = "\\?"
+    escapeChar '('  = "\\("
+    escapeChar ')'  = "\\)"
     escapeChar '['  = "\\["
     escapeChar ']'  = "\\]"
+    escapeChar '{'  = "\\{"
+    escapeChar '}'  = "\\}"
+    escapeChar '\\' = "\\\\"
+    escapeChar '|'  = "\\|"
     escapeChar c    = [c]
 
 genVimScript :: String
@@ -119,6 +126,11 @@ genSedScript = do
            then ""
            else "s/" ++ sedEscape u ++ "/" ++ sedEscape l ++ "/g\n"
 
+quoteL :: String
+quoteL = "⧘"
+quoteR :: String
+quoteR = "⧙"
+
 genSedEscapeScript :: String
 genSedEscapeScript = do
   code <- codes
@@ -126,9 +138,7 @@ genSedEscapeScript = do
     where
       command :: Code -> String
       command (Code u e l _) = 
-        if l == "" 
-           then ""
-           else "s/" ++ "‹" ++ sedEscape u ++ "›/‹‹" ++ sedEscape e ++ "››/g\n"
+           "s/" ++ quoteL ++ sedEscape u ++ quoteR ++ "/" ++ quoteL ++ sedEscape e ++ quoteR ++ "/g\n"
 
 genSedUnescapeScript :: String
 genSedUnescapeScript = do
@@ -137,9 +147,18 @@ genSedUnescapeScript = do
     where
       command :: Code -> String
       command (Code u e l _) = 
-        if l == "" 
+           "s/" ++ quoteL ++ sedEscape e ++ quoteR ++ "/" ++ sedEscape u ++ "/g\n"
+
+genSedMarkScript :: String
+genSedMarkScript = do
+  code <- codes
+  command code
+    where
+      command :: Code -> String
+      command (Code u e l _) =
+        if u == quoteL || u == quoteR || u == "\\"
            then ""
-           else "s/‹‹" ++ sedEscape e ++ "››/" ++ sedEscape u ++ "/g\n"
+           else "s/" ++ sedEscape u ++ "/" ++ quoteL ++ sedEscape u ++ quoteR ++ "/g\n"
 
 codes :: [Code]
 codes = 
@@ -154,15 +173,31 @@ codes =
   , lcode "↓" "down" "\\downarrow"
   , lcode "↗" "ur" "\\nearrow"
   , lcode "↘" "dr" "\\searrow"
+  , code "↖" "ul"
+  , code "↙" "dl"
   , lcode "↔" "<->" "\\leftrightarrow"
+  , code "↕" "-ud"
   , lcode "⇄" "rl" "\\rightleftarrows"
+  , code "⇆" "lr"
   , lcode "⇉" "rr" "\\rightrightarrows"
+  , code "⇅" "-u-d"
+  , code "⇵" "-d-u"
   -- - open
   , lcode "⇒" "=>" "\\Rightarrow"
   , lcode "⇐" "=<" "\\Leftarrow"
   , lcode "⇑" "=u" "\\Uparrow"
   , lcode "⇓" "=d" "\\Downarrow"
   , lcode "⇔" "<=>" "\\Leftrightarrow"
+  , code "⇍" "=</"
+  , code "⇎" "<=>/"
+  , code "⇏" "=>/"
+  , code "⇕" "=ud"
+  , code "⇖" "=ul"
+  , code "⇗" "=ur"
+  , code "⇘" "=dr"
+  , code "⇙" "=dl"
+  , code "⇚" "=-<"
+  , code "⇛" "=->"
   -- - long
   , lcode "⟹" "==>" "\\implies"
   , lcode "⟺" "<==>" "\\iff"
@@ -177,12 +212,22 @@ codes =
   , lcode "⇀" "-\\" "\\rightharpoonup"
   -- - maps
   , lcode "↦" "|->" "\\mapsto"
+  , code "↤" "<-|"
+  , code "↥" "up|"
+  , code "↧" "down|"
+  -- hook
+  , code "↩" "<-h"
+  , code "↪" "->h"
+  , code "↫" "<-l"
+  , code "↬" "->l"
   -- - ending bar
   , lcode "⇥" "->|" "\\RightArrowBar"
   , lcode "⇤" "|<-" "\\LeftArrowBar"
   -- - double
   , lcode "↠" "->>" "\\twoheadrightarrow"
   , lcode "↞" "<<-" "\\twoheadleftarrow"
+  , lcode "↟" "pp>" "\\twoheaduparrow"
+  , lcode "↡" "down>" "\\twoheaduparrow"
   -- - triangle
   , lcode "⇾" "t->" "\\rightarrowtriangle"
   , lcode "⇽" "t<-" "\\leftarrowtriangle"
@@ -191,14 +236,28 @@ codes =
   , lcode "↝" "~>" "\\rightsquigarrow"
   , code "↜" "~<"
   , code "↭" "<~>"
+  -- tail
+  , code "↢" "<-<"
+  , code "↣" ">->"
   -- - double squiggle
   , lcode "⇝" "~~>" "\\rightsquigarrow"
   , lcode "⇜" "<~~" "\\leftsquigarrow"
   -- - dotted
   , lcode "⇢" "..>" "\\dashrightarrow"
   , lcode "⇠" "<.." "\\dashleftarrow"
+  , code "⇡" "..up"
+  , code "⇣" "..down"
+  -- - stroke
+  , code "↚" "<-/"
+  , code "↛" "->/"
+  , code "↮" "<->/"
   -- - zagged
   , lcode "↯" "zd" "\\lightning"
+  , code "↺" "cw"
+  , code "↻" "ccw"
+  , code "⇽" "<|-"
+  , code "⇾" "-|>"
+  , code "⇿" "<|-|>"
 
   -- Brackets
   -- - paren
@@ -253,8 +312,8 @@ codes =
   , code "⦄" "}|"
   , code "⧘" "z{"
   , code "⧙" "z}"
-  , code "⧚" "zz{"
-  , code "⧛" "zz}"
+  , code "⧚" "z{{"
+  , code "⧛" "z}}"
   , lcode "❴" "b{" "\\{"
   , lcode "❵" "b}" "\\}"
   , lcode "⟅" "s{" "\\lbag"
@@ -352,6 +411,7 @@ codes =
   , lcode "⋃" "bigu" "\\bigcup"
   , lcode "⋂" "bigi" "\\bigcap"
   , lcode "⊎" "u+" "\\uplus"
+  , code "⨄" "U+"
   -- subset dot (ds_)
   , code "⪽" "ds<"
   , code "⪾" "ds>"
@@ -394,6 +454,16 @@ codes =
   , code "‵" "`"
   , code "‶" "``"
   , code "‷" "```"
+  , code "⸜" ",<"
+  , code "⸝" ",>"
+  , code "⸌" "'<"
+  , code "⸍" "'>"
+  , code "⸂" "'<l"
+  , code "⸃" "'>l"
+  , code "⸄" "'<l."
+  , code "⸅" "'>l."
+  , code "⸉" "'<s"
+  , code "⸊" "'>s"
 
   -- Operators
   , lcode "⋅" "." "\\cdotp"
@@ -469,17 +539,20 @@ codes =
   , lcode "⌿" "-/" "\\notslash"
   , code "∿" "sin"
   , lcode "⋈" "bow" "\\bowtie"
+  , code "⋉" "bowl"
+  , code "⋊" "bowr"
   , lcode "∞" "inf" "\\inf"
   , code "⨹" "t+"
   , code "⨺" "t-"
   , code "⨻" "tx"
   , code "⟁" "tt"
   , code "⟡" "cd"
-  , code "⟢" "cd->"
-  , code "⟣" "cd<-"
-  , code "⟤" "s->"
-  , code "⟥" "s<-"
+  , code "⟢" "cd>"
+  , code "⟣" "cd<"
+  , code "⟤" "sq>"
+  , code "⟥" "sq<"
   , code "⌑" "loz"
+  , code "⟠" "d<>"
   , code "⌁" "zap"
   , code "⌄" "d^"
   , code "†" "dag"
@@ -488,6 +561,15 @@ codes =
   , code "∫" "int"
   , code "¢" "cent"
   , code "⧂" "nip"
+  , code "⌌" "br+"
+  , code "⌍" "bl+"
+  , code "⌎" "tr+"
+  , code "⌏" "tl+"
+  , code "⌜" "tlc"
+  , code "⌝" "trc"
+  , code "⌞" "blc"
+  , code "⌟" "brc"
+  , code "⌲" ">-"
  
   -- Logic
   , lcode "∈" "in" "\\in"
@@ -531,6 +613,7 @@ codes =
   , code "≝" "=def"
   , code "≍" "eqv"
   , code "≭" "eqv/"
+  , code "█" "block"
  
   -- Subscripts
   , lcode "₊" "_+" "_+"
@@ -891,6 +974,27 @@ codes =
   , lcode "⁸" "^8" "^8"
   , lcode "⁹" "^9" "^9"
 
+  -- Fractions
+  , lcode "½" "1/2" "\\frac{1}{2}"
+  , lcode "↉" "0/3" "\\frac{0}{3}"
+  , lcode "⅓" "1/3" "\\frac{1}{3}"
+  , lcode "⅔" "2/3" "\\frac{2}{3}"
+  , lcode "¼" "1/4" "\\frac{1}{4}"
+  , lcode "¾" "3/4" "\\frac{3}{4}"
+  , lcode "⅕" "1/5" "\\frac{1}{5}"
+  , lcode "⅖" "2/5" "\\frac{2}{5}"
+  , lcode "⅗" "3/5" "\\frac{3}{5}"
+  , lcode "⅘" "4/5" "\\frac{4}{5}"
+  , lcode "⅙" "1/6" "\\frac{1}{6}"
+  , lcode "⅚" "5/6" "\\frac{5}{6}"
+  , lcode "⅐" "1/7" "\\frac{1}{7}"
+  , lcode "⅛" "1/8" "\\frac{1}{8}"
+  , lcode "⅜" "3/8" "\\frac{3}{8}"
+  , lcode "⅝" "5/8" "\\frac{5}{8}"
+  , lcode "⅞" "7/8" "\\frac{7}{8}"
+  , lcode "⅑" "1/9" "\\frac{1}{9}"
+  , lcode "⅒" "1/10" "\\frac{1}{10}"
+
   -- Weierstrass p
   , lcode "℘" "wp" "\\wp"
   -- "ell"
@@ -1167,58 +1271,58 @@ codes =
   , code "𝔃" "bdcalz"
 
   -- Roman Fraktur
-  , code "𝔄" "frakA"
-  , code "𝔅" "frakB"
-  , code "ℭ" "frakC"
-  , code "𝔇" "frakD"
-  , code "𝔈" "frakE"
-  , code "𝔉" "frakF"
-  , code "𝔊" "frakG"
-  , code "ℌ" "frakH"
-  , code "ℑ" "frakI"
-  , code "𝔍" "frakJ"
-  , code "𝔎" "frakK"
-  , code "𝔏" "frakL"
-  , code "𝔐" "frakM"
-  , code "𝔑" "frakN"
-  , code "𝔒" "frakO"
-  , code "𝔓" "frakP"
-  , code "𝔔" "frakQ"
-  , code "ℜ" "frakR"
-  , code "𝔖" "frakS"
-  , code "𝔗" "frakT"
-  , code "𝔘" "frakU"
-  , code "𝔙" "frakV"
-  , code "𝔚" "frakW"
-  , code "𝔛" "frakX"
-  , code "𝔜" "frakY"
-  , code "ℨ" "frakZ"
-  , code "𝔞" "fraka"
-  , code "𝔟" "frakb"
-  , code "𝔠" "frakc"
-  , code "𝔡" "frakd"
-  , code "𝔢" "frake"
-  , code "𝔣" "frakf"
-  , code "𝔤" "frakg"
-  , code "𝔥" "frakh"
-  , code "𝔦" "fraki"
-  , code "𝔧" "frakj"
-  , code "𝔨" "frakk"
-  , code "𝔩" "frakl"
-  , code "𝔪" "frakm"
-  , code "𝔫" "frakn"
-  , code "𝔬" "frako"
-  , code "𝔭" "frakp"
-  , code "𝔮" "frakq"
-  , code "𝔯" "frakr"
-  , code "𝔰" "fraks"
-  , code "𝔱" "frakt"
-  , code "𝔲" "fraku"
-  , code "𝔳" "frakv"
-  , code "𝔴" "frakw"
-  , code "𝔵" "frakx"
-  , code "𝔶" "fraky"
-  , code "𝔷" "frakz"
+  , lcode "𝔄" "frakA" "\\mathfrak{A}"
+  , lcode "𝔅" "frakB" "\\mathfrak{B}"
+  , lcode "ℭ" "frakC" "\\mathfrak{C}"
+  , lcode "𝔇" "frakD" "\\mathfrak{D}"
+  , lcode "𝔈" "frakE" "\\mathfrak{E}"
+  , lcode "𝔉" "frakF" "\\mathfrak{F}"
+  , lcode "𝔊" "frakG" "\\mathfrak{G}"
+  , lcode "ℌ" "frakH" "\\mathfrak{H}"
+  , lcode "ℑ" "frakI" "\\mathfrak{I}"
+  , lcode "𝔍" "frakJ" "\\mathfrak{J}"
+  , lcode "𝔎" "frakK" "\\mathfrak{K}"
+  , lcode "𝔏" "frakL" "\\mathfrak{L}"
+  , lcode "𝔐" "frakM" "\\mathfrak{M}"
+  , lcode "𝔑" "frakN" "\\mathfrak{N}"
+  , lcode "𝔒" "frakO" "\\mathfrak{O}"
+  , lcode "𝔓" "frakP" "\\mathfrak{P}"
+  , lcode "𝔔" "frakQ" "\\mathfrak{Q}"
+  , lcode "ℜ" "frakR" "\\mathfrak{R}"
+  , lcode "𝔖" "frakS" "\\mathfrak{S}"
+  , lcode "𝔗" "frakT" "\\mathfrak{T}"
+  , lcode "𝔘" "frakU" "\\mathfrak{U}"
+  , lcode "𝔙" "frakV" "\\mathfrak{V}"
+  , lcode "𝔚" "frakW" "\\mathfrak{W}"
+  , lcode "𝔛" "frakX" "\\mathfrak{X}"
+  , lcode "𝔜" "frakY" "\\mathfrak{Y}"
+  , lcode "ℨ" "frakZ" "\\mathfrak{Z}"
+  , lcode "𝔞" "fraka" "\\mathfrak{a}"
+  , lcode "𝔟" "frakb" "\\mathfrak{b}"
+  , lcode "𝔠" "frakc" "\\mathfrak{c}"
+  , lcode "𝔡" "frakd" "\\mathfrak{d}"
+  , lcode "𝔢" "frake" "\\mathfrak{e}"
+  , lcode "𝔣" "frakf" "\\mathfrak{f}"
+  , lcode "𝔤" "frakg" "\\mathfrak{g}"
+  , lcode "𝔥" "frakh" "\\mathfrak{h}"
+  , lcode "𝔦" "fraki" "\\mathfrak{i}"
+  , lcode "𝔧" "frakj" "\\mathfrak{j}"
+  , lcode "𝔨" "frakk" "\\mathfrak{k}"
+  , lcode "𝔩" "frakl" "\\mathfrak{l}"
+  , lcode "𝔪" "frakm" "\\mathfrak{m}"
+  , lcode "𝔫" "frakn" "\\mathfrak{n}"
+  , lcode "𝔬" "frako" "\\mathfrak{o}"
+  , lcode "𝔭" "frakp" "\\mathfrak{p}"
+  , lcode "𝔮" "frakq" "\\mathfrak{q}"
+  , lcode "𝔯" "frakr" "\\mathfrak{r}"
+  , lcode "𝔰" "fraks" "\\mathfrak{s}"
+  , lcode "𝔱" "frakt" "\\mathfrak{t}"
+  , lcode "𝔲" "fraku" "\\mathfrak{u}"
+  , lcode "𝔳" "frakv" "\\mathfrak{v}"
+  , lcode "𝔴" "frakw" "\\mathfrak{w}"
+  , lcode "𝔵" "frakx" "\\mathfrak{x}"
+  , lcode "𝔶" "fraky" "\\mathfrak{y}"
+  , lcode "𝔷" "frakz" "\\mathfrak{z}"
 
   -- Roman Bold Fraktur
   , code "𝕬" "bdfrakA"
@@ -1393,6 +1497,8 @@ codes =
   , lcodet "ʸ" "^y" "^y"
   , lcodet "ᶻ" "^z" "^z"
 
+  , lcodet "™" "^tm" "\\texttrademark"
+
   -- Roman Small Upper Case
   , lcodet "ᴀ" "sca" "\\textsc{a}"
   , lcodet "ʙ" "scb" "\\textsc{b}"
@@ -1420,14 +1526,17 @@ codes =
   , lcodet "ᴢ" "scz" "\\textsc{z}"
 
   -- Roman Accents and Gylphs
-  , lcodet  "À" "A`" "\\`A"
-  , lcodet  "Á" "A'" "\\'A"
-  , lcodet  "È" "E`" "\\`E"
-  , lcodet  "É" "E'" "\\'E"
-  , lcodet  "à" "a`" "\\`a"
-  , lcodet  "á" "a'" "\\'a"
-  , lcodet "è" "e`" "\\`e"
-  , lcodet "é" "e'" "\\'e"
+  , lcodet "À" "A`"  "\\`A"
+  , lcodet "Á" "A'"  "\\'A"
+  , lcodet "È" "E`"  "\\`E"
+  , lcodet "É" "E'"  "\\'E"
+  , lcodet "à" "a`"  "\\`a"
+  , lcodet "á" "a'"  "\\'a"
+  , lcodet "è" "e`"  "\\`e"
+  , lcodet "é" "e'"  "\\'e"
   , lcodet "ö" "o.." "\\\"o"
-  , lcodet "æ" "ae" "\\ae"
+  , lcode "æ" "ae"  "\\ae"
+  , lcode "œ" "oe"  "\\oe"
+  , lcodet "ễ" "e^~" "{\\stackon[0.17em]{\\stackon[-0.02em]{e}{\\^{}}}{\\~{}}}"
+  , lcodet "ú" "u'" "\\'u"
   ]
