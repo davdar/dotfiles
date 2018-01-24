@@ -1,5 +1,5 @@
 export PATH=/Library/TeX/texbin:$PATH
-export PATH=/Applications/Racket\ v6.5/bin:$PATH
+export PATH=/Applications/Racket\ v6.9/bin:$PATH
 export PATH=$HOME/.cabal/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/bin:$PATH
@@ -9,5 +9,3 @@ bindkey -v
 
 # set editor to vim
 export EDITOR=vim
-
-alias emacsapp='/Applications/Emacs.app/Contents/MacOS/Emacs'

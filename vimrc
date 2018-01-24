@@ -139,6 +139,9 @@ augroup DD_CUSTOM
 
   " Source the vimrc if it gets changed
   autocmd BufWritePost *vimrc if expand("%") == expand("$MYVIMRC") | source % | endif
+
+  " Use different fold markers for latex
+  autocmd BufReadPost *.tex set foldmarker={-{,}-}
 augroup END
 
 " let g:syntastic_tex_checkers=['chktex']

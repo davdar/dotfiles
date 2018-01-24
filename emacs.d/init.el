@@ -57,7 +57,7 @@
 ; ; Start maximized
 ; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; Agda
+; Agda
 (load-file (let ((coding-system-for-read 'utf-8))
             (shell-command-to-string "agda-mode locate")))
 (add-hook 'agda2-mode-hook (lambda () (set-input-method "darais")))
@@ -65,7 +65,7 @@
 (add-hook 'evil-normal-state-entry-hook (lambda () (set-input-method "darais")))
 
 ;; Proof General
-(load-file "~/lib/ProofGeneral-4.3/generic/proof-site.el")
+(load "~/.emacs.d/lisp/PG/generic/proof-site")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

@@ -1,35 +1,42 @@
-s/→/\\rightarrow /g
-s/←/\\leftarrow /g
 s/↑/\\uparrow /g
+s/→/\\rightarrow /g
 s/↓/\\downarrow /g
+s/←/\\leftarrow /g
 s/↗/\\nearrow /g
 s/↘/\\searrow /g
 s/↔/\\leftrightarrow /g
-s/⇄/\\rightleftarrows /g
 s/⇉/\\rightrightarrows /g
-s/⇒/\\Rightarrow /g
-s/⇐/\\Leftarrow /g
+s/⇄/\\rightleftarrows /g
 s/⇑/\\Uparrow /g
+s/⇒/\\Rightarrow /g
 s/⇓/\\Downarrow /g
+s/⇐/\\Leftarrow /g
 s/⇔/\\Leftrightarrow /g
+s/⇛/\\Rrightarrow /g
+s/⇚/\\Lleftarrow /g
 s/⟹/\\implies /g
 s/⟺/\\iff /g
-s/⇨/\\rightwhitearrow /g
-s/⇦/\\leftwhitearrow /g
 s/⇧/\\upwhitearrow /g
+s/⇨/\\rightwhitearrow /g
 s/⇩/\\downwhitearrow /g
+s/⇦/\\leftwhitearrow /g
+s/⇰/\\Mapsto /g
 s/⇀/\\rightharpoonup /g
 s/↦/\\mapsto /g
+s/↪/\\hookrightarrow /g
+s/↩/\\hookleftarrow /g
 s/⇥/\\RightArrowBar /g
 s/⇤/\\LeftArrowBar /g
-s/↠/\\twoheadrightarrow /g
-s/↞/\\twoheadleftarrow /g
 s/↟/\\twoheaduparrow /g
+s/↠/\\twoheadrightarrow /g
 s/↡/\\twoheaduparrow /g
+s/↞/\\twoheadleftarrow /g
 s/⇾/\\rightarrowtriangle /g
 s/⇽/\\leftarrowtriangle /g
 s/⇿/\\leftrightarrowtriangle /g
 s/↝/\\rightsquigarrow /g
+s/↣/\\rightarrowtail /g
+s/↢/\\leftarrowtail /g
 s/⇝/\\rightsquigarrow /g
 s/⇜/\\leftsquigarrow /g
 s/⇢/\\dashrightarrow /g
@@ -66,6 +73,8 @@ s/≪/\\ll /g
 s/≫/\\gg /g
 s/≺/\\prec /g
 s/≻/\\suc /g
+s/⪯/\\preceq /g
+s/⪰/\\suceq /g
 s/≼/\\preccurlyeq /g
 s/≽/\\succurlyeq /g
 s/⋎/\\curlyvee /g
@@ -91,7 +100,10 @@ s/⊑/\\sqsubseteq /g
 s/⊒/\\sqsupseteq /g
 s/⊏/\\sqsubset /g
 s/⊐/\\sqsupset /g
+s/⋢/\\nsqsubseteq /g
+s/⋣/\\nsqsupseteq /g
 s/⋤/\\sqsubsetneq /g
+s/⋥/\\sqsupsetneq /g
 s/⊔/\\sqcup /g
 s/⊓/\\sqcap /g
 s/⨆/\\bigsqcup /g
@@ -102,12 +114,15 @@ s/–/--/g
 s/—/---/g
 s/′/\^\{\\prime\} /g
 s/″/\^\{\\prime\\prime\} /g
+s/‴/\^\{\\prime\\prime\\prime\} /g
 s/⋅/\\cdotp /g
 s/∶/: /g
 s/∴/\\therefore /g
 s/∵/\\because /g
 s/∷/:: /g
+s/‥/\.\. /g
 s/…/\\ldots /g
+s/⋯/\\cdots /g
 s/∘/\\circ /g
 s/‖/\\\| /g
 s/∅/\\varnothing /g
@@ -135,12 +150,16 @@ s/⊡/\\boxdot /g
 s/∎/\\blacksquare /g
 s/⌿/\\notslash /g
 s/⋈/\\bowtie /g
+s/⋉/\\ltimes /g
+s/⋊/\\rtimes /g
 s/∞/\\inf /g
+s/∝/\\propto /g
 s/∈/\\in /g
 s/∉/\\notin /g
 s/∋/\\ni /g
 s/∀/\\forall /g
 s/∃/\\exists /g
+s/∄/\\nexists /g
 s/⊢/\\vdash /g
 s/⊨/\\models /g
 s/∨/\\vee /g
@@ -152,6 +171,7 @@ s/≡/\\equiv /g
 s/≢/\\nequiv /g
 s/≃/\\simeq /g
 s/≈/\\approx /g
+s/∼/\\sim /g
 s/≔/\\coloneqq /g
 s/⩴/\\Coloneqq /g
 s/≠/\\neq /g
@@ -199,7 +219,7 @@ s/Φ/\\Phi /g
 s/Χ/\\Chi /g
 s/Ψ/\\Psi /g
 s/Ω/\\Omega /g
-s/∇/\\Nabla /g
+s/∇/\\nabla /g
 s/α/\\alpha /g
 s/β/\\beta /g
 s/γ/\\gamma /g
@@ -225,7 +245,6 @@ s/φ/\\phi /g
 s/χ/\\chi /g
 s/ψ/\\psi /g
 s/ω/\\omega /g
-s/∂/\\nabla /g
 s/ϵ/\\varepsilon /g
 s/ϑ/\\vartheta /g
 s/ϰ/\\varkappa /g
@@ -262,25 +281,25 @@ s/⁶/\^6 /g
 s/⁷/\^7 /g
 s/⁸/\^8 /g
 s/⁹/\^9 /g
-s/½/\\frac\{1\}\{2\} /g
-s/↉/\\frac\{0\}\{3\} /g
-s/⅓/\\frac\{1\}\{3\} /g
-s/⅔/\\frac\{2\}\{3\} /g
-s/¼/\\frac\{1\}\{4\} /g
-s/¾/\\frac\{3\}\{4\} /g
-s/⅕/\\frac\{1\}\{5\} /g
-s/⅖/\\frac\{2\}\{5\} /g
-s/⅗/\\frac\{3\}\{5\} /g
-s/⅘/\\frac\{4\}\{5\} /g
-s/⅙/\\frac\{1\}\{6\} /g
-s/⅚/\\frac\{5\}\{6\} /g
-s/⅐/\\frac\{1\}\{7\} /g
-s/⅛/\\frac\{1\}\{8\} /g
-s/⅜/\\frac\{3\}\{8\} /g
-s/⅝/\\frac\{5\}\{8\} /g
-s/⅞/\\frac\{7\}\{8\} /g
-s/⅑/\\frac\{1\}\{9\} /g
-s/⅒/\\frac\{1\}\{10\} /g
+s/½/\\nicefrac\{1\}\{2\} /g
+s/↉/\\nicefrac\{0\}\{3\} /g
+s/⅓/\\nicefrac\{1\}\{3\} /g
+s/⅔/\\nicefrac\{2\}\{3\} /g
+s/¼/\\nicefrac\{1\}\{4\} /g
+s/¾/\\nicefrac\{3\}\{4\} /g
+s/⅕/\\nicefrac\{1\}\{5\} /g
+s/⅖/\\nicefrac\{2\}\{5\} /g
+s/⅗/\\nicefrac\{3\}\{5\} /g
+s/⅘/\\nicefrac\{4\}\{5\} /g
+s/⅙/\\nicefrac\{1\}\{6\} /g
+s/⅚/\\nicefrac\{5\}\{6\} /g
+s/⅐/\\nicefrac\{1\}\{7\} /g
+s/⅛/\\nicefrac\{1\}\{8\} /g
+s/⅜/\\nicefrac\{3\}\{8\} /g
+s/⅝/\\nicefrac\{5\}\{8\} /g
+s/⅞/\\nicefrac\{7\}\{8\} /g
+s/⅑/\\nicefrac\{1\}\{9\} /g
+s/⅒/\\nicefrac\{1\}\{10\} /g
 s/℘/\\wp /g
 s/ℓ/\\ell /g
 s/𝐀/\\textbf\{A\}/g
@@ -647,6 +666,7 @@ s/ᵐ/\^m/g
 s/ⁿ/\^n/g
 s/ᵒ/\^o/g
 s/ᵖ/\^p/g
+s/ᶝ/\^q/g
 s/ʳ/\^r/g
 s/ˢ/\^s/g
 s/ᵗ/\^t/g
@@ -690,8 +710,10 @@ s/á/\\'a/g
 s/è/\\`e/g
 s/é/\\'e/g
 s/ö/\\"o/g
-s/æ/\\ae /g
-s/œ/\\oe /g
-s/ễ/\{\\stackon\[0\.17em\]\{\\stackon\[-0\.02em\]\{e\}\{\\\^\{\}\}\}\{\\~\{\}\}\}/g
+s/ä/\\"a/g
+s/ü/\\"u/g
+s/æ/\\ae/g
+s/œ/\\oe/g
+s/ễ/\\begingroup\{\}\\fontencoding\{T5\}\\selectfont \\~\\ecircumflex\\endgroup\{\}/g
 s/ú/\\'u/g
-s/ï/\\"i /g
+s/ï/\\"i/g
