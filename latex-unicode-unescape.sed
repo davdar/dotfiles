@@ -32,7 +32,8 @@ s/⧘dl=⧙/⇙/g
 s/⧘ul=⧙/⇖/g
 s/⧘r==⧙/⇛/g
 s/⧘l==⧙/⇚/g
-s/⧘imp⧙/⟹/g
+s/⧘impr⧙/⟹/g
+s/⧘impl⧙/⟸/g
 s/⧘iff⧙/⟺/g
 s/⧘u\|⧙/⇧/g
 s/⧘r\|⧙/⇨/g

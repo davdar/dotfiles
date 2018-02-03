@@ -52,6 +52,10 @@ s/I⁅/\\begin{itemize}\\item/g
 s/I⁃/\\item/g
 s/I⁆/\\end{itemize}/g
 
+s/J⁅/\\begin{itemize}[label={},leftmargin=0pt]\\item/g
+s/J⁃/\\item/g
+s/J⁆/\\end{itemize}/g
+
 s/E⁅/\\begin{enumerate}\\item/g
 s/E⁃/\\item/g
 s/E⁆/\\end{enumerate}/g

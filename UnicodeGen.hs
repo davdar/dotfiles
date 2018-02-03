@@ -202,7 +202,8 @@ codes =
   , lcode "⇛" "r==" "\\Rrightarrow"
   , lcode "⇚" "l==" "\\Lleftarrow"
   -- - long
-  , lcode "⟹" "imp" "\\implies"
+  , lcode "⟹" "impr" "\\implies"
+  , lcode "⟸" "impl" "\\impliedby"
   , lcode "⟺" "iff" "\\iff"
   -- - closed
   , lcode "⇧" "u|" "\\upwhitearrow"
@@ -516,7 +517,7 @@ codes =
   , lcode "‖" "||" "\\|"
   , code "÷" "%"
   , code "∕" "/"
-  , code "∖" "set\\"
+  , lcode "∖" "set\\" "\\setminus"
   , code "⫽" "//"
   , code "⅋" "par"
   , code "⫻" "///"

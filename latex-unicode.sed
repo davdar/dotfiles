@@ -15,6 +15,7 @@ s/⇔/\\Leftrightarrow /g
 s/⇛/\\Rrightarrow /g
 s/⇚/\\Lleftarrow /g
 s/⟹/\\implies /g
+s/⟸/\\impliedby /g
 s/⟺/\\iff /g
 s/⇧/\\upwhitearrow /g
 s/⇨/\\rightwhitearrow /g
@@ -125,6 +126,7 @@ s/…/\\ldots /g
 s/⋯/\\cdots /g
 s/∘/\\circ /g
 s/‖/\\\| /g
+s/∖/\\setminus /g
 s/∅/\\varnothing /g
 s/⋆/\\star /g
 s/★/\\bigstar /g

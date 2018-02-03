@@ -32,7 +32,8 @@ noremap! \dl= ⇙
 noremap! \ul= ⇖
 noremap! \r== ⇛
 noremap! \l== ⇚
-noremap! \imp ⟹
+noremap! \impr ⟹
+noremap! \impl ⟸
 noremap! \iff ⟺
 noremap! \u\| ⇧
 noremap! \r\| ⇨

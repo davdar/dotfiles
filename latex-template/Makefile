@@ -9,6 +9,9 @@ BIB_OUT_FILES := $(subst bib/,out/,$(BIB_SRC_FILES))
 
 SED_FILES := $(sort $(wildcard sed/*.sed))
 
+# BIBTEX := bibtex
+BIBTEX := touch
+
 .PHONY: default
 default: main.pdf
 
@@ -54,4 +57,4 @@ out/%.bib: bib/%.bib
 	for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done
 
 out/main.pdf: Makefile $(TEX_OUT_FILES) $(STY_FILES) $(SED_OUT_FILES) $(BIB_OUT_FILES)
-	cd out && pdflatex main.tex && bibtex main
+	cd out && pdflatex main.tex && $(BIBTEX) main
