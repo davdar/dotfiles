@@ -6,6 +6,8 @@ s/✗/\\text{\\ding{55}}/g
 s/¢/\\\$/g
 s/⇄/\\galois/g
 s/⍪/.␣/g
+s/↠/\\longrightarrow/g
+s/↞/\\longleftarrow/g
 
 s/″/′′/g
 s/‴/′′′/g

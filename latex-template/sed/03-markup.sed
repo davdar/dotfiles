@@ -36,14 +36,18 @@ s/⦆/}/g
 
 s/⸨/\\(/g
 s/⸩/\\)/g
-s/‹/\\operatorname{/g
-s/›/}/g
+s/‹/\\ensuremath{\\operatorname{/g
+s/›/}}/g
 s/⟪/\\text{/g
 s/⟫/}/g
+s/«\*/\\textbf{/g
+s/\*»/}/g
 s/«/\\textit{/g
 s/»/}/g
 s/⦑/\\texttt{/g
 s/⦒/}/g
+s/⋖/\\verb|/g
+s/⋗/|/g
 s/⦗/\\textsc{/g
 s/⦘/}/g
 s/⌄/\\footnote/g
@@ -60,8 +64,8 @@ s/E⁅/\\begin{enumerate}\\item/g
 s/E⁃/\\item/g
 s/E⁆/\\end{enumerate}/g
 
-s/Q⁅/\\begin{quoting}\\noindent/g
-s/Q⁆/\\end{quoting}/g
+s/Q⁅/\\begin{quote}/g
+s/Q⁆/\\end{quote}/g
 
 s/F⁅/\\begin{figure}/g
 s/⧘/\\caption{/g
@@ -94,6 +98,9 @@ s/R◘/\\\\\\\\/g
 s/----[-]*/}{/g
 s/R⁆/}/g
 
+s/V⁅/\\begin{verbatim}/g
+s/V⁆/\\end{verbatim}/g
+
 s/⁅⁅/\\parbox{\\linewidth}{/g
 s/⁆⁆/}/g
 
@@ -104,8 +111,8 @@ s/⫾/␣\\middle|␣/g
 s/⧼/\&{}/g
 s/⧽/{}\&/g
 
-s/꘍/\\hspace*{0.25em}/g
-s/␣/\\hspace*{0.50em}/g
+s/␣/\\hspace*{0.25em}/g
+s/꘍/\\hspace*{0.50em}/g
 s/␠/\\hspace*{1.00em}/g
 s/⩊/\\hfill\\hspace{0pt}/g
 
