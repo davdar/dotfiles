@@ -35,7 +35,7 @@ set scrolloff=3                " Keep at least 3 visible lines above and below c
 set title                      " Show a title
 set path&                      " Include all subdirectories in path
 set path+=**
-silent !mkdir -p ~/.vim/backup " make vim use a global (user local) backup and temp directory
+silent !mkdir -p ~/.vim/backup
 silent !mkdir -p ~/.vim/tmp
 set backup
 set backupdir=~/.vim/backup//
@@ -53,9 +53,13 @@ noremap Y y$
 let g:tex_flavor = "latex"
 
 " Make Syntastic always update the errors window
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+    
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Substitution
@@ -110,8 +114,8 @@ function! MyMark()
   exe "normal! `m"
 endfunction
 
-map <silent> <Leader>s :call MySubstitute()<CR>
-map <silent> <Leader>S :call MyGlobalSubstitute()<CR>
+map <silent> <Leader>r :call MySubstitute()<CR>
+map <silent> <Leader>R :call MyGlobalSubstitute()<CR>
 
 " NERDTree
 map <silent> <Leader>[ :NERDTreeToggle<CR>
@@ -145,14 +149,9 @@ augroup DD_CUSTOM
   autocmd BufReadPost *.tex set foldmarker={-{,}-}
 augroup END
 
-" let g:syntastic_tex_checkers=['chktex']
 let g:syntastic_tex_checkers=[]
-" let g:syntastic_markdown_checkers=[]
-" let g:syntastic_haskell_checkers=[]
-
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
 let g:syntastic_ocaml_checkers = ['merlin']
+
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')

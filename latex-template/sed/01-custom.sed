@@ -6,8 +6,8 @@ s/✗/\\text{\\ding{55}}/g
 s/¢/\\\$/g
 s/⇄/\\galois/g
 s/⍪/.␣/g
-s/↠/\\longrightarrow/g
-s/↞/\\longleftarrow/g
+s/—→/\\longrightarrow/g
+s/←—/\\longleftarrow/g
 
 s/″/′′/g
 s/‴/′′′/g
@@ -65,3 +65,6 @@ s/M⁆/M⁆\\endgroup/g
 
 s/P⁅/\\begingroup\\color{\\colorMATH}P⁅/g
 s/P⁆/P⁆\\endgroup/g
+
+s/B⁅/\\begingroup\\color{\\colorTEXT} B⁅ \\begingroup\\color{\\colorMATH}/g
+s/B⁆/\\endgroup B⁆ \\endgroup/g

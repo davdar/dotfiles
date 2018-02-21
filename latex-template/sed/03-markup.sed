@@ -13,6 +13,8 @@ s/⇡u/\\breve/g
 s/⇡v/\\check/g
 s/⇡o/\\mathring/g
 
+s/⇣-\*/\\underline/g
+
 s/⇡/\\overset/g
 s/⇣/\\underset/g
 
@@ -48,11 +50,11 @@ s/⦑/\\texttt{/g
 s/⦒/}/g
 s/⋖/\\verb|/g
 s/⋗/|/g
-s/⦗/\\textsc{/g
+s/⦗/\\textsc{\\scriptsize /g
 s/⦘/}/g
 s/⌄/\\footnote/g
 
-s/I⁅/\\begin{itemize}\\item/g
+s/I⁅/\\begin{itemize}[label=\\textbf{-}]\\item/g
 s/I⁃/\\item/g
 s/I⁆/\\end{itemize}/g
 
@@ -79,7 +81,7 @@ s/M⁅/\\begin{gather*}/g
 s/M⁃/\\\\/g
 s/M⁆/\\end{gather*}/g
 
-s/X⁅/\\begin{tabularx}{\\linewidth}/g
+s/X⁅/\\begin{tabularx}{\\linewidth}{X}/g
 s/X⁃/\\\\/g
 s/X⁆/\\end{tabularx}/g
 
@@ -111,10 +113,12 @@ s/⫾/␣\\middle|␣/g
 s/⧼/\&{}/g
 s/⧽/{}\&/g
 
-s/␣/\\hspace*{0.25em}/g
-s/꘍/\\hspace*{0.50em}/g
+s/␣/\\hspace*{0.33em}/g
+s/꘍/\\hspace*{0.66em}/g
 s/␠/\\hspace*{1.00em}/g
 s/⩊/\\hfill\\hspace{0pt}/g
+
+s/‗/\\underline{\\hspace{0.66em}}/g
 
 s/⸤/_{/g
 s/⸥/}/g
