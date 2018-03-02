@@ -489,6 +489,7 @@ codes =
 
   -- Operators
   , lcode "⋅" "." "\\cdotp"
+  , code "∙" ".bu"
   , lcode "∶" ":" ":"
   , code "⁝" ":3"
   , code "⁞" ":4"
@@ -500,6 +501,7 @@ codes =
   , lcode "‥" ".." ".."
   , lcode "…" "..." "\\ldots"
   , lcode "⋯" "c..." "\\cdots"
+  , lcode "⋮" "v..." "\\vdots"
   , code "⁖" ".:"
   , code "⁘" ".:."
   , code "⁙" ":.:"

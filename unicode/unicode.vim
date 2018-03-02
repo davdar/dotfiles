@@ -277,6 +277,7 @@ noremap! \` ‵
 noremap! \`` ‶
 noremap! \``` ‷
 noremap! \. ⋅
+noremap! \.bu ∙
 noremap! \: ∶
 noremap! \:3 ⁝
 noremap! \:4 ⁞
@@ -288,6 +289,7 @@ noremap! \:: ∷
 noremap! \.. ‥
 noremap! \... …
 noremap! \c... ⋯
+noremap! \v... ⋮
 noremap! \.: ⁖
 noremap! \.:. ⁘
 noremap! \:.: ⁙

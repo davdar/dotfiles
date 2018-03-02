@@ -1,11 +1,10 @@
-export PATH=/Library/TeX/texbin:$PATH
-export PATH=/Applications/Racket\ v6.9/bin:$PATH
-export PATH=$HOME/.cabal/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/bin:$PATH
+export PATH=/Applications/Racket\ v6.12/bin:$PATH
 
-# vim mode
 bindkey -v
 
-# set editor to vim
 export EDITOR=vim
+
+# OPAM configuration
+. /Users/daviddarais/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

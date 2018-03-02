@@ -124,6 +124,7 @@ s/∷/:: /g
 s/‥/\.\. /g
 s/…/\\ldots /g
 s/⋯/\\cdots /g
+s/⋮/\\vdots /g
 s/∘/\\circ /g
 s/‖/\\\| /g
 s/∖/\\setminus /g

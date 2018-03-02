@@ -81,7 +81,7 @@ s/M⁅/\\begin{gather*}/g
 s/M⁃/\\\\/g
 s/M⁆/\\end{gather*}/g
 
-s/X⁅/\\begin{tabularx}{\\linewidth}{X}/g
+s/X⁅/\\begin{tabularx}{\\linewidth}{>{\\centering\\arraybackslash\\(}X<{\\)}}/g
 s/X⁃/\\\\/g
 s/X⁆/\\end{tabularx}/g
 
@@ -99,6 +99,9 @@ s/R⁃/\\\\/g
 s/R◘/\\\\\\\\/g
 s/----[-]*/}{/g
 s/R⁆/}/g
+
+s/B⁅/\\boxed{/g
+s/B⁆/}/g
 
 s/V⁅/\\begin{verbatim}/g
 s/V⁆/\\end{verbatim}/g

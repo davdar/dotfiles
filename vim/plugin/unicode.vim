@@ -1,1 +1,1 @@
-/Users/daviddarais/dotfiles/unicode.vim
+/Users/daviddarais/dotfiles/unicode/unicode.vim

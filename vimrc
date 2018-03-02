@@ -119,7 +119,6 @@ map <silent> <Leader>R :call MyGlobalSubstitute()<CR>
 
 " NERDTree
 map <silent> <Leader>[ :NERDTreeToggle<CR>
-map <silent> <Leader>] :TagbarToggle<CR>
 
 " Jumping through (syntastic) error lists
 map <silent> <Leader>k       :lfirst<CR>
