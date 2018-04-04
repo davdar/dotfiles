@@ -342,6 +342,7 @@ codes =
 
   -- Orders
   -- standard
+  , code "≮" "</"
   , lcode "≤" "<=" "\\leq"
   , lcode "≥" ">=" "\\geq"
   , lcode "⋚" "<=>=" "\\lesseqgtr"
@@ -583,7 +584,10 @@ codes =
   , lcode "⋊" "bowr" "\\rtimes"
   , lcode "∞" "inf" "\\inf"
   , lcode "∝" "inf<" "\\propto"
-  , code "△" "t"
+  , lcode "△" "tru" "\\vartriangle"
+  , lcode "▷" "trr" "\\vartriangleright"
+  , lcode "▽" "trd" "\\triangledown"
+  , lcode "◁" "trl" "\\vartriangleleft"
   , code "⨹" "t+"
   , code "⨺" "t-"
   , code "⨻" "tx"
@@ -635,6 +639,7 @@ codes =
   , lcode "∃" "ex" "\\exists"
   , lcode "∄" "ex/" "\\nexists"
   , lcode "⊢" "|-" "\\vdash"
+  , lcode "⊣" "-|" "\\dashv"
   , lcode "⊨" "|=" "\\models"
   , lcode "∨" "or" "\\vee"
   , lcode "∧" "and" "\\wedge"
@@ -738,12 +743,6 @@ codes =
   , code "❧" "hrbu"
   , code "⦿" "buo"
   , code "⦾" "obuo"
- 
-  -- Triangles
-  , lcode "◁" "trl" "\\lhd"
-  , code "△" "tru"
-  , lcode "▷" "trr" "\\rhd"
-  , code "▽" "trd"
  
   -- OK
   , lcode "✓" "check" "\\checkmark"

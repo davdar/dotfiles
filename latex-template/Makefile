@@ -56,5 +56,5 @@ out/%.bib: bib/%.bib
 	cp $< $@
 	for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done
 
-out/main.pdf: Makefile $(TEX_OUT_FILES) $(STY_FILES) $(SED_OUT_FILES) $(BIB_OUT_FILES)
+out/main.pdf: Makefile $(TEX_OUT_FILES) $(STY_OUT_FILES) $(SED_OUT_FILES) $(BIB_OUT_FILES)
 	cd out && pdflatex main.tex && $(BIBTEX) main

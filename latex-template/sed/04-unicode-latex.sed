@@ -1,1 +1,1 @@
-../../latex-unicode.sed
+../../unicode/latex-unicode.sed

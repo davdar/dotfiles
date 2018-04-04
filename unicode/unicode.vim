@@ -150,6 +150,7 @@ noremap! \b{ ❴
 noremap! \b} ❵
 noremap! \s{ ⟅
 noremap! \s} ⟆
+noremap! \</ ≮
 noremap! \<= ≤
 noremap! \>= ≥
 noremap! \<=>= ⋚
@@ -371,7 +372,10 @@ noremap! \bowl ⋉
 noremap! \bowr ⋊
 noremap! \inf ∞
 noremap! \inf< ∝
-noremap! \t △
+noremap! \tru △
+noremap! \trr ▷
+noremap! \trd ▽
+noremap! \trl ◁
 noremap! \t+ ⨹
 noremap! \t- ⨺
 noremap! \tx ⨻
@@ -421,6 +425,7 @@ noremap! \all ∀
 noremap! \ex ∃
 noremap! \ex/ ∄
 noremap! \\|- ⊢
+noremap! \-\| ⊣
 noremap! \\|= ⊨
 noremap! \or ∨
 noremap! \and ∧
@@ -500,10 +505,6 @@ noremap! \hlbu ☙
 noremap! \hrbu ❧
 noremap! \buo ⦿
 noremap! \obuo ⦾
-noremap! \trl ◁
-noremap! \tru △
-noremap! \trr ▷
-noremap! \trd ▽
 noremap! \check ✓
 noremap! \X ✗
 noremap! \bal ☐

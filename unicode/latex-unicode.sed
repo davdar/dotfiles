@@ -157,6 +157,10 @@ s/⋉/\\ltimes /g
 s/⋊/\\rtimes /g
 s/∞/\\inf /g
 s/∝/\\propto /g
+s/△/\\vartriangle /g
+s/▷/\\vartriangleright /g
+s/▽/\\triangledown /g
+s/◁/\\vartriangleleft /g
 s/∈/\\in /g
 s/∉/\\notin /g
 s/∋/\\ni /g
@@ -164,6 +168,7 @@ s/∀/\\forall /g
 s/∃/\\exists /g
 s/∄/\\nexists /g
 s/⊢/\\vdash /g
+s/⊣/\\dashv /g
 s/⊨/\\models /g
 s/∨/\\vee /g
 s/∧/\\wedge /g
@@ -193,8 +198,6 @@ s/⁾/\^\) /g
 s/§/\\S /g
 s/•/\\bullet /g
 s/◦/\\circ /g
-s/◁/\\lhd /g
-s/▷/\\rhd /g
 s/✓/\\checkmark /g
 s/✗/\\ballotx /g
 s/Α/\\Alpha /g
