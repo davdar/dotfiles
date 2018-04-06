@@ -54,6 +54,8 @@ s/⦗/\\textsc{\\scriptsize /g
 s/⦘/}/g
 s/⌄/\\footnote/g
 
+s/Z⁃//g
+
 s/I⁅/\\begin{itemize}[label=\\textbf{-}]\\item/g
 s/I⁃/\\item/g
 s/I⁆/\\end{itemize}/g
@@ -88,6 +90,10 @@ s/X⁆/\\end{tabularx}/g
 s/A⁅/\\begin{array}/g
 s/A⁃/\\\\/g
 s/A⁆/\\end{array}/g
+
+s/T⁅/\\begin{tabular}/g
+s/T⁃/\\\\/g
+s/T⁆/\\end{tabular}/g
 
 s/P⁅/\\begin{mathpar}/g
 s/P⁃/\\and/g

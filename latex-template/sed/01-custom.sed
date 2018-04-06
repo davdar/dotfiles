@@ -8,6 +8,8 @@ s/⇄/\\galois/g
 s/⍪/.␣/g
 s/—→/\\longrightarrow/g
 s/←—/\\longleftarrow/g
+s/⎊/\\triangle/g
+s/⫽/\\slashedrel/g
 
 s/″/′′/g
 s/‴/′′′/g
@@ -27,6 +29,7 @@ s/⋕/᚜\\\#᚛/g
 s/∇/᚜∇᚛/g
 s/⅋/᚜\\\&᚛/g
 s/⫫/᚜⊥\\!\\!\\!⊥᚛/g
+s/‖/᚜‖᚛/g
 
 s/᚜/\\mathrel{/g
 s/᚛/}/g
