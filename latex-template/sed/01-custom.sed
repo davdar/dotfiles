@@ -1,7 +1,6 @@
 s/⟅/⟅⟪␣/g
 s/⟆/␣⟫⟆/g
 
-s/⫽/\\sslash/g
 s/✗/\\text{\\ding{55}}/g
 s/¢/\\\$/g
 s/⇄/\\galois/g
@@ -17,6 +16,7 @@ s/′/⸢\\prime⸣/g
 s/⋆/⸢\*⸣/g
 s/♮/⸢\\natural⸣/g
 s/♯/⸢\\sharp⸣/g
+s/†/⸢†⸣/g
 s/˚/⸢∘⸣/g
 
 s/¦/᚜\|᚛/g

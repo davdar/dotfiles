@@ -362,6 +362,7 @@ noremap! \so ⧇
 noremap! \ss ⧈
 noremap! \sss ⧉
 noremap! \s\| ⎅
+noremap! \O ○
 noremap! \qed ∎
 noremap! \-/ ⌿
 noremap! \sin ∿

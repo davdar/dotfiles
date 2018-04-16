@@ -1,22 +1,22 @@
-s/⇡→\*/\\overrightarrow/g
-s/⇡→/\\vec/g
-s/⇡~\*/\\widetilde/g
-s/⇡~/\\tilde/g
-s/⇡\^\*/\\widehat/g
-s/⇡\^/\\hat/g
-s/⇡-\*/\\overline/g
-s/⇡-/\\bar/g
-s/⇡\./\\dot/g
-s/⇡‥/\\ddot/g
-s/⇡…/\\dddot/g
-s/⇡u/\\breve/g
-s/⇡v/\\check/g
-s/⇡o/\\mathring/g
+s/⇡→\*/\\overrightarrow /g
+s/⇡→/\\vec /g
+s/⇡~\*/\\widetilde /g
+s/⇡~/\\tilde /g
+s/⇡\^\*/\\widehat /g
+s/⇡\^/\\hat /g
+s/⇡-\*/\\overline /g
+s/⇡-/\\bar /g
+s/⇡\./\\dot /g
+s/⇡‥/\\ddot /g
+s/⇡…/\\dddot /g
+s/⇡u/\\breve /g
+s/⇡v/\\check /g
+s/⇡o/\\mathring /g
 
-s/⇣-\*/\\underline/g
+s/⇣-\*/\\underline /g
 
-s/⇡/\\overset/g
-s/⇣/\\underset/g
+s/⇡/\\overset /g
+s/⇣/\\underset /g
 
 s/“/``/g
 s/”/''/g
@@ -56,7 +56,7 @@ s/⌄/\\footnote/g
 
 s/Z⁃//g
 
-s/I⁅/\\begin{itemize}[label=\\textbf{-}]\\item/g
+s/I⁅/\\begin{itemize}[label=\\textbf{-},leftmargin=*]\\item/g
 s/I⁃/\\item/g
 s/I⁆/\\end{itemize}/g
 
@@ -87,8 +87,10 @@ s/X⁅/\\begin{tabularx}{\\linewidth}{>{\\centering\\arraybackslash\\(}X<{\\)}}/
 s/X⁃/\\\\/g
 s/X⁆/\\end{tabularx}/g
 
-s/A⁅/\\begin{array}/g
-s/A⁃/\\\\/g
+s/Aː\[t\]/\\begin{array}[t]{/g
+s/Aː/\\begin{array}{/g
+s/A⁅/}/g
+s/A⁃/\\\\{}/g
 s/A⁆/\\end{array}/g
 
 s/T⁅/\\begin{tabular}/g

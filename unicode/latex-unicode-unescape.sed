@@ -362,6 +362,7 @@ s/⧘so⧙/⧇/g
 s/⧘ss⧙/⧈/g
 s/⧘sss⧙/⧉/g
 s/⧘s\|⧙/⎅/g
+s/⧘O⧙/○/g
 s/⧘qed⧙/∎/g
 s/⧘-\/⧙/⌿/g
 s/⧘sin⧙/∿/g

@@ -128,6 +128,7 @@ s/⋮/\\vdots /g
 s/∘/\\circ /g
 s/‖/\\\| /g
 s/∖/\\setminus /g
+s/⫽/\\sslash /g
 s/∅/\\varnothing /g
 s/⋆/\\star /g
 s/★/\\bigstar /g
@@ -161,6 +162,7 @@ s/△/\\vartriangle /g
 s/▷/\\vartriangleright /g
 s/▽/\\triangledown /g
 s/◁/\\vartriangleleft /g
+s/†/\\dagger /g
 s/∈/\\in /g
 s/∉/\\notin /g
 s/∋/\\ni /g
