@@ -21,7 +21,8 @@ main = do
   writeFile "latex-unicode-escape.sed" genSedEscapeScript
   writeFile "latex-unicode-unescape.sed" genSedUnescapeScript
   writeFile "latex-unicode-mark.sed" genSedMarkScript
-  putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed"
+  writeFile "latex-demo.tex" genLatexDemo
+  putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed latex-demo.tex"
 
 data Code = Code 
   { unicodeRep :: UnicodeRep
@@ -87,6 +88,23 @@ sedEscape = concatMap escapeChar
     escapeChar '\\' = "\\\\"
     escapeChar '|'  = "\\|"
     escapeChar c    = [c]
+
+latexEscape :: String -> String
+latexEscape = concatMap escapeChar
+  where
+    escapeChar :: Char -> String
+    escapeChar '&' = "\\&"
+    escapeChar '%' = "\\%"
+    escapeChar '$' = "\\$"
+    escapeChar '#' = "\\#"
+    escapeChar '_' = "\\_"
+    escapeChar '{' = "\\{"
+    escapeChar '}' = "\\}"
+    escapeChar '~' = "\\textasciitilde "
+    escapeChar '^' = "\\textasciicircum "
+    escapeChar '\\' = "\\textbackslash "
+    escapeChar '-' = "{-}"
+    escapeChar c = [c]
 
 genVimScript :: String
 genVimScript = do
@@ -160,6 +178,25 @@ genSedMarkScript = do
            then ""
            else "s/" ++ sedEscape u ++ "/" ++ quoteL ++ sedEscape u ++ quoteR ++ "/g\n"
 
+genLatexDemo :: String
+genLatexDemo = concat
+  [ "\\begin{longtable}{ll}\n"
+  , middle
+  , "\\end{longtable}"
+  ]
+  where
+    middle :: String
+    middle = do
+      code <- codes
+      command code
+        where
+          command :: Code -> String
+          command (Code u e l _) =
+            if l == "" 
+              then "" 
+              else concat ["\\texttt{",latexEscape e,"}&${}",l,"{}$\\\\\n"]
+
+
 codes :: [Code]
 codes = 
   -- Backslash
@@ -206,10 +243,10 @@ codes =
   , lcode "⟸" "impl" "\\impliedby"
   , lcode "⟺" "iff" "\\iff"
   -- - closed
-  , lcode "⇧" "u|" "\\upwhitearrow"
-  , lcode "⇨" "r|" "\\rightwhitearrow"
-  , lcode "⇩" "d|" "\\downwhitearrow"
-  , lcode "⇦" "l|" "\\leftwhitearrow"
+  , code "⇧" "u|" -- "\\upwhitearrow"
+  , code "⇨" "r|" -- "\\rightwhitearrow"
+  , code "⇩" "d|" -- "\\downwhitearrow"
+  , code "⇦" "l|" -- "\\leftwhitearrow"
   , code "⬄" "rl|"
   , lcode "⇰"  "r|=" "\\Mapsto"
   -- - partial
@@ -225,13 +262,13 @@ codes =
   , code "↬" "rc"
   , code "↫" "lc"
   -- - ending bar
-  , lcode "⇥" "r>|" "\\RightArrowBar"
-  , lcode "⇤" "l>|" "\\LeftArrowBar"
+  , code "⇥" "r>|" -- "\\RightArrowBar"
+  , code "⇤" "l>|" -- "\\LeftArrowBar"
   -- - double
-  , lcode "↟" "u>>" "\\twoheaduparrow"
-  , lcode "↠" "r>>" "\\twoheadrightarrow"
-  , lcode "↡" "d>>" "\\twoheaduparrow"
-  , lcode "↞" "l>>" "\\twoheadleftarrow"
+  , code "↟" "u>>" -- "\\twoheaduparrow"
+  , code "↠" "r>>" -- "\\twoheadrightarrow"
+  , code "↡" "d>>" -- "\\twoheaduparrow"
+  , code "↞" "l>>" -- "\\twoheadleftarrow"
   -- - triangle
   , lcode "⇾" "r|>" "\\rightarrowtriangle"
   , lcode "⇽" "l|>" "\\leftarrowtriangle"
@@ -244,8 +281,8 @@ codes =
   , lcode "↣" "r>->" "\\rightarrowtail"
   , lcode "↢" "l>->" "\\leftarrowtail"
   -- - double squiggle
-  , lcode "⇝" "r~~" "\\rightsquigarrow"
-  , lcode "⇜" "l~~" "\\leftsquigarrow"
+  , code "⇝" "r~~" -- "\\rightsquigarrow"
+  , code "⇜" "l~~" -- "\\leftsquigarrow"
   -- - dotted
   , code "⇡" "u."
   , lcode "⇢" "r." "\\dashrightarrow"
@@ -270,10 +307,10 @@ codes =
   , lcode "⟯" ")" "\\rgroup"
   , code "⸨" "(("
   , code "⸩" "))"
-  , lcode "⦇" "(|" "\\limg"
-  , lcode "⦈" ")|" "\\rimg"
-  , lcode "⦅" "c(" "\\Lparen"
-  , lcode "⦆" "c)" "\\Rparen"
+  , code "⦇" "(|" -- "\\limg"
+  , code "⦈" ")|" -- "\\rimg"
+  , code "⦅" "c(" -- "\\Lparen"
+  , code "⦆" "c)" -- "\\Rparen"
   , code "❪" "b("
   , code "❫" "b)"
   , code "❨" "B("
@@ -283,12 +320,12 @@ codes =
   -- - angle
   , lcode "⟨" "<" "\\langle"
   , lcode "⟩" ">" "\\rangle"
-  , lcode "⟪" "<<" "\\lang"
-  , lcode "⟫" ">>" "\\rang"
-  , lcode "⦉" "<|" "\\lblot"
-  , lcode "⦊" ">|" "\\rblot"
-  , lcode "⦑" "<." "\\langledot"
-  , lcode "⦒" ">." "\\rangledot"
+  , code "⟪" "<<" -- "\\lang"
+  , code "⟫" ">>" -- "\\rang"
+  , code "⦉" "<|" -- "\\lblot"
+  , code "⦊" ">|" -- "\\rblot"
+  , code "⦑" "<." -- "\\langledot"
+  , code "⦒" ">." -- "\\rangledot"
   , code "❬" "b<"
   , code "❭" "b>"
   , code "«" "<\""
@@ -392,11 +429,11 @@ codes =
   , code "⩛" "mor"
   -- standard curvy (e_)
   , lcode "≺" "e<" "\\prec"
-  , lcode "≻" "e>" "\\suc"
+  , code "≻" "e>" -- "\\suc"
   , lcode "⪯" "e<-" "\\preceq"
-  , lcode "⪰" "e>-" "\\suceq"
+  , code "⪰" "e>-" -- "\\suceq"
   , lcode "≼" "e<=" "\\preccurlyeq"
-  , lcode "≽" "e>=" "\\succurlyeq"
+  , code "≽" "e>=" -- "\\succurlyeq"
   , lcode "⋎" "eor" "\\curlyvee"
   , lcode "⋏" "eand" "\\curlywedge"
   , code "⪻" "e<<"
@@ -418,8 +455,8 @@ codes =
   , code "⪩" "ct>="
   , code "⌔" "ctor"
   -- standard y (y_)
-  , lcode "⧼" "y<" "\\lcurvyangle"
-  , lcode "⧽" "y>" "\\rcurvyangle"
+  , code "⧼" "y<" -- "\\lcurvyangle"
+  , code "⧽" "y>" -- "\\rcurvyangle"
   -- - squigly order (Y_)
   , code "⊰" "Y<"
   , code "⊱" "Y>"
@@ -462,10 +499,10 @@ codes =
   , lcode "⊒" "q>=" "\\sqsupseteq"
   , lcode "⊏" "q<" "\\sqsubset"
   , lcode "⊐" "q>" "\\sqsupset"
-  , lcode "⋢" "q<=/" "\\nsqsubseteq"
-  , lcode "⋣" "q>=/" "\\nsqsupseteq"
-  , lcode "⋤" "q</=" "\\sqsubsetneq"
-  , lcode "⋥" "q>/=" "\\sqsupsetneq"
+  , code "⋢" "q<=/" -- "\\nsqsubseteq"
+  , code "⋣" "q>=/" -- "\\nsqsupseteq"
+  , code "⋤" "q</=" -- "\\sqsubsetneq"
+  , code "⋥" "q>/=" -- "\\sqsupsetneq"
   , lcode "⊔" "j" "\\sqcup"
   , lcode "⊓" "m" "\\sqcap"
   , lcode "⨆" "J" "\\bigsqcup"
@@ -536,7 +573,7 @@ codes =
   , code "𝄪" "##"
   , lcode "♭" "b" "\\flat"
   , lcode "♮" "na" "\\natural"
-  , lcode "⋕" "=||" "\\hash"
+  , code "⋕" "=||" -- "\\hash"
   , code "¿" "d?"
   , code "¡" "d!"
   , code "⁇" "??"
@@ -580,7 +617,7 @@ codes =
   , code "⎅" "s|"
   , code "○" "O"
   , lcode "∎" "qed" "\\blacksquare"
-  , lcode "⌿" "-/" "\\notslash"
+  , code "⌿" "-/" -- "\\notslash"
   , code "∿" "sin"
   , code "∾" "link"
   , lcode "⋈" "bow" "\\bowtie"
@@ -658,7 +695,7 @@ codes =
  
   -- Equality
   , lcode "≡" "==" "\\equiv"
-  , lcode "≢" "==/" "\\nequiv"
+  , code "≢" "==/" -- "\\nequiv"
   , code "≣" "==="
   , code "⩵" "=2"
   , code "⩶" "=3"
@@ -751,7 +788,7 @@ codes =
  
   -- OK
   , lcode "✓" "check" "\\checkmark"
-  , lcode "✗" "X" "\\ballotx"
+  , code "✗" "X" -- "\\ballotx"
   , code "☐" "bal"
   , code "☑" "balc"
   , code "☒" "balx"
@@ -785,29 +822,29 @@ codes =
   , code "💩" "poo"
 
   -- Greek Normal
-  , lcode "Α" "Alpha" "\\Alpha"
-  , lcode "Β" "Beta" "\\Beta"
+  , code "Α" "Alpha" -- "\\Alpha"
+  , code "Β" "Beta" -- "\\Beta"
   , lcode "Γ" "Gamma" "\\Gamma"
   , lcode "Δ" "Delta" "\\Delta"
-  , lcode "Ε" "Epsilon" "\\Epsilon"
-  , lcode "Ζ" "Zeta" "\\Zeta"
-  , lcode "Η" "Eta" "\\Eta"
+  , code "Ε" "Epsilon" -- "\\Epsilon"
+  , code "Ζ" "Zeta" -- "\\Zeta"
+  , code "Η" "Eta" -- "\\Eta"
   , lcode "Θ" "Theta" "\\Theta"
-  , lcode "Ι" "Iota" "\\Iota"
-  , lcode "Κ" "Kappa" "\\Kappa"
+  , code "Ι" "Iota" -- "\\Iota"
+  , code "Κ" "Kappa" -- "\\Kappa"
   , lcode "Λ" "Lambda" "\\Lambda"
-  , lcode "Μ" "Mu" "\\Mu"
-  , lcode "Ν" "Nu" "\\Nu"
+  , code "Μ" "Mu" -- "\\Mu"
+  , code "Ν" "Nu" -- "\\Nu"
   , lcode "Ξ" "Xi" "\\Xi"
-  , lcode "Ο" "Omicron" "\\Omicron"
+  , code "Ο" "Omicron" -- "\\Omicron"
   , lcode "Π" "Pi" "\\Pi"
-  , lcode "Ρ" "Rho" "\\Rho"
+  , code "Ρ" "Rho" -- "\\Rho"
   , lcode "ϴ" "varSigma" "\\varSigma"
   , lcode "Σ" "Sigma" "\\Sigma"
-  , lcode "Τ" "Tau" "\\Tau"
-  , lcode "Υ" "Upsilon" "\\Upsilon"
+  , code "Τ" "Tau" -- "\\Tau"
+  , code "Υ" "Upsilon" -- "\\Upsilon"
   , lcode "Φ" "Phi" "\\Phi"
-  , lcode "Χ" "Chi" "\\Chi"
+  , code "Χ" "Chi" -- "\\Chi"
   , lcode "Ψ" "Psi" "\\Psi"
   , lcode "Ω" "Omega" "\\Omega"
   , lcode "∇" "Nabla" "\\nabla"
@@ -826,7 +863,7 @@ codes =
   , lcode "μ" "mu" "\\mu"
   , lcode "ν" "nu" "\\nu"
   , lcode "ξ" "xi" "\\xi"
-  , lcode "ο" "omicron" "\\omicron"
+  , code "ο" "omicron" -- "\\omicron"
   , lcode "π" "pi" "\\pi"
   , lcode "ρ" "rho" "\\rho"
   , lcode "ς" "varsigma" "\\varsigma"
