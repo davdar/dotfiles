@@ -73,6 +73,8 @@ noremap! \l. ⇠
 noremap! \r/ ↛
 noremap! \l/ ↚
 noremap! \rl/ ↮
+noremap! \ro ⊸
+noremap! \lo ⟜
 noremap! \zd ↯
 noremap! \cw ↻
 noremap! \ccw ↺

@@ -255,6 +255,9 @@ codes =
   , code "↛" "r/"
   , code "↚" "l/"
   , code "↮" "rl/"
+  -- - lolli
+  , lcode "⊸" "ro" "\\multimap"
+  , lcode "⟜" "lo" "\\multimapinv"
   -- - zagged
   , lcode "↯" "zd" "\\lightning"
   , code "↻" "cw"
