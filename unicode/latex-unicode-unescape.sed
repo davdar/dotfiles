@@ -75,6 +75,7 @@ s/⧘l\/⧙/↚/g
 s/⧘rl\/⧙/↮/g
 s/⧘ro⧙/⊸/g
 s/⧘lo⧙/⟜/g
+s/⧘rlo⧙/⧟/g
 s/⧘zd⧙/↯/g
 s/⧘cw⧙/↻/g
 s/⧘ccw⧙/↺/g

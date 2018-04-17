@@ -75,6 +75,7 @@ noremap! \l/ ↚
 noremap! \rl/ ↮
 noremap! \ro ⊸
 noremap! \lo ⟜
+noremap! \rlo ⧟
 noremap! \zd ↯
 noremap! \cw ↻
 noremap! \ccw ↺

@@ -43,7 +43,6 @@ s/⇜/\\leftsquigarrow /g
 s/⇢/\\dashrightarrow /g
 s/⇠/\\dashleftarrow /g
 s/⊸/\\multimap /g
-s/⟜/\\multimapinv /g
 s/↯/\\lightning /g
 s/⟮/\\lgroup /g
 s/⟯/\\rgroup /g
