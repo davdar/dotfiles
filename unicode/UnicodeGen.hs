@@ -22,7 +22,8 @@ main = do
   writeFile "latex-unicode-unescape.sed" genSedUnescapeScript
   writeFile "latex-unicode-mark.sed" genSedMarkScript
   writeFile "latex-demo.tex" genLatexDemo
-  putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed latex-demo.tex"
+  writeFile "unicode-input.txt" genInputReference
+  putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed latex-demo.tex unicode-input.txt"
 
 data Code = Code 
   { unicodeRep :: UnicodeRep
@@ -195,6 +196,20 @@ genLatexDemo = concat
             if l == "" 
               then "" 
               else concat ["\\texttt{",latexEscape e,"}&${}",l,"{}$\\\\\n"]
+
+genInputReference :: String
+genInputReference = do
+  code <- codes
+  command code
+    where
+      command :: Code -> String
+      command (Code u e l _) =
+        skip pad maxCodeWidth u ++ "  " ++ e ++ "\n"
+      maxCodeWidth :: Int
+      maxCodeWidth = maximum $ map (length . unicodeRep) codes
+      pad :: Int -> String -> String
+      pad i s = let padding = max 0 (i - length s) in s ++ replicate padding ' '
+      skip f y x = x
 
 
 codes :: [Code]
