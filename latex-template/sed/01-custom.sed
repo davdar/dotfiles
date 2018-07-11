@@ -1,6 +1,8 @@
 s/⟅/⟅⟪␣/g
 s/⟆/␣⟫⟆/g
 
+s/≉/⫽≈/g
+
 s/✗/\\text{\\ding{55}}/g
 s/¢/\\\$/g
 s/⇄/\\galois/g
@@ -43,14 +45,13 @@ s/↘/\\shortsearrow{}/g
 
 s/⋃/⋃\\limits/g
 s/⨆/⨆\\limits/g
+s/∑/∑\\limits/g
+s/∏/∏\\limits/g
 
 s/⎨/\\{\\!\\!\\{/g
 s/⎬/\\}\\!\\!\\}/g
 
-s/𝚺/\\sum\\limits/g
-s/𝚷/\\prod\\limits/g
-
-# https://tex.stackexchange.com/questions/177000/math-mode-accents
+s/𝑚𝑐(.)(.)/\\multicolumn{\1}{\2}/g
 
 s/⸨/{\\color{\\colorMATH}⸨/g
 s/⸩/⸩}/g

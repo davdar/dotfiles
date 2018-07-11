@@ -22,6 +22,10 @@ s/⇀/\\rightharpoonup /g
 s/↦/\\mapsto /g
 s/↪/\\hookrightarrow /g
 s/↩/\\hookleftarrow /g
+s/↟/\\twoheaduparrow /g
+s/↠/\\twoheadrightarrow /g
+s/↡/\\twoheaduparrow /g
+s/↞/\\twoheadleftarrow /g
 s/⇾/\\rightarrowtriangle /g
 s/⇽/\\leftarrowtriangle /g
 s/⇿/\\leftrightarrowtriangle /g
@@ -79,6 +83,8 @@ s/⊔/\\sqcup /g
 s/⊓/\\sqcap /g
 s/⨆/\\bigsqcup /g
 s/⨅/\\bigsqcap /g
+s/∑/\\sum /g
+s/∏/\\prod /g
 s/“/``/g
 s/”/''/g
 s/–/--/g
@@ -97,6 +103,7 @@ s/⋯/\\cdots /g
 s/⋮/\\vdots /g
 s/∘/\\circ /g
 s/‖/\\\| /g
+s/÷/\\div /g
 s/∖/\\setminus /g
 s/⫽/\\sslash /g
 s/∅/\\varnothing /g
@@ -106,6 +113,7 @@ s/♯/\\sharp /g
 s/♭/\\flat /g
 s/♮/\\natural /g
 s/⧺/\\mathbin\{\{\+\}\\mspace\{-8mu\}\{\+\}\} /g
+s/±/\\pm /g
 s/×/\\times /g
 s/⊙/\\odot /g
 s/⊕/\\oplus /g
@@ -120,17 +128,19 @@ s/⊞/\\boxplus /g
 s/⊟/\\boxminus /g
 s/⊠/\\boxtimes /g
 s/⊡/\\boxdot /g
+s/○/\\bigcirc /g
 s/∎/\\blacksquare /g
 s/⋈/\\bowtie /g
 s/⋉/\\ltimes /g
 s/⋊/\\rtimes /g
-s/∞/\\inf /g
+s/∞/\\infty /g
 s/∝/\\propto /g
 s/△/\\vartriangle /g
 s/▷/\\vartriangleright /g
 s/▽/\\triangledown /g
 s/◁/\\vartriangleleft /g
 s/†/\\dagger /g
+s/√/\\sqrt /g
 s/∈/\\in /g
 s/∉/\\notin /g
 s/∋/\\ni /g
@@ -152,7 +162,10 @@ s/∼/\\sim /g
 s/≔/\\coloneqq /g
 s/⩴/\\Coloneqq /g
 s/≠/\\neq /g
-s/≟/\\stackrel\{\?\}\{=\} /g
+s/≟/\\mathrel\{\\overset\{\?\}\{=\}\} /g
+s/≗/\\mathrel\{\\overset\{\\circ\}\{=\}\} /g
+s/⩮/\\mathrel\{\\overset\{\*\}\{=\}\} /g
+s/⩦/\\mathrel\{\\underset\{\\cdotp\}\{=\}\} /g
 s/≜/\\triangleq /g
 s/₊/_\+ /g
 s/₋/_- /g
@@ -261,6 +274,8 @@ s/⅑/\\nicefrac\{1\}\{9\} /g
 s/⅒/\\nicefrac\{1\}\{10\} /g
 s/℘/\\wp /g
 s/ℓ/\\ell /g
+s/㏑/\\ln /g
+s/㏒/\\log /g
 s/𝐀/\\textbf\{A\}/g
 s/𝐁/\\textbf\{B\}/g
 s/𝐂/\\textbf\{C\}/g

@@ -12,8 +12,10 @@ s/⇡…/\\dddot /g
 s/⇡u/\\breve /g
 s/⇡v/\\check /g
 s/⇡o/\\mathring /g
+s/⇡w/\\overbrace/g
 
 s/⇣-\*/\\underline /g
+s/⇣w/\\underbrace/g
 
 s/⇡/\\overset /g
 s/⇣/\\underset /g
@@ -56,16 +58,16 @@ s/⌄/\\footnote/g
 
 s/Z⁃//g
 
-s/I⁅/\\begin{itemize}[label=\\textbf{-},leftmargin=*]\\item/g
-s/I⁃/\\item/g
+s/I⁅/\\begin{itemize}[label=\\textbf{-},leftmargin=*]\\item /g
+s/I⁃/\\item /g
 s/I⁆/\\end{itemize}/g
 
-s/J⁅/\\begin{itemize}[label={},leftmargin=0pt]\\item/g
-s/J⁃/\\item/g
+s/J⁅/\\begin{itemize}[label={},leftmargin=0pt]\\item /g
+s/J⁃/\\item /g
 s/J⁆/\\end{itemize}/g
 
-s/E⁅/\\begin{enumerate}\\item/g
-s/E⁃/\\item/g
+s/E⁅/\\begin{enumerate}\\item /g
+s/E⁃/\\item /g
 s/E⁆/\\end{enumerate}/g
 
 s/Q⁅/\\begin{quote}/g
@@ -102,7 +104,11 @@ s/P⁃/\\and/g
 s/P◘/\\\\/g
 s/P⁆/\\end{mathpar}/g
 
-s/R⁅/\\inferrule{/g
+s/Rː⁅/\\inferrule{/g
+s/Rː⁃/\\\\/g
+s/Rː⁆/}/g
+s/Rː/\\inferrule[/g
+s/R⁅/]{/g
 s/R⁃/\\\\/g
 s/R◘/\\\\\\\\/g
 s/----[-]*/}{/g
