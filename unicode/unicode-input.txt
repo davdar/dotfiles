@@ -461,6 +461,7 @@
 ⫫  bot=
 ⊤  top
 ¬  not
+⊻  xor
 ∁  comp
 ≡  ==
 ≢  ==/

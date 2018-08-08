@@ -461,6 +461,7 @@ noremap! \bot ⊥
 noremap! \bot= ⫫
 noremap! \top ⊤
 noremap! \not ¬
+noremap! \xor ⊻
 noremap! \comp ∁
 noremap! \== ≡
 noremap! \==/ ≢

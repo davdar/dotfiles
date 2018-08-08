@@ -1,6 +1,7 @@
+export PATH=/Applications/Racket\ v6.12/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
-export PATH=/Applications/Racket\ v6.12/bin:$PATH
+export PATH=$HOME/bin:$PATH
 
 bindkey -v
 

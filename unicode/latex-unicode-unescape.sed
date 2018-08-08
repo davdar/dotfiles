@@ -461,6 +461,7 @@ s/⧘bot⧙/⊥/g
 s/⧘bot=⧙/⫫/g
 s/⧘top⧙/⊤/g
 s/⧘not⧙/¬/g
+s/⧘xor⧙/⊻/g
 s/⧘comp⧙/∁/g
 s/⧘==⧙/≡/g
 s/⧘==\/⧙/≢/g

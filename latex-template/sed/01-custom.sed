@@ -29,9 +29,9 @@ s/≔/᚜≔᚛/g
 s/⩴/᚜⩴᚛/g
 s/⋕/᚜\\\#᚛/g
 s/∇/᚜∇᚛/g
-s/⅋/᚜\\\&᚛/g
 s/⫫/᚜⊥\\!\\!\\!⊥᚛/g
 s/‖/᚜‖᚛/g
+s/⅋/᚜⅋᚛/g
 
 s/᚜/\\mathrel{/g
 s/᚛/}/g
@@ -47,28 +47,3 @@ s/⋃/⋃\\limits/g
 s/⨆/⨆\\limits/g
 s/∑/∑\\limits/g
 s/∏/∏\\limits/g
-
-s/⎨/\\{\\!\\!\\{/g
-s/⎬/\\}\\!\\!\\}/g
-
-s/𝑚𝑐(.)(.)/\\multicolumn{\1}{\2}/g
-
-s/⸨/{\\color{\\colorMATH}⸨/g
-s/⸩/⸩}/g
-s/‹/{\\color{\\colorMATH}‹/g
-s/›/›}/g
-s/⟪/{\\color{\\colorTEXT}⟪/g
-s/⟫/⟫}/g
-s/⦑/{\\color{\\colorSYNTAX}⦑/g
-s/⦒/⦒}/g
-s/⦗/{\\color{\\colorTEXT}⦗/g
-s/⦘/⦘}/g
-
-s/M⁅/\\begingroup\\color{\\colorMATH}M⁅/g
-s/M⁆/M⁆\\endgroup/g
-
-s/P⁅/\\begingroup\\color{\\colorMATH}P⁅/g
-s/P⁆/P⁆\\endgroup/g
-
-s/B⁅/\\begingroup\\color{\\colorTEXT} B⁅ \\begingroup\\color{\\colorMATH}/g
-s/B⁆/\\endgroup B⁆ \\endgroup/g

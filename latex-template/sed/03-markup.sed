@@ -12,10 +12,12 @@ s/⇡…/\\dddot /g
 s/⇡u/\\breve /g
 s/⇡v/\\check /g
 s/⇡o/\\mathring /g
-s/⇡w/\\overbrace/g
+s/⇡w\*/\\overbrace/g
+s/⇡e\*/\\overbracket/g
 
 s/⇣-\*/\\underline /g
-s/⇣w/\\underbrace/g
+s/⇣w\*/\\underbrace/g
+s/⇣e\*/\\underbracket/g
 
 s/⇡/\\overset /g
 s/⇣/\\underset /g
@@ -38,23 +40,29 @@ s/⦅𝔶/~\\citeyearpar{/g
 s/⦅/~\\citep{/g
 s/⦆/}/g
 
-s/⸨/\\(/g
-s/⸩/\\)/g
-s/‹/\\ensuremath{\\operatorname{/g
-s/›/}}/g
-s/⟪/\\text{/g
-s/⟫/}/g
-s/«\*/\\textbf{/g
-s/\*»/}/g
-s/«/\\textit{/g
-s/»/}/g
-s/⦑/\\texttt{/g
-s/⦒/}/g
+s/⸨/{{\\color{\\colorMATH}\\ensuremath{/g
+s/⸩/}}}/g
+s/‹/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{/g
+s/›/}}}}/g
+
+s/⟪/{{\\color{\\colorTEXT}\\text{/g
+s/⟫/}}}/g
+s/«\*/{{\\color{\\colorTEXT}\\textbf{/g
+s/\*»/}}}/g
+s/«/{{\\color{\\colorTEXT}\\textit{/g
+s/»/}}}/g
+s/⦗/{{\\color{\\colorTEXT}\\textsc{\\scriptsize /g
+s/⦘/}}}/g
+
+s/⦑/{{\\color{\\colorSYNTAX}\\texttt{/g
+s/⦒/}}}/g
+
 s/⋖/\\verb|/g
 s/⋗/|/g
-s/⦗/\\textsc{\\scriptsize /g
-s/⦘/}/g
+
 s/⌄/\\footnote/g
+
+s/𝑚𝑐(.)(.)/\\multicolumn{\1}{\2}/g
 
 s/Z⁃//g
 
@@ -73,6 +81,7 @@ s/E⁆/\\end{enumerate}/g
 s/Q⁅/\\begin{quote}/g
 s/Q⁆/\\end{quote}/g
 
+s/F⁅\[H\]/\\begin{figure}[H]/g
 s/F⁅/\\begin{figure}/g
 s/⧘/\\caption{/g
 s/⧙/}/g
@@ -81,31 +90,31 @@ s/F⁆/\\end{figure}/g
 s/D⁅/\\begin{framed}/g
 s/D⁆/\\end{framed}/g
 
-s/M⁅/\\begin{gather*}/g
-s/M⁃/\\\\/g
-s/M⁆/\\end{gather*}/g
+s/M⁅/\\begingroup\\color{\\colorMATH}\\begin{gather*}/g
+s/M⁃/\\cr /g
+s/M⁆/\\end{gather*}\\endgroup/g
 
 s/X⁅/\\begin{tabularx}{\\linewidth}{>{\\centering\\arraybackslash\\(}X<{\\)}}/g
-s/X⁃/\\\\/g
+s/X⁃/\\cr /g
 s/X⁆/\\end{tabularx}/g
 
 s/Aː\[t\]/\\begin{array}[t]{/g
 s/Aː/\\begin{array}{/g
 s/A⁅/}/g
-s/A⁃/\\\\{}/g
+s/A⁃/\\cr /g
 s/A⁆/\\end{array}/g
 
 s/T⁅/\\begin{tabular}/g
-s/T⁃/\\\\/g
+s/T⁃/\\cr /g
 s/T⁆/\\end{tabular}/g
 
-s/P⁅/\\begin{mathpar}/g
+s/P⁅/\\begingroup\\color{\\colorMATH}\\begin{mathpar}/g
 s/P⁃/\\and/g
 s/P◘/\\\\/g
-s/P⁆/\\end{mathpar}/g
+s/P⁆/\\end{mathpar}\\endgroup/g
 
 s/Rː⁅/\\inferrule{/g
-s/Rː⁃/\\\\/g
+s/Rː⁃/\\and /g
 s/Rː⁆/}/g
 s/Rː/\\inferrule[/g
 s/R⁅/]{/g
@@ -114,8 +123,8 @@ s/R◘/\\\\\\\\/g
 s/----[-]*/}{/g
 s/R⁆/}/g
 
-s/B⁅/\\boxed{/g
-s/B⁆/}/g
+s/B⁅/\\begingroup\\color{\\colorTEXT}\\boxed{\\begingroup\\color{\\colorMATH}/g
+s/B⁆/\\endgroup}\\endgroup/g
 
 s/V⁅/\\begin{verbatim}/g
 s/V⁆/\\end{verbatim}/g
