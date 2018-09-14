@@ -1,64 +1,85 @@
 \documentclass{article}
 
 \usepackage[T5,T1]{fontenc}
-% \geometry{margin=1in}
 
 \usepackage{longtable}
 
 \input{darais-latex-imports}
 \input{darais-latex-macros}
 
-\title{The Title}
-\author{Me, Myself and I}
+% \geometry{margin=1in}
+
+\title{Peanut Butter and Jelly}
+\author{Banana Man}
 
 \begin{document}
 \maketitle
 
 Cite~\citep{darais-icfp17}.
 
-M⁅ 
-  \overset\circ\prime
+M⁅ α∘γ ⊑ ‹id›
+M⁃ ‹id› ⊑ γ∘α
 M⁆
 
-$C ○ Y$
+P⁅Rː⦗Var⦘
+  R⁅ x:τ ∈ Γ
+     ----------------
+     Γ ⊢ x ⦂ τ
+  R⁆
+P⁃Rː⦗Lam⦘
+  R⁅ Γ,x:τ₁ ⊢ e ⦂ τ₂
+     ---------------------
+     Γ ⊢ λx⍪e ⦂ τ₁ → τ₂
+  R⁆
+P⁃Rː⦗App⦘
+  R⁅ Γ ⊢ e₁ ⦂ τ₁ → τ₂
+  R⁃ Γ ⊢ e₂ ⦂ τ₁
+     ---------------------
+     Γ ⊢ e₁(e₂) ⦂ τ₂
+  R⁆
+P⁆
 
-\begin{itemize}
-   \item lambda $λ$ 
-   \item dor $⟇$
-   \item diamond $◇$
-   \item diamonddot $⟐$
-   \item box $□$
-   \item cdot $⋅$
-   \item bullet $•$
-   \item check $✓$
-   \item leq $≤$
-   \item coleq $≔ $
-   \item zdi $↯$
-   \item $⊸$
-\end{itemize}
+P⁅Rː*
+  R⁅ Rː[l]⦗App⦘
+     R⁅ Rː*
+        R⁅ x:τ₁→τ₂→τ₃ ∈ Γ
+           ----------------------
+           Γ ⊢ x ⦂ τ₁ → τ₂ → τ₃
+        R⁆
+     R⁃ Rː* 
+        R⁅ y:τ₁ ∈ Γ 
+           -----------------
+           Γ ⊢ y ⦂ τ₁
+        R⁆
+        -------------------
+        Γ ⊢ x(y) ⦂ τ₂ → τ₃
+     R⁆
+  R⁃ Rː[r]⦗Var⦘ 
+     R⁅ z:τ₂ ∈ Γm
+        --------------------
+        Γ ⊢ z ⦂ τ₂
+     R⁆
+     ------------------------------------------
+     Γ ⊢ (x(y))(z) ⦂ τ₃
+  R⁆
+P⁆
 
-\begin{itemize}
-  \item \lipsum[1-2]
-  \item \lipsum[2-4]
-\end{itemize}
-
-I⁅ ⸨⇡→*{x}⸩
-I⁃ ⸨⇡→{x}⸩
-I⁃ ⸨⇡~*{x}⸩
-I⁃ ⸨⇡~{x}⸩
-I⁃ ⸨⇡^*{x}⸩
-I⁃ ⸨⇡^{x}⸩
-I⁃ ⸨⇡-*{x}⸩
-I⁃ ⸨⇡-{x}⸩
-I⁃ ⸨⇡.{x}⸩
-I⁃ ⸨⇡‥{x}⸩
-I⁃ ⸨⇡…{x}⸩
-I⁃ ⸨⇡u{x}⸩
-I⁃ ⸨⇡v{x}⸩
-I⁃ ⸨⇡o{x}⸩
-I⁆
-
-Nguyễn
+Tːll
+T⁅ ⸨thing-1⸩   & Math
+T⁃ ‹thing-1›   & Math operator
+T⁃ ‹«thing-1»› & Math operator italic
+T⁃ ‹⦑thing-1⦒› & Math operator typewriter
+T⁃ ⟪thing-1⟫   & Text roman
+T⁃ «thing-1»   & Text italic
+T⁃ «*thing-1*» & Text bold
+T⁃ «⦑thing-1⦒» & Text typewriter
+T⁃ ⦗thing-1⦘   & Text small caps small
+T⁃ ⦑thing-1⦒   & Syntax typewriter
+T⁃ ⦑‹thing-1›⦒ & Syntax roman
+T⁃ ⦑«thing-1»⦒ & Syntax italic
+T⁃ ⦑*thing-1*⦒ & Syntax bold
+T⁃ ⋖thing-1⋗   & Verbatim
+T⁆
 
 \input{latex-demo.tex}
 

@@ -38,6 +38,7 @@ s/᚛/}/g
 
 s/↑/\\mathord{↑}/g
 s/⁇/\\mathord{?}/g
+s/¡/{!}/g
 s/⋅/\\mathord{⋅}/g
 
 s/↗/\\shortnearrow{}/g

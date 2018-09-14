@@ -42,18 +42,31 @@ s/⦆/}/g
 
 s/⸨/{{\\color{\\colorMATH}\\ensuremath{/g
 s/⸩/}}}/g
-s/‹/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{/g
-s/›/}}}}/g
+s/‹«/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{\\mathit{/g
+s/»›/}}}}}/g
+s/‹⦑/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{\\mathtt{/g
+s/⦒›/}}}}}/g
 
 s/⟪/{{\\color{\\colorTEXT}\\text{/g
 s/⟫/}}}/g
 s/«\*/{{\\color{\\colorTEXT}\\textbf{/g
 s/\*»/}}}/g
-s/«/{{\\color{\\colorTEXT}\\textit{/g
-s/»/}}}/g
+s/«⦑/{{\\color{\\colorTEXT}\\texttt{/g
+s/⦒»/}}}/g
 s/⦗/{{\\color{\\colorTEXT}\\textsc{\\scriptsize /g
 s/⦘/}}}/g
 
+s/⦑\*/{{\\color{\\colorSYNTAX}\\textbf{/g
+s/\*⦒/}}}/g
+s/⦑‹/{{\\color{\\colorSYNTAX}\\text{/g
+s/›⦒/}}}/g
+s/⦑«/{{\\color{\\colorSYNTAX}\\textit{/g
+s/»⦒/}}}/g
+
+s/‹/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{/g
+s/›/}}}}/g
+s/«/{{\\color{\\colorTEXT}\\textit{/g
+s/»/}}}/g
 s/⦑/{{\\color{\\colorSYNTAX}\\texttt{/g
 s/⦒/}}}/g
 
@@ -104,7 +117,9 @@ s/A⁅/}/g
 s/A⁃/\\cr /g
 s/A⁆/\\end{array}/g
 
-s/T⁅/\\begin{tabular}/g
+s/Tː\[t\]/\\begin{tabular}[t]{/g
+s/Tː/\\begin{tabular}{/g
+s/T⁅/}/g
 s/T⁃/\\cr /g
 s/T⁆/\\end{tabular}/g
 
@@ -113,10 +128,10 @@ s/P⁃/\\and/g
 s/P◘/\\\\/g
 s/P⁆/\\end{mathpar}\\endgroup/g
 
-s/Rː⁅/\\inferrule{/g
-s/Rː⁃/\\and /g
-s/Rː⁆/}/g
-s/Rː/\\inferrule[/g
+s/Rː\*/\\inferrule*[/g
+s/Rː\[l\]/\\inferrule*[left=/g
+s/Rː\[r\]/\\inferrule*[right=/g
+s/Rː/\\inferrule*[lab=/g
 s/R⁅/]{/g
 s/R⁃/\\\\/g
 s/R◘/\\\\\\\\/g
