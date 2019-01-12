@@ -132,6 +132,9 @@ au FileType haskell nnoremap <buffer> <silent> <Leader>ty      :HdevtoolsType<CR
 au FileType haskell nnoremap <buffer> <silent> <Leader>cl      :HdevtoolsClear<CR>
 au FileType haskell nnoremap <buffer> <silent> <Leader>in      :HdevtoolsInfo<CR>
 
+" Tables
+let g:table_mode_corner='|'
+
 " File Hooks
 augroup DD_CUSTOM
 

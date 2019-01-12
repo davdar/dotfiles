@@ -102,6 +102,7 @@ s/⋮/\\vdots /g
 s/∘/\\circ /g
 s/‖/\\\| /g
 s/÷/\\div /g
+s/٪/\\% /g
 s/∖/\\setminus /g
 s/⫽/\\sslash /g
 s/⅋/\\bindnasrepma /g
@@ -234,6 +235,21 @@ s/ϰ/\\varkappa /g
 s/ϕ/\\varphi /g
 s/ϱ/\\varrho /g
 s/ϖ/\\varpi /g
+s/ᵦ/_\\beta /g
+s/ᵧ/_\\gamma /g
+s/ᵨ/_\\rho /g
+s/ᵩ/_\\phi /g
+s/ᵪ/_\\chi /g
+s/ᵅ/\^\\alpha /g
+s/ᵝ/\^\\beta /g
+s/ᵞ/\^\\gamma /g
+s/ᵟ/\^\\delta /g
+s/ᵋ/\^\\epsilon /g
+s/ᶿ/\^\\theta /g
+s/ᶥ/\^\\iota /g
+s/ᶲ/\^\\Phi /g
+s/ᵠ/\^\\phi /g
+s/ᵡ/\^\\chi /g
 s/𝟘/\{\\mathbb\{0\}\}/g
 s/𝟙/\{\\mathbb\{1\}\}/g
 s/𝟚/\{\\mathbb\{2\}\}/g

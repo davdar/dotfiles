@@ -315,6 +315,7 @@ noremap! \\|: ¦
 noremap! \w\| ⫾
 noremap! \\|\| ‖
 noremap! \% ÷
+noremap! \%% ٪
 noremap! \/ ∕
 noremap! \set\ ∖
 noremap! \// ⫽
@@ -328,7 +329,7 @@ noremap! \** ⋇
 noremap! \# ♯
 noremap! \## 𝄪
 noremap! \b ♭
-noremap! \na ♮
+noremap! \n ♮
 noremap! \=\|\| ⋕
 noremap! \d? ¿
 noremap! \d! ¡
@@ -1412,6 +1413,8 @@ noremap! \e^~ ễ
 noremap! \u' ú
 noremap! \i.. ï
 noremap! \osl ø
+noremap! \Osl Ø
+noremap! \osls ᴓ
 noremap! \boxlr ─
 noremap! \boxLR ━
 noremap! \boxtb │
