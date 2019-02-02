@@ -23,6 +23,8 @@ main = do
   writeFile "latex-unicode-mark.sed" genSedMarkScript
   writeFile "latex-demo.tex" genLatexDemo
   writeFile "unicode-input.txt" genInputReference
+  writeFile "unicode-init.coffee" genAtomInitScript
+  writeFile "unicode-keymap.cson" genAtomKeymapScript
   putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed latex-demo.tex unicode-input.txt"
 
 data LatexMode = T | M
@@ -116,6 +118,20 @@ latexEscape = concatMap escapeChar
     escapeChar '-' = "{-}"
     escapeChar c = [c]
 
+jsonEscape :: String -> String
+jsonEscape = concatMap escapeChar
+  where
+    escapeChar :: Char -> String
+    escapeChar '\\' = "\\\\"
+    escapeChar '\'' = "\\'"
+    -- escapeChar '[' = "\\["
+    -- escapeChar ']' = "\\]"
+    -- escapeChar '/' = "\\/"
+    -- escapeChar '|' = "[|]"
+    -- escapeChar '+' = "[+]"
+    -- escapeChar '*' = "[*]"
+    escapeChar c = [c]
+
 genVimScript :: String
 genVimScript = do
   code <- codes
@@ -153,6 +169,36 @@ genSedScript = do
         if l == "" 
            then ""
            else "s/" ++ sedEscape u ++ "/" ++ sedEscape l ++ "/g\n"
+
+genAtomInitScript :: String
+genAtomInitScript = do
+  code <- codes
+  command code
+  where
+    command :: Code -> String
+    command (Code u e _ _) = concat 
+      [ "atom.commands.add 'atom-text-editor', 'custom:insert-" 
+      , jsonEscape u
+      , "': -> atom.workspace.getActiveTextEditor()?.insertText('"
+      , jsonEscape u
+      , "')\n"
+      ]
+
+genAtomKeymapScript :: String
+genAtomKeymapScript = concat $ intersperse "\n"
+  [ "'atom-text-editor':"
+  , do code <- codes
+       command code
+  ]
+  where
+    command :: Code -> String
+    command (Code u e _ _) = concat
+      [ "  '\\\\ " 
+      , jsonEscape $ intersperse ' ' e
+      , "': 'custom:insert-"
+      , jsonEscape u
+      , "'\n"
+      ]
 
 quoteL :: String
 quoteL = "⧘"
