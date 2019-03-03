@@ -229,6 +229,7 @@ s/φ/\\phi /g
 s/χ/\\chi /g
 s/ψ/\\psi /g
 s/ω/\\omega /g
+s/∂/\\partial /g
 s/ϵ/\\varepsilon /g
 s/ϑ/\\vartheta /g
 s/ϰ/\\varkappa /g

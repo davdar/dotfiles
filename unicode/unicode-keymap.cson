@@ -425,7 +425,7 @@
   '\\ * * *': 'custom:insert-⁂'
   '\\ i n t': 'custom:insert-∫'
   '\\ c e n t': 'custom:insert-¢'
-  '\\ n i p': 'custom:insert-⧂'
+  '\\ O o': 'custom:insert-⧂'
   '\\ b r +': 'custom:insert-⌌'
   '\\ b l +': 'custom:insert-⌍'
   '\\ t r +': 'custom:insert-⌎'

@@ -424,7 +424,7 @@
 ⁂  ***
 ∫  int
 ¢  cent
-⧂  nip
+⧂  Oo
 ⌌  br+
 ⌍  bl+
 ⌎  tr+

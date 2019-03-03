@@ -424,7 +424,7 @@ noremap! \ddag ‡
 noremap! \*** ⁂
 noremap! \int ∫
 noremap! \cent ¢
-noremap! \nip ⧂
+noremap! \Oo ⧂
 noremap! \br+ ⌌
 noremap! \bl+ ⌍
 noremap! \tr+ ⌎

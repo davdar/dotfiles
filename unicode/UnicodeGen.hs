@@ -746,7 +746,7 @@ codes =
   , code "⁂" "***"
   , code "∫" "int"
   , code "¢" "cent"
-  , code "⧂" "nip"
+  , code "⧂" "Oo"
   , code "⌌" "br+"
   , code "⌍" "bl+"
   , code "⌎" "tr+"
@@ -976,7 +976,7 @@ codes =
   , lmcode "χ" "chi" "\\chi"
   , lmcode "ψ" "psi" "\\psi"
   , lmcode "ω" "omega" "\\omega"
-  , code "∂" "nabla"
+  , lmcode "∂" "nabla" "\\partial"
                                       
   , lmcode "ϵ" "varepsilon" "\\varepsilon"
   , lmcode "ϑ" "vartheta" "\\vartheta"
