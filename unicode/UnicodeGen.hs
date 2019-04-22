@@ -836,7 +836,7 @@ codes =
   , lmcode "⁼" "^=" "^="
   , lmcode "⁽" "^(" "^("
   , lmcode "⁾" "^)" "^)"
-  , code "˚" "^^o"
+  , code "˚" "^deg"
   , code "⑅" "^bow"
   , code "ᐜ" "^uu"
   , code "ᐞ" "^tr"
@@ -853,7 +853,7 @@ codes =
   -- Combining Subscripts
   -- Combining Superscripts
   
-  , code "֮" "^nu"
+  , code "֮" "^^nu"
   , code "̂" "^^^"
   , code "᷾" "^^<"
   , code "͐" "^^>"
@@ -861,7 +861,16 @@ codes =
   , code "⃗" "^^->"
   , code "̃" "^^~"
   , code "̑" "^^("
-  , code "͌" "^~~"
+  , code "̆" "^^)"
+  , code "͌" "^^~~"
+  , code "̄" "^^-"
+  , code "̅" "^^--"
+  , code "̇" "^^."
+  , code "̈" "^^.."
+  , code "̊" "^^o"
+  , code "̉" "^^,"
+  , code "̌" "^^v"
+  , code "̐" "^^(."
 
   -- Markup
   , code "¶" "PP"

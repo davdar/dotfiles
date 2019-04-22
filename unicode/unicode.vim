@@ -505,7 +505,7 @@ noremap! \^- ⁻
 noremap! \^= ⁼
 noremap! \^( ⁽
 noremap! \^) ⁾
-noremap! \^^o ˚
+noremap! \^deg ˚
 noremap! \^bow ⑅
 noremap! \^uu ᐜ
 noremap! \^tr ᐞ
@@ -518,7 +518,7 @@ noremap! \^// ᐥ
 noremap! \^\|\| ᐦ
 noremap! \^top ᐪ
 noremap! \^. ᐧ
-noremap! \^nu ֮
+noremap! \^^nu ֮
 noremap! \^^^ ̂
 noremap! \^^< ᷾
 noremap! \^^> ͐
@@ -526,7 +526,16 @@ noremap! \^^<- ⃖
 noremap! \^^-> ⃗
 noremap! \^^~ ̃
 noremap! \^^( ̑
-noremap! \^~~ ͌
+noremap! \^^) ̆
+noremap! \^^~~ ͌
+noremap! \^^- ̄
+noremap! \^^-- ̅
+noremap! \^^. ̇
+noremap! \^^.. ̈
+noremap! \^^o ̊
+noremap! \^^, ̉
+noremap! \^^v ̌
+noremap! \^^(. ̐
 noremap! \PP ¶
 noremap! \_ ␣
 noremap! \__ ‗
