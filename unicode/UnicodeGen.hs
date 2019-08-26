@@ -4,6 +4,9 @@ import Data.List
 import Control.Monad
 
 import Control.Exception
+import Data.Function
+
+import System.Directory
 
 import qualified Data.Map as Map
 
@@ -25,7 +28,26 @@ main = do
   writeFile "unicode-input.txt" genInputReference
   writeFile "unicode-init.coffee" genAtomInitScript
   writeFile "unicode-keymap.cson" genAtomKeymapScript
-  putStrLn "unicode files generated: unicode.el unicode.vim latex-unicode.sed latex-demo.tex unicode-input.txt"
+  writeFile "daraisinput.plist" genMacPlist
+  -- writeFile "daraisinput.sublime-completions" genSublimeScript
+  putStrLn $ unwords
+    [ "unicode files generated:"
+    , "unicode.el"
+    , "unicode.vim"
+    , "latex-unicode.sed"
+    , "latex-demo.tex"
+    , "unicode-input.txt"
+    , "unicode-init.coffee"
+    , "unicode-keymap.cson"
+    , "daraisinput.plist"
+    -- , "daraisinput.sublime-completions"
+    ]
+
+groupsOf :: Int -> [a] -> [[a]]
+groupsOf n xs = 
+  if null xs 
+    then []
+    else take n xs : groupsOf n (drop n xs)
 
 data LatexMode = T | M
 data LatexRepM = L LatexMode LatexRep
@@ -61,8 +83,43 @@ checkUnique :: IO ()
 checkUnique = do
   let escapes = map escapeCode codes
       dups = duplicates escapes
+      escapes' = map (convertUpper . escapeCode) codes
+      dups' = duplicates escapes'
   when (length dups > 0) $
     throwIO $ AssertionFailed $ "duplicates!\n" ++ show dups
+  when (length dups' > 0) $
+    throwIO $ AssertionFailed $ "duplicates'!\n" ++ show dups'
+
+convertUpper :: String -> String
+convertUpper = concatMap convertChar
+  where
+    convertChar 'A' = "aaa"
+    convertChar 'B' = "bbb"
+    convertChar 'C' = "ccc"
+    convertChar 'D' = "ddd"
+    convertChar 'E' = "eee"
+    convertChar 'F' = "fff"
+    convertChar 'G' = "ggg"
+    convertChar 'H' = "hhh"
+    convertChar 'I' = "iii"
+    convertChar 'J' = "jjj"
+    convertChar 'K' = "kkk"
+    convertChar 'L' = "lll"
+    convertChar 'M' = "mmm"
+    convertChar 'N' = "nnn"
+    convertChar 'O' = "ooo"
+    convertChar 'P' = "ppp"
+    convertChar 'Q' = "qqq"
+    convertChar 'R' = "rrr"
+    convertChar 'S' = "sss"
+    convertChar 'T' = "ttt"
+    convertChar 'U' = "uuu"
+    convertChar 'V' = "vvv"
+    convertChar 'W' = "www"
+    convertChar 'X' = "xxx"
+    convertChar 'Y' = "yyy"
+    convertChar 'Z' = "zzz"
+    convertChar c = [c]
 
 
 vimEscape :: String -> String
@@ -124,12 +181,36 @@ jsonEscape = concatMap escapeChar
     escapeChar :: Char -> String
     escapeChar '\\' = "\\\\"
     escapeChar '\'' = "\\'"
-    -- escapeChar '[' = "\\["
-    -- escapeChar ']' = "\\]"
-    -- escapeChar '/' = "\\/"
-    -- escapeChar '|' = "[|]"
-    -- escapeChar '+' = "[+]"
-    -- escapeChar '*' = "[*]"
+    escapeChar c = [c]
+
+sublimeEscape :: String -> String
+sublimeEscape = concatMap escapeChar
+  where
+    escapeChar :: Char -> String
+    escapeChar '\\' = "\\\\"
+    escapeChar '"' = "\\\""
+    escapeChar c = [c]
+
+
+xmlEscape :: String -> String
+xmlEscape = concatMap escapeChar
+  where
+    escapeChar :: Char -> String
+    escapeChar '<' = "&lt;"
+    escapeChar '>' = "&gt;"
+    escapeChar '&' = "&amp;"
+    escapeChar '\'' = "&apos;"
+    escapeChar '"' = "&quot;"
+    escapeChar c = [c]
+
+shellQuoteEscape :: String -> String
+shellQuoteEscape = concatMap escapeChar
+  where
+    escapeChar :: Char -> String
+    escapeChar '\\' = "\\\\"
+    escapeChar '"' = "\\\""
+    escapeChar '`' = "\\`"
+    escapeChar '\'' = "'\"'\"'"
     escapeChar c = [c]
 
 genVimScript :: String
@@ -199,6 +280,48 @@ genAtomKeymapScript = concat $ intersperse "\n"
       , jsonEscape u
       , "'\n"
       ]
+
+genMacPlist :: String
+genMacPlist =
+    concat $ intersperse "\n"
+    [ "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+    , "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">"
+    , "<plist version=\"1.0\">"
+    , "<array>"
+    , concat $ intersperse "\n" $ do 
+        code <- codes
+        return $ command code
+    , "</array>"
+    , "</plist>"
+    ]
+  where
+    command :: Code -> String
+    command (Code u e _ _) = concat $ intersperse "\n"
+      [ "  <dict>"
+      , "    <key>phrase</key>"
+      , "    <string>" ++ xmlEscape u ++ "</string>"
+      , "    <key>shortcut</key>"
+      , "    <string>\\" ++ xmlEscape e ++ "</string>"
+      , "  </dict>"
+      ] 
+
+genSublimeScript :: String
+genSublimeScript = concat $ intersperse "\n"
+  [ "{ \"scope\": \"text - source\""
+  , ", \"completions\": [ \"daraisinput\""
+  , concat $ intersperse "\n" $ do 
+      code <- codes
+      return $ command code
+  , "  ]"
+  , "}"
+  ]
+  where
+    command :: Code -> String
+    command (Code u e _ _) = concat $ intersperse "\n"
+      [ "  , { \"trigger\": \"\\\\" ++ sublimeEscape e ++ "\""
+      , "    , \"contents\": \"" ++ sublimeEscape u ++ "\""
+      , "    }"
+      ] 
 
 quoteL :: String
 quoteL = "⧘"
@@ -747,14 +870,14 @@ codes =
   , code "∫" "int"
   , code "¢" "cent"
   , code "⧂" "Oo"
-  , code "⌌" "br+"
-  , code "⌍" "bl+"
-  , code "⌎" "tr+"
-  , code "⌏" "tl+"
-  , code "⌜" "tlc"
-  , code "⌝" "trc"
-  , code "⌞" "blc"
-  , code "⌟" "brc"
+  , code "⌌" "+br"
+  , code "⌍" "+bl"
+  , code "⌎" "+tr"
+  , code "⌏" "+tl"
+  , code "⌜" "ctl"
+  , code "⌝" "ctr"
+  , code "⌞" "cbl"
+  , code "⌟" "cbr"
   , code "⌲" ">-"
   , code "⚖" "scales"
   , lmcode "√" "root" "\\sqrt"
@@ -1174,12 +1297,12 @@ codes =
   , code "𝝎" "bditomega"
   , code "𝝏" "bditnabla"
 
-  , code "𝝐" "bditeepsilon"
-  , code "𝝑" "bditttheta"
-  , code "𝝒" "bditkkappa"
-  , code "𝝓" "bditpphi"
-  , code "𝝔" "bditrrho"
-  , code "𝝕" "bditppi"
+  , code "𝝐" "bditvarepsilon"
+  , code "𝝑" "bditvartheta"
+  , code "𝝒" "bditvarkappa"
+  , code "𝝓" "bditvarphi"
+  , code "𝝔" "bditvarrho"
+  , code "𝝕" "bditvarpi"
 
   -- Greek Subscript
   , lmcode "ᵦ" "_beta"  "_\\beta"
@@ -1808,6 +1931,73 @@ codes =
   , lmcodet "ᴡ" "scw" "{\\textsc{w}}"
   , lmcodet "ʏ" "scy" "{\\textsc{y}}"
   , lmcodet "ᴢ" "scz" "{\\textsc{z}}"
+
+  -- circled
+  
+  , lmcodet "⓪" "wc0" "\\circled{0}"
+  , lmcodet "①" "wc1" "\\circled{1}"
+  , lmcodet "②" "wc2" "\\circled{2}"
+  , lmcodet "③" "wc3" "\\circled{3}"
+  , lmcodet "④" "wc4" "\\circled{4}"
+  , lmcodet "⑤" "wc5" "\\circled{5}"
+  , lmcodet "⑥" "wc6" "\\circled{6}"
+  , lmcodet "⑦" "wc7" "\\circled{7}"
+  , lmcodet "⑧" "wc8" "\\circled{8}"
+  , lmcodet "⑨" "wc9" "\\circled{9}"
+
+  , lmcodet "Ⓐ" "wcA" "\\circled{A}"
+  , lmcodet "Ⓑ" "wcB" "\\circled{B}"
+  , lmcodet "Ⓒ" "wcC" "\\circled{C}"
+  , lmcodet "Ⓓ" "wcD" "\\circled{D}"
+  , lmcodet "Ⓔ" "wcE" "\\circled{E}"
+  , lmcodet "Ⓕ" "wcF" "\\circled{F}"
+  , lmcodet "Ⓖ" "wcG" "\\circled{G}"
+  , lmcodet "Ⓗ" "wcH" "\\circled{H}"
+  , lmcodet "Ⓘ" "wcI" "\\circled{I}"
+  , lmcodet "Ⓙ" "wcJ" "\\circled{J}"
+  , lmcodet "Ⓚ" "wcK" "\\circled{K}"
+  , lmcodet "Ⓛ" "wcL" "\\circled{L}"
+  , lmcodet "Ⓜ" "wcM" "\\circled{M}"
+  , lmcodet "Ⓝ" "wcN" "\\circled{N}"
+  , lmcodet "Ⓞ" "wcO" "\\circled{O}"
+  , lmcodet "Ⓟ" "wcP" "\\circled{P}"
+  , lmcodet "Ⓠ" "wcQ" "\\circled{Q}"
+  , lmcodet "Ⓡ" "wcR" "\\circled{R}"
+  , lmcodet "Ⓢ" "wcS" "\\circled{S}"
+  , lmcodet "Ⓣ" "wcT" "\\circled{T}"
+  , lmcodet "Ⓤ" "wcU" "\\circled{U}"
+  , lmcodet "Ⓥ" "wcV" "\\circled{V}"
+  , lmcodet "Ⓦ" "wcW" "\\circled{W}"
+  , lmcodet "Ⓧ" "wcX" "\\circled{X}"
+  , lmcodet "Ⓨ" "wcY" "\\circled{Y}"
+  , lmcodet "Ⓩ" "wcZ" "\\circled{Z}"
+
+  , lmcodet "ⓐ" "wca" "\\circled{a}"
+  , lmcodet "ⓑ" "wcb" "\\circled{b}"
+  , lmcodet "ⓒ" "wcc" "\\circled{c}"
+  , lmcodet "ⓓ" "wcd" "\\circled{d}"
+  , lmcodet "ⓔ" "wce" "\\circled{e}"
+  , lmcodet "ⓕ" "wcf" "\\circled{f}"
+  , lmcodet "ⓖ" "wcg" "\\circled{g}"
+  , lmcodet "ⓗ" "wch" "\\circled{h}"
+  , lmcodet "ⓘ" "wci" "\\circled{i}"
+  , lmcodet "ⓙ" "wcj" "\\circled{j}"
+  , lmcodet "ⓚ" "wck" "\\circled{k}"
+  , lmcodet "ⓛ" "wcl" "\\circled{l}"
+  , lmcodet "ⓜ" "wcm" "\\circled{m}"
+  , lmcodet "ⓝ" "wcn" "\\circled{n}"
+  , lmcodet "ⓞ" "wco" "\\circled{o}"
+  , lmcodet "ⓟ" "wcp" "\\circled{p}"
+  , lmcodet "ⓠ" "wcq" "\\circled{q}"
+  , lmcodet "ⓡ" "wcr" "\\circled{r}"
+  , lmcodet "ⓢ" "wcs" "\\circled{s}"
+  , lmcodet "ⓣ" "wct" "\\circled{t}"
+  , lmcodet "ⓤ" "wcu" "\\circled{u}"
+  , lmcodet "ⓥ" "wcv" "\\circled{v}"
+  , lmcodet "ⓦ" "wcw" "\\circled{w}"
+  , lmcodet "ⓧ" "wcx" "\\circled{x}"
+  , lmcodet "ⓨ" "wcy" "\\circled{y}"
+  , lmcodet "ⓩ" "wcz" "\\circled{z}"
 
   -- Roman Accents and Gylphs
   , ltcodet "À" "A`"  "\\`A"

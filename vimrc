@@ -121,16 +121,29 @@ map <silent> <Leader>R :call MyGlobalSubstitute()<CR>
 map <silent> <Leader>[ :NERDTreeToggle<CR>
 
 " Jumping through (syntastic) error lists
-map <silent> <Leader>k       :lfirst<CR>
-map <silent> <Leader>j       :llast<CR>
-map <silent> <Leader>h       :lprev<CR>
-map <silent> <Leader>l       :lnext<CR>
-map <silent> <Leader><Space> :ll<CR>
+map <silent> <Leader>k       :cfirst<CR>
+map <silent> <Leader>j       :clast<CR>
+map <silent> <Leader>h       :cprev<CR>
+map <silent> <Leader>l       :cnext<CR>
 
-" HDevTools
-au FileType haskell nnoremap <buffer> <silent> <Leader>ty      :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <Leader>cl      :HdevtoolsClear<CR>
-au FileType haskell nnoremap <buffer> <silent> <Leader>in      :HdevtoolsInfo<CR>
+" ghcid
+let g:ghcid_on = 0
+function! GhcidToggle()
+  if g:ghcid_on == 0
+    exe ":GhcidQuickfixStart"
+    let g:ghcid_on = 1
+  else
+    exe ":GhcidQuickfixStop"
+    let g:ghcid_on = 0
+  endif
+endfunction
+
+map <silent> <Leader><Space> :call GhcidToggle()<CR>
+
+""" " HDevTools
+""" au FileType haskell nnoremap <buffer> <silent> <Leader>ty      :HdevtoolsType<CR>
+""" au FileType haskell nnoremap <buffer> <silent> <Leader>cl      :HdevtoolsClear<CR>
+""" au FileType haskell nnoremap <buffer> <silent> <Leader>in      :HdevtoolsInfo<CR>
 
 " Tables
 let g:table_mode_corner='|'

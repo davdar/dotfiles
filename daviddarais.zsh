@@ -6,6 +6,8 @@ bindkey -v
 
 export EDITOR=vim
 
+# alias vim=nvim
+
 ### Racket
 # export PATH=/Applications/Racket\ v6.12/bin:$PATH
 
