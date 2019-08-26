@@ -19,3 +19,8 @@ An alternative unicode input mode for Emacs, Vim and Atom.
 - Try `MenloX.ttf` for programming with unicode; it's a mashup of Menlo (for
   latin character) and STIX (for unicode characters) for characters foreign to
   Menlo.
+
+# Supported Characters
+
+- See `unicode-input.txt` for a list of all characters and their input codes
+  (each implicitly preceded by `\`).
