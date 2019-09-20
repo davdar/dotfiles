@@ -28,6 +28,7 @@ main = do
   writeFile "unicode-input.txt" genInputReference
   writeFile "unicode-init.coffee" genAtomInitScript
   writeFile "unicode-keymap.cson" genAtomKeymapScript
+  writeFile "unicode-latex-completions.json" genAtomLatexCompletions
   writeFile "daraisinput.plist" genMacPlist
   -- writeFile "daraisinput.sublime-completions" genSublimeScript
   putStrLn $ unwords
@@ -44,17 +45,17 @@ main = do
     ]
 
 groupsOf :: Int -> [a] -> [[a]]
-groupsOf n xs = 
-  if null xs 
+groupsOf n xs =
+  if null xs
     then []
     else take n xs : groupsOf n (drop n xs)
 
 data LatexMode = T | M
 data LatexRepM = L LatexMode LatexRep
 
-data Code = Code 
+data Code = Code
   { unicodeRep :: UnicodeRep
-  , escapeCode :: EscapeCode 
+  , escapeCode :: EscapeCode
   , latexRep :: LatexRepM
   , description :: Description
   }
@@ -75,7 +76,7 @@ ltcodet :: UnicodeRep -> EscapeCode -> LatexRep -> Code
 ltcodet u e l = Code u e (L T l) ""
 
 duplicates :: (Ord a) => [a] -> [a]
-duplicates xs = 
+duplicates xs =
   let results = foldl' (\ m x -> Map.insertWith (+) x 1 m) Map.empty xs
   in Map.keys $ Map.filter (\ n -> n > 1) results
 
@@ -180,6 +181,14 @@ jsonEscape = concatMap escapeChar
   where
     escapeChar :: Char -> String
     escapeChar '\\' = "\\\\"
+    escapeChar '"' = "\\\""
+    escapeChar c = [c]
+
+csonEscape :: String -> String
+csonEscape = concatMap escapeChar
+  where
+    escapeChar :: Char -> String
+    escapeChar '\\' = "\\\\"
     escapeChar '\'' = "\\'"
     escapeChar c = [c]
 
@@ -246,10 +255,35 @@ genSedScript = do
   command code
     where
       command :: Code -> String
-      command (Code u e (L _ l) _) = 
-        if l == "" 
+      command (Code u e (L _ l) _) =
+        if l == ""
            then ""
            else "s/" ++ sedEscape u ++ "/" ++ sedEscape l ++ "/g\n"
+
+genAtomLatexCompletions :: String
+genAtomLatexCompletions =
+  let first : rest = codes
+  in
+  concat $ intersperse "\n"
+  [ "{"
+  , entry first
+  , do code <- rest
+       concat $
+         [ ",\n"
+         , entry code
+         ]
+  , "}"
+  ]
+  where
+    entry :: Code -> String
+    entry (Code u e _ _) = concat
+      [ "  \""
+      , jsonEscape e
+      , "\": \""
+      , jsonEscape u
+      , "\""
+      ]
+
 
 genAtomInitScript :: String
 genAtomInitScript = do
@@ -257,11 +291,11 @@ genAtomInitScript = do
   command code
   where
     command :: Code -> String
-    command (Code u e _ _) = concat 
-      [ "atom.commands.add 'atom-text-editor', 'custom:insert-" 
-      , jsonEscape u
+    command (Code u e _ _) = concat
+      [ "atom.commands.add 'atom-text-editor', 'custom:insert-"
+      , csonEscape u
       , "': -> atom.workspace.getActiveTextEditor()?.insertText('"
-      , jsonEscape u
+      , csonEscape u
       , "')\n"
       ]
 
@@ -274,10 +308,10 @@ genAtomKeymapScript = concat $ intersperse "\n"
   where
     command :: Code -> String
     command (Code u e _ _) = concat
-      [ "  '\\\\ " 
-      , jsonEscape $ intersperse ' ' e
+      [ "  '\\\\ "
+      , csonEscape $ intersperse ' ' e
       , "': 'custom:insert-"
-      , jsonEscape u
+      , csonEscape u
       , "'\n"
       ]
 
@@ -288,7 +322,7 @@ genMacPlist =
     , "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">"
     , "<plist version=\"1.0\">"
     , "<array>"
-    , concat $ intersperse "\n" $ do 
+    , concat $ intersperse "\n" $ do
         code <- codes
         return $ command code
     , "</array>"
@@ -303,13 +337,13 @@ genMacPlist =
       , "    <key>shortcut</key>"
       , "    <string>\\" ++ xmlEscape e ++ "</string>"
       , "  </dict>"
-      ] 
+      ]
 
 genSublimeScript :: String
 genSublimeScript = concat $ intersperse "\n"
   [ "{ \"scope\": \"text - source\""
   , ", \"completions\": [ \"daraisinput\""
-  , concat $ intersperse "\n" $ do 
+  , concat $ intersperse "\n" $ do
       code <- codes
       return $ command code
   , "  ]"
@@ -321,7 +355,7 @@ genSublimeScript = concat $ intersperse "\n"
       [ "  , { \"trigger\": \"\\\\" ++ sublimeEscape e ++ "\""
       , "    , \"contents\": \"" ++ sublimeEscape u ++ "\""
       , "    }"
-      ] 
+      ]
 
 quoteL :: String
 quoteL = "⧘"
@@ -334,7 +368,7 @@ genSedEscapeScript = do
   command code
     where
       command :: Code -> String
-      command (Code u e l _) = 
+      command (Code u e l _) =
            "s/" ++ quoteL ++ sedEscape u ++ quoteR ++ "/" ++ quoteL ++ sedEscape e ++ quoteR ++ "/g\n"
 
 genSedUnescapeScript :: String
@@ -343,7 +377,7 @@ genSedUnescapeScript = do
   command code
     where
       command :: Code -> String
-      command (Code u e l _) = 
+      command (Code u e l _) =
            "s/" ++ quoteL ++ sedEscape e ++ quoteR ++ "/" ++ sedEscape u ++ "/g\n"
 
 genSedMarkScript :: String
@@ -371,8 +405,8 @@ genLatexDemo = concat
         where
           command :: Code -> String
           command (Code u e (L m l) _) =
-            if l == "" 
-              then "" 
+            if l == ""
+              then ""
               else case m of
                 T -> concat ["\\texttt{",latexEscape e,"}&",l,"\\\\\n"]
                 M -> concat ["\\texttt{",latexEscape e,"}&${}",l,"{}$\\\\\n"]
@@ -393,7 +427,7 @@ genInputReference = do
 
 
 codes :: [Code]
-codes = 
+codes =
   -- Backslash
   [ code "\\"  "\\"
 
@@ -768,7 +802,7 @@ codes =
   , code "⫻" "///"
   , lmcode "∅" "O/" "\\varnothing"
   , lmcode "⋆" "*" "\\star"
-  , code "☆" "star" 
+  , code "☆" "star"
   , lmcode "★" "starb" "\\bigstar"
   , code "⋇" "**"
   , lmcode "♯" "#" "\\sharp"
@@ -849,7 +883,7 @@ codes =
   , lmcode "◁" "trl" "\\vartriangleleft"
   , code "▲" "trub"
   , code "▶" "trrb"
-  , code "▼" "trdb" 
+  , code "▼" "trdb"
   , code "◀" "trlb"
   , code "⨹" "t+"
   , code "⨺" "t-"
@@ -881,7 +915,7 @@ codes =
   , code "⌲" ">-"
   , code "⚖" "scales"
   , lmcode "√" "root" "\\sqrt"
- 
+
   -- Logic
   , lmcode "∈" "in" "\\in"
   , code "⋵" "in."
@@ -915,7 +949,7 @@ codes =
   , code "⊻" "xor"
   , code "∁" "comp"
 
- 
+
   -- Equality
   , lmcode "≡" "==" "\\equiv"
   , code "≢" "==/" -- "\\nequiv"
@@ -945,14 +979,14 @@ codes =
   , code "≭" "eqv/"
   , code "≎" "=O"
   , code "█" "block"
- 
+
   -- Subscripts
   , lmcode "₊" "_+" "_+"
   , lmcode "₋" "_-" "_-"
   , lmcode "₌" "_=" "_="
   , lmcode "₍" "_(" "("
   , lmcode "₎" "_)" ")"
-  
+
   -- Superscripts
   , lmcode "⁺" "^+" "^+"
   , lmcode "⁻" "^-" "^-"
@@ -975,7 +1009,7 @@ codes =
 
   -- Combining Subscripts
   -- Combining Superscripts
-  
+
   , code "֮" "^^nu"
   , code "̂" "^^^"
   , code "᷾" "^^<"
@@ -1005,7 +1039,7 @@ codes =
   , code "⁔" "iutie"
   , code "␠" "sp"
   , lmcode "§" "SS" "\\S"
- 
+
   -- Bullets
   , lmcode "•" "bu" "\\bullet"
   , lmcode "◦" "obu" "\\circ"
@@ -1019,7 +1053,7 @@ codes =
   , code "❧" "hrbu"
   , code "⦿" "buo"
   , code "⦾" "obuo"
- 
+
   -- OK
   , lmcode "✓" "check" "\\checkmark"
   , code "✗" "X" -- "\\ballotx"
@@ -1082,7 +1116,7 @@ codes =
   , lmcode "Ψ" "Psi" "\\Psi"
   , lmcode "Ω" "Omega" "\\Omega"
   , lmcode "∇" "Nabla" "\\nabla"
-                                      
+
   , lmcode "α" "alpha" "\\alpha"
   , lmcode "β" "beta" "\\beta"
   , lmcode "γ" "gamma" "\\gamma"
@@ -1109,7 +1143,7 @@ codes =
   , lmcode "ψ" "psi" "\\psi"
   , lmcode "ω" "omega" "\\omega"
   , lmcode "∂" "nabla" "\\partial"
-                                      
+
   , lmcode "ϵ" "varepsilon" "\\varepsilon"
   , lmcode "ϑ" "vartheta" "\\vartheta"
   , lmcode "ϰ" "varkappa" "\\varkappa"
@@ -1933,7 +1967,7 @@ codes =
   , lmcodet "ᴢ" "scz" "{\\textsc{z}}"
 
   -- circled
-  
+
   , lmcodet "⓪" "wc0" "\\circled{0}"
   , lmcodet "①" "wc1" "\\circled{1}"
   , lmcodet "②" "wc2" "\\circled{2}"
