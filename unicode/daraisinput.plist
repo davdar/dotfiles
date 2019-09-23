@@ -390,13 +390,13 @@
     <key>phrase</key>
     <string>↣</string>
     <key>shortcut</key>
-    <string>\r&gt;-&gt;</string>
+    <string>\rv</string>
   </dict>
   <dict>
     <key>phrase</key>
     <string>↢</string>
     <key>shortcut</key>
-    <string>\l&gt;-&gt;</string>
+    <string>\lv</string>
   </dict>
   <dict>
     <key>phrase</key>
@@ -1987,6 +1987,12 @@
     <string>♭</string>
     <key>shortcut</key>
     <string>\b</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>𝄫</string>
+    <key>shortcut</key>
+    <string>\bb</string>
   </dict>
   <dict>
     <key>phrase</key>

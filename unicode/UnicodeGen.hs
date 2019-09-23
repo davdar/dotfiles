@@ -507,8 +507,8 @@ codes =
   , code "↜" "l~"
   , code "↭" "rl~"
   -- tail
-  , lmcode "↣" "r>->" "\\rightarrowtail"
-  , lmcode "↢" "l>->" "\\leftarrowtail"
+  , lmcode "↣" "rv" "\\rightarrowtail"
+  , lmcode "↢" "lv" "\\leftarrowtail"
   -- - double squiggle
   , code "⇝" "r~~" -- "\\rightsquigarrow"
   , code "⇜" "l~~" -- "\\leftsquigarrow"
@@ -808,6 +808,7 @@ codes =
   , lmcode "♯" "#" "\\sharp"
   , code "𝄪" "##"
   , lmcode "♭" "b" "\\flat"
+  , code "𝄫" "bb"
   , lmcode "♮" "n" "\\natural"
   , code "⋕" "=||" -- "\\hash"
   , code "¿" "d?"

@@ -62,8 +62,8 @@ noremap! \rl\|> ⇿
 noremap! \r~ ↝
 noremap! \l~ ↜
 noremap! \rl~ ↭
-noremap! \r>-> ↣
-noremap! \l>-> ↢
+noremap! \rv ↣
+noremap! \lv ↢
 noremap! \r~~ ⇝
 noremap! \l~~ ⇜
 noremap! \u. ⇡
@@ -329,6 +329,7 @@ noremap! \** ⋇
 noremap! \# ♯
 noremap! \## 𝄪
 noremap! \b ♭
+noremap! \bb 𝄫
 noremap! \n ♮
 noremap! \=\|\| ⋕
 noremap! \d? ¿
