@@ -41,7 +41,7 @@ noremap! \d\| ⇩
 noremap! \l\| ⇦
 noremap! \rl\| ⬄
 noremap! \r\|= ⇰
-noremap! \r\ ⇀
+noremap! \r\\ ⇀
 noremap! \u\|- ↥
 noremap! \r\|- ↦
 noremap! \d\|- ↧

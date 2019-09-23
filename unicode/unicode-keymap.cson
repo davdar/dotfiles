@@ -42,7 +42,7 @@
   '\\ l |': 'custom:insert-⇦'
   '\\ r l |': 'custom:insert-⬄'
   '\\ r | =': 'custom:insert-⇰'
-  '\\ r \\': 'custom:insert-⇀'
+  '\\ r \\ \\': 'custom:insert-⇀'
   '\\ u | -': 'custom:insert-↥'
   '\\ r | -': 'custom:insert-↦'
   '\\ d | -': 'custom:insert-↧'

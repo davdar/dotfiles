@@ -479,7 +479,7 @@ codes =
   , code "⬄" "rl|"
   , lmcode "⇰"  "r|=" "\\Mapsto"
   -- - partial
-  , lmcode "⇀" "r\\" "\\rightharpoonup"
+  , lmcode "⇀" "r\\\\" "\\rightharpoonup"
   -- - maps
   , code "↥" "u|-"
   , lmcode "↦" "r|-" "\\mapsto"

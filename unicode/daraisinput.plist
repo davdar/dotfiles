@@ -264,7 +264,7 @@
     <key>phrase</key>
     <string>⇀</string>
     <key>shortcut</key>
-    <string>\r\</string>
+    <string>\r\\</string>
   </dict>
   <dict>
     <key>phrase</key>
