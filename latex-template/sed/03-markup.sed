@@ -27,8 +27,6 @@ s/”/''/g
 
 s/❬/\\label{/g
 s/❭/}/g
-s/❪/\\tag{/g
-s/❫/}/g
 s/⦉/~\\ref{/g
 s/⦊/}/g
 s/⦇/\\eqref{/g
@@ -40,38 +38,91 @@ s/⦅𝔶/~\\citeyearpar{/g
 s/⦅/~\\citep{/g
 s/⦆/}/g
 
+# COLOR MODES #
+# ⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄ #
+
+s/A⸨/{A⎨⸨/g
+s/A⸩/⸩A⎬}/g
+
+s/B⸨/{B⎨⸨/g
+s/B⸩/⸩B⎬}/g
+
+s/C⸨/{C⎨⸨/g
+s/C⸩/⸩C⎬}/g
+
+s/A⟪/{A⎨⟪/g
+s/A⟫/⟫A⎬}/g
+
+s/B⟪/{B⎨⟪/g
+s/B⟫/⟫B⎬}/g
+
+s/C⟪/{C⎨⟪/g
+s/C⟫/⟫C⎬}/g
+
+s/A⦑/{A⎨⦑/g
+s/A⦒/⦒A⎬}/g
+
+s/B⦑/{B⎨⦑/g
+s/B⦒/⦒B⎬}/g
+
+s/C⦑/{C⎨⦑/g
+s/C⦒/⦒C⎬}/g
+
+s/A⦓/A⎨⦓/g
+s/A⦔/A⎬⦔/g
+
+s/B⦓/B⎨⦓/g
+s/B⦔/B⎬⦔/g
+
+s/C⦓/C⎨⦓/g
+s/C⦔/C⎬⦔/g
+
+s/A⎨/\\begingroup\\renewcommand\\colorMATH{\\colorMATHA}\\renewcommand\\colorSYNTAX{\\colorSYNTAXA}/g
+s/A⎬/\\endgroup /g
+
+s/B⎨/\\begingroup\\renewcommand\\colorMATH{\\colorMATHB}\\renewcommand\\colorSYNTAX{\\colorSYNTAXB}/g
+s/B⎬/\\endgroup /g
+
+s/C⎨/\\begingroup\\renewcommand\\colorMATH{\\colorMATHC}\\renewcommand\\colorSYNTAX{\\colorSYNTAXC}/g
+s/C⎬/\\endgroup /g
+
+# ^^^^^^^^^^^ #
+# COLOR MODES # 
+
+# ⟪ text color + textrm    ⟫
+# ⦑ syntax color + texttt  ⦒
+# ⸨ math color + math mode ⸩
+
+# ‹  textrm     ›
+# «  textit     »
+# ⋖  texttt     ⋗ 
+# «* textbf    *»
+# ⦗  textsc     ⦘
+# ❪  math mode  ❫
+
+s/⟪/{{\\color{\\colorTEXT}\\textnormal{/g
+s/⟫/}}}/g
+
 s/⸨/{{\\color{\\colorMATH}\\ensuremath{/g
 s/⸩/}}}/g
-s/‹«/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{\\mathit{/g
-s/»›/}}}}}/g
-s/‹⦑/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{\\mathtt{/g
-s/⦒›/}}}}}/g
 
-s/⟪/{{\\color{\\colorTEXT}\\text{/g
-s/⟫/}}}/g
-s/«\*/{{\\color{\\colorTEXT}\\textbf{/g
-s/\*»/}}}/g
-s/«⦑/{{\\color{\\colorTEXT}\\texttt{/g
-s/⦒»/}}}/g
-s/⦗/{{\\color{\\colorTEXT}\\textsc{\\scriptsize /g
-s/⦘/}}}/g
-
-s/⦑\*/{{\\color{\\colorSYNTAX}\\textbf{/g
-s/\*⦒/}}}/g
-s/⦑‹/{{\\color{\\colorSYNTAX}\\text{/g
-s/›⦒/}}}/g
-s/⦑«/{{\\color{\\colorSYNTAX}\\textit{/g
-s/»⦒/}}}/g
-
-s/‹/{{\\color{\\colorMATH}\\ensuremath{\\operatorname{/g
-s/›/}}}}/g
-s/«/{{\\color{\\colorTEXT}\\textit{/g
-s/»/}}}/g
-s/⦑/{{\\color{\\colorSYNTAX}\\texttt{/g
+s/⦑/{{\\color{\\colorSYNTAX}\\mtexttt{/g
 s/⦒/}}}/g
 
-s/⋖/\\verb|/g
-s/⋗/|/g
+s/‹/{\\mtext{/g
+s/›/}}/g
+s/«/{\\mtextit{/g
+s/»/}}/g
+s/⋖/{\\mtexttt{/g
+s/⋗/}}/g
+s/«\*/{\\mtextbf{/g
+s/\*»/}}/g
+s/⦗/{\\mtextsc{ /g
+s/⦘/}}/g
+s/⪡/{\\verb|/g
+s/⪢/|}/g
+s/❪/{\\ensuremath{/g
+s/❫/}}/g
 
 s/⌄/\\footnote/g
 

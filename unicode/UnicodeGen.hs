@@ -751,7 +751,7 @@ codes =
   , code "‛" "'`"
   , lmcodet "“" "\"<" "``"
   , lmcodet "”" "\">" "''"
-  , code "„" ",,"
+  , lmcode "„" ",," ",\\!\\!,"
   , code "‟" "\"`"
   , lmcodet "–" "--" "--"
   , lmcodet "—" "---" "---"
