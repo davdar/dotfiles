@@ -111,12 +111,12 @@ s/⦒/}}}/g
 
 s/‹/{\\mtext{/g
 s/›/}}/g
+s/«\*/{\\mtextbf{/g
+s/\*»/}}/g
 s/«/{\\mtextit{/g
 s/»/}}/g
 s/⋖/{\\mtexttt{/g
 s/⋗/}}/g
-s/«\*/{\\mtextbf{/g
-s/\*»/}}/g
 s/⦗/{\\mtextsc{ /g
 s/⦘/}}/g
 s/⪡/{\\verb|/g
