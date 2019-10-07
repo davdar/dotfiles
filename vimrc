@@ -46,6 +46,9 @@ set clipboard=unnamed          " use the system clipboard
 set mouse=a                    " allow the use of a mouse
 set cm=blowfish2               " better file encryption
 
+set t_ZH=[3m
+set t_ZR=[23m
+
 " Make Y behave like C and D
 noremap Y y$
 
@@ -125,6 +128,11 @@ map <silent> <Leader>k       :cfirst<CR>
 map <silent> <Leader>j       :clast<CR>
 map <silent> <Leader>h       :cprev<CR>
 map <silent> <Leader>l       :cnext<CR>
+
+" Diffing
+
+map <silent> <Leader>d<Space> :diffthis<CR>
+map <silent> <Leader>do       :diffoff<CR>
 
 " ghcid
 let g:ghcid_on = 0
