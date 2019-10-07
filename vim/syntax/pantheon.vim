@@ -34,6 +34,7 @@ syn match pantheonPrimitive "\v<S>"
 syn match pantheonPrimitive "\v<bgw>"
 syn match pantheonPrimitive "\v<gmw>"
 syn match pantheonPrimitive "\v<yao>"
+syn match pantheonPrimitive "\v<none>"
 
 syn match pantheonPrimitive "\vℤ"
 syn match pantheonPrimitive "\v○"
