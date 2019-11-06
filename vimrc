@@ -131,8 +131,8 @@ map <silent> <Leader>l       :cnext<CR>
 
 " Diffing
 
-map <silent> <Leader>d<Space> :diffthis<CR>
-map <silent> <Leader>do       :diffoff<CR>
+map <silent> <Leader>dj       :diffthis<CR>
+map <silent> <Leader>dk       :diffoff<CR>
 
 " ghcid
 let g:ghcid_on = 0

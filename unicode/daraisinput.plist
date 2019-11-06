@@ -1900,6 +1900,12 @@
   </dict>
   <dict>
     <key>phrase</key>
+    <string>∥</string>
+    <key>shortcut</key>
+    <string>\par</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
     <string>÷</string>
     <key>shortcut</key>
     <string>\%</string>
@@ -1932,7 +1938,7 @@
     <key>phrase</key>
     <string>⅋</string>
     <key>shortcut</key>
-    <string>\par</string>
+    <string>\&amp;</string>
   </dict>
   <dict>
     <key>phrase</key>

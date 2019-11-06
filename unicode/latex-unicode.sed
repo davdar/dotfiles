@@ -102,6 +102,7 @@ s/⋯/\\cdots /g
 s/⋮/\\vdots /g
 s/∘/\\circ /g
 s/‖/\\\| /g
+s/∥/\\parallel /g
 s/÷/\\div /g
 s/٪/\\% /g
 s/∖/\\setminus /g

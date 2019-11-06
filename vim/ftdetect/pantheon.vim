@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.psl set filetype=pantheon
+/Users/daviddarais/Projects/psl/vim/ftdetect/pantheon.vim

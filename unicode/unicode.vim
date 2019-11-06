@@ -314,12 +314,13 @@ noremap! \\|/ ∤
 noremap! \\|: ¦
 noremap! \w\| ⫾
 noremap! \\|\| ‖
+noremap! \par ∥
 noremap! \% ÷
 noremap! \%% ٪
 noremap! \/ ∕
 noremap! \set\ ∖
 noremap! \// ⫽
-noremap! \par ⅋
+noremap! \& ⅋
 noremap! \/// ⫻
 noremap! \O/ ∅
 noremap! \* ⋆
