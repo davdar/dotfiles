@@ -1,0 +1,54 @@
+.test1 {
+  font-family:  "DejaVuSansMono"
+               ,"Source Code Pro"
+               ,"DejaVu Math TeX Gyre"
+               ,"Symbola"
+               ,"Quivira"
+               ,"Arial Unicode MS"
+               ,"LastResort"
+               ;
+}
+.test2 { 
+  font-family:  "Iosevka Term SS02"
+               ,"Source Code Pro"
+               ,"DejaVu Math TeX Gyre"
+               ,"Symbola"
+               ,"Quivira"
+               ,"Arial Unicode MS"
+               ,"LastResort"
+               ;
+}
+.test3 {
+  font-family:  "Menlo"
+               ,"Source Code Pro"
+               ,"DejaVu Math TeX Gyre"
+               ,"Symbola"
+               ,"Quivira"
+               ,"Arial Unicode MS"
+               ,"LastResort"
+               ;
+}
+.test4 {
+  font-family:  "Source Code Pro"
+               ,"Source Code Pro"
+               ,"DejaVu Math TeX Gyre"
+               ,"Symbola"
+               ,"Quivira"
+               ,"Arial Unicode MS"
+               ,"LastResort"
+               ;
+}
+.test5 {
+  font-family: "XDejaVuSansMono", "LastResort";
+}
+.test6 {
+  font-family: "XIosevka Term SS02", "LastResort";
+}
+.test7 {
+  font-family: "XMenlo", "LastResort";
+}
+.test8 {
+  font-family: "XSource Code Pro", "LastResort";
+}
+
+/* 2AFB */

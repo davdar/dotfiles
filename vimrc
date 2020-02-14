@@ -1,50 +1,93 @@
 " pathogen runtime manipulation
 execute pathogen#infect()
 
-filetype plugin indent on      " Enable filetype detection
-syntax on                      " Enable syntax highlighting
+" old stuff taken out:
+"
+" set path&                      " Include all subdirectories in path
+" set path+=**
 
-set nocompatible               " Enable VIM features
-set ruler                      " Show the cursor position all the time
-set nobackup                   " / Do not keep a backup file; use versions
-set writebackup                " \ instead; but keeps a backup while editing
-set wrap                       " Wrap lines that are too long for the screen
+" if not neovim, match neovim defaults
+if !has('nvim')
+  silent !mkdir -p ~/.local/share/vim/backup
+  silent !mkdir -p ~/.local/share/vim/swap
+  silent !mkdir -p ~/.local/share/vim/undo
+
+  syntax on                      " Enable syntax highlighting
+  filetype plugin indent on      " Enable filetype detection
+  set autoindent                 " Do smart indenting
+  set autoread                   " Automatically reload files that change outside vim
+  set background=dark
+  set backspace=indent,eol,start " Allow backspacing over everything in insert mode
+  set backupdir=~/.local/share/vim/backup
+  set belloff=all                " Never ring the bell
+  set nocompatible               " Enable VIM features
+  set complete-=i                " Eclude scanning included files for completions
+  set cscopeverbose
+  set directory=~/.local/share/vim/swap//
+  "set display=lastline,msgsep
+  set encoding=utf-8
+  "set fillchars=vert:|,fold:·,sep:|
+  set formatoptions=tcqj
+  set nofsync
+  set history=10000
+  set hlsearch
+  set incsearch
+  set langnoremap
+  set nolangremap
+  set laststatus=2
+  "set listchars=tab:>,trail:-,nbsp:+
+  set nrformats=bin,hex
+  set ruler                      " Show the cursor position all the time
+  set sessionoptions-=options
+  set shortmess+=F
+  set shortmess-=S
+  set showcmd                    " Show partially typed commands
+  set sidescroll=1
+  set smarttab
+  set nostartofline
+  set tabpagemax=50
+  set tags=./tags;,tags
+  set ttimeoutlen=50
+  set ttyfast
+  set undodir=~/.local/share/vim/undo
+  set viminfo+=!
+  set wildmenu
+  "set wildoptions=pum,tagfile
+
+  "not included: man.vim and matchit plugins
+endif
+
+" neovim doesn't support encryption
+if !has('nvim')
+  set cm=blowfish2               " better file encryption
+endif
+
+set background=light
+set fsync
 set showmatch                  " Flash matching brackets or parantheses
-set showmode                   " / Show the mode as well as 
-set showcmd                    " \ partially typed commands
-set wildmenu                   " Enhanced command completion
-set wildmode=list:longest,full " Make tab completion complete longest part and show options, THEN cycle
-set history=50                 " Save 50 lines of command-line history
-set hlsearch                   " Highlight search results
-set incsearch		               " Do incremental searching (best match so far)
 set ignorecase                 " / Only do case-sensitive searching when at least
 set smartcase                  " \ one letter is capitalized
-set backspace=indent,eol,start " Allow backspacing over everything in insert mode
-set tabstop=2                  " Do 2 spaces for shift-width and tab-stop
-set softtabstop=2
-set shiftwidth=2               
-set autoindent                 " Do smart indenting
-set smartindent
-set expandtab                  " Expand tabs to spaces.  Pretend tabs exist when using backspace
-set smarttab
+set tabstop=4                  " tab size = 4
+set softtabstop=2              " Inserting a tab inserts 2 spaces
+set shiftwidth=2               " Indent by 2 spaces
+set smartindent                " Autoindent when starting a new line
+set expandtab                  " Expand tabs to spaces when inserting
 set nojoinspaces               " Don't insert two spaces after punctuation on a join
-set lazyredraw                 " Do not redraw screen while running macros (goes faster)
-set ttyfast                    " Improves redrawing for newer computers (apparently)
-set hidden                     " Allow opening a new buffer in place of existing one without first saving the existing one
-set scrolloff=3                " Keep at least 3 visible lines above and below cursor at all times
+set hidden                     " Allow opening new buffer without first saving
+set scrolloff=3                " Keep 3 visible lines above and below cursor
 set title                      " Show a title
-set path&                      " Include all subdirectories in path
-set path+=**
-silent !mkdir -p ~/.vim/backup
-silent !mkdir -p ~/.vim/tmp
-set backup
-set backupdir=~/.vim/backup//
-set directory=~/.vim/tmp//
-set textwidth=0                " don't automatically wrap text
 set foldmethod=marker          " use {{{ and }}} to mark folds
 set clipboard=unnamed          " use the system clipboard
 set mouse=a                    " allow the use of a mouse
-set cm=blowfish2               " better file encryption
+set cmdheight=2
+
+" suggested by coc
+
+set updatetime=300
+set shortmess+=c
+" set signcolumn=yes
+
+" bug in Vim?
 
 set t_ZH=[3m
 set t_ZR=[23m
@@ -52,20 +95,10 @@ set t_ZR=[23m
 " Make Y behave like C and D
 noremap Y y$
 
-" Make .tex files open as "latex" files
-let g:tex_flavor = "latex"
+" -----------------------
+" -- EASY TEXT REPLACE --
+" -----------------------
 
-" Make Syntastic always update the errors window
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-    
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Substitution
 function! MySubstitute()
   exe "normal! mm"
   let replacement = input("Replace With?: ")
@@ -110,50 +143,64 @@ function! MyGlobalSubstitute()
     endif
 endfunction
 
-" Marking
-function! MyMark()
-  exe "normal! mm"
-  exe "m'"
-  exe "normal! `m"
-endfunction
-
 map <silent> <Leader>r :call MySubstitute()<CR>
 map <silent> <Leader>R :call MyGlobalSubstitute()<CR>
+
+" -----------
+" -- LATEX --
+" -----------
+
+" Make .tex files open as "latex" files
+let g:tex_flavor = "latex"
+
+" -------------
+" -- HASKELL --
+" -------------
+
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+let g:haskell_classic_highlighting = 1    " classic highlighting colors
+
+" ---------------
+" -- NERD TREE --
+" ---------------
 
 " NERDTree
 map <silent> <Leader>[ :NERDTreeToggle<CR>
 
-" Jumping through (syntastic) error lists
-map <silent> <Leader>k       :cfirst<CR>
-map <silent> <Leader>j       :clast<CR>
-map <silent> <Leader>h       :cprev<CR>
-map <silent> <Leader>l       :cnext<CR>
+" -----------------
+" -- ERROR LISTS --
+" -----------------
 
-" Diffing
+" Jumping through error lists
+map <silent> <Leader>k       :lfirst<CR>
+map <silent> <Leader>j       :llast<CR>
+map <silent> <Leader>h       :lprev<CR>
+map <silent> <Leader>l       :lnext<CR>
+
+" -------------
+" -- DIFFING --
+" -------------
 
 map <silent> <Leader>dj       :diffthis<CR>
 map <silent> <Leader>dk       :diffoff<CR>
 
-" ghcid
-let g:ghcid_on = 0
-function! GhcidToggle()
-  if g:ghcid_on == 0
-    exe ":GhcidQuickfixStart"
-    let g:ghcid_on = 1
-  else
-    exe ":GhcidQuickfixStop"
-    let g:ghcid_on = 0
-  endif
-endfunction
+" ---------
+" -- COC --
+" ---------
 
-map <silent> <Leader><Space> :call GhcidToggle()<CR>
+highlight link CoCFloating Visual
 
-""" " HDevTools
-""" au FileType haskell nnoremap <buffer> <silent> <Leader>ty      :HdevtoolsType<CR>
-""" au FileType haskell nnoremap <buffer> <silent> <Leader>cl      :HdevtoolsClear<CR>
-""" au FileType haskell nnoremap <buffer> <silent> <Leader>in      :HdevtoolsInfo<CR>
+" ----------------
+" -- TABLE MODE --
+" ----------------
 
-" Tables
 let g:table_mode_corner='|'
 
 " File Hooks
@@ -165,45 +212,12 @@ augroup DD_CUSTOM
   " Remember last position in file
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 
+  " Resync syntax highlighting
+  autocmd BufEnter * :syntax sync fromstart
+
   " Source the vimrc if it gets changed
   autocmd BufWritePost *vimrc if expand("%") == expand("$MYVIMRC") | source % | endif
 
   " Use different fold markers for latex
-  autocmd BufReadPost *.tex set foldmarker={-{,}-}
+  " autocmd BufReadPost *.tex set foldmarker={-{,}-}
 augroup END
-
-let g:syntastic_tex_checkers=[]
-let g:syntastic_ocaml_checkers = ['merlin']
-
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line

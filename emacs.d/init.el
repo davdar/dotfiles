@@ -82,3 +82,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+; PSL
+(load-library "psl-mode")
+(add-to-list 'auto-mode-alist '("\\.psl\\'" . psl-mode))

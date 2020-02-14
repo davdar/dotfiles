@@ -30,6 +30,7 @@ main = do
   writeFile "unicode-keymap.cson" genAtomKeymapScript
   writeFile "unicode-latex-completions.json" genAtomLatexCompletions
   writeFile "daraisinput.plist" genMacPlist
+  writeFile "unicodetest.html" genUnicodeTestHtml
   -- writeFile "daraisinput.sublime-completions" genSublimeScript
   putStrLn $ unwords
     [ "unicode files generated:"
@@ -41,6 +42,7 @@ main = do
     , "unicode-init.coffee"
     , "unicode-keymap.cson"
     , "daraisinput.plist"
+    , "unicodetest.html"
     -- , "daraisinput.sublime-completions"
     ]
 
@@ -425,6 +427,39 @@ genInputReference = do
       pad i s = let padding = max 0 (i - length s) in s ++ replicate padding ' '
       skip f y x = x
 
+genUnicodeTestHtml :: String
+genUnicodeTestHtml = concat $ intersperse "\n" $
+  [ "<!DOCTYPE html>"
+  , "<html>"
+  , "<head>"
+  , "<meta charset=\"utf-8\">"
+  , "<link rel=\"stylesheet\" type=\"text/css\" href=\"unicodetest.css\">"
+  , "<title>unicode test</title>"
+  , "</head>"
+  , "<body>"
+  , "<table>"
+  , table
+  , "</table>"
+  , "</body>"
+  , "</html>"
+  ]
+  where
+    table = concat $ intersperse "\n" $ do
+      code <- codes
+      return $ row code
+    row (Code u e l _) = concat $ intersperse "\n" $
+      [ "<tr>"
+      , concat $ intersperse "\n" $ do
+          n <- [1..8]
+          return $ concat $ intersperse "\n" $
+            [ "<td>"
+            , "<div class=\"test" ++ show n ++ "\">"
+            , xmlEscape u ++ "  " ++ xmlEscape e
+            , "</div>"
+            , "</td>"
+            ]
+      , "</tr>"
+      ]
 
 codes :: [Code]
 codes =
@@ -575,12 +610,12 @@ codes =
   , code "⸝" "_>"
   , code "⸌" "^<"
   , code "⸍" "^>"
-  , code "⸂" "^L<"
-  , code "⸃" "^L>"
-  , code "⸄" "^D<"
-  , code "⸅" "^D>"
-  , code "⸉" "^S<"
-  , code "⸊" "^S>"
+  -- , code "⸂" "^L<"
+  -- , code "⸃" "^L>"
+  -- , code "⸄" "^D<"
+  -- , code "⸅" "^D>"
+  -- , code "⸉" "^S<"
+  -- , code "⸊" "^S>"
   -- - square
   , code "⦗" "["
   , code "⦘" "]"
@@ -618,6 +653,8 @@ codes =
   , lmcode "≤" "<=" "\\leq"
   , lmcode "≥" ">=" "\\geq"
   , lmcode "⋚" "<=>=" "\\lesseqgtr"
+  , code "≲" "<~"
+  , code "≳" ">~"
   , code "⩻" "<?"
   , code "⩼" ">?"
   , code "⪥" "><"
@@ -2052,6 +2089,8 @@ codes =
   , ltcodet "ễ" "e^~" "\\begingroup{}\\fontencoding{T5}\\selectfont \\~\\ecircumflex\\endgroup{}"
   , ltcodet "ú" "u'" "\\'u"
   , ltcodet "ï" "i.." "\\\"i"
+  , ltcodet "í" "i'" "\\'i"
+  , ltcodet "ì" "i`" "\\`i"
   , code "ø" "osl"
   , code "Ø" "Osl"
   , code "ᴓ" "osls"

@@ -742,42 +742,6 @@
   </dict>
   <dict>
     <key>phrase</key>
-    <string>⸂</string>
-    <key>shortcut</key>
-    <string>\^L&lt;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>⸃</string>
-    <key>shortcut</key>
-    <string>\^L&gt;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>⸄</string>
-    <key>shortcut</key>
-    <string>\^D&lt;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>⸅</string>
-    <key>shortcut</key>
-    <string>\^D&gt;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>⸉</string>
-    <key>shortcut</key>
-    <string>\^S&lt;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>⸊</string>
-    <key>shortcut</key>
-    <string>\^S&gt;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
     <string>⦗</string>
     <key>shortcut</key>
     <string>\[</string>
@@ -967,6 +931,18 @@
     <string>⋚</string>
     <key>shortcut</key>
     <string>\&lt;=&gt;=</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>≲</string>
+    <key>shortcut</key>
+    <string>\&lt;~</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>≳</string>
+    <key>shortcut</key>
+    <string>\&gt;~</string>
   </dict>
   <dict>
     <key>phrase</key>
@@ -8923,6 +8899,18 @@
     <string>ï</string>
     <key>shortcut</key>
     <string>\i..</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>í</string>
+    <key>shortcut</key>
+    <string>\i&apos;</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>ì</string>
+    <key>shortcut</key>
+    <string>\i`</string>
   </dict>
   <dict>
     <key>phrase</key>

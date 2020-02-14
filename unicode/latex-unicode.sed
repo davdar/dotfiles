@@ -783,3 +783,5 @@ s/œ/\\oe/g
 s/ễ/\\begingroup\{\}\\fontencoding\{T5\}\\selectfont \\~\\ecircumflex\\endgroup\{\}/g
 s/ú/\\'u/g
 s/ï/\\"i/g
+s/í/\\'i/g
+s/ì/\\`i/g

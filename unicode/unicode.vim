@@ -121,12 +121,6 @@ noremap! \_< ⸜
 noremap! \_> ⸝
 noremap! \^< ⸌
 noremap! \^> ⸍
-noremap! \^L< ⸂
-noremap! \^L> ⸃
-noremap! \^D< ⸄
-noremap! \^D> ⸅
-noremap! \^S< ⸉
-noremap! \^S> ⸊
 noremap! \[ ⦗
 noremap! \] ⦘
 noremap! \[[ ⟦
@@ -159,6 +153,8 @@ noremap! \</ ≮
 noremap! \<= ≤
 noremap! \>= ≥
 noremap! \<=>= ⋚
+noremap! \<~ ≲
+noremap! \>~ ≳
 noremap! \<? ⩻
 noremap! \>? ⩼
 noremap! \>< ⪥
@@ -1485,6 +1481,8 @@ noremap! \oe œ
 noremap! \e^~ ễ
 noremap! \u' ú
 noremap! \i.. ï
+noremap! \i' í
+noremap! \i` ì
 noremap! \osl ø
 noremap! \Osl Ø
 noremap! \osls ᴓ
