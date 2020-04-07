@@ -16,9 +16,11 @@ An alternative unicode input mode for Emacs, Vim and Atom.
 
 # Fonts
 
-- Try `MenloX.ttf` for programming with unicode; it's a mashup of Menlo (for
-  latin character) and STIX (for unicode characters) for characters foreign to
-  Menlo.
+- Try `XDejaVuSansMono-*.ttf` for programming with unicode; it's a mashup of
+  DejaVuSansMono (for latin character) and SourceCodepro, DejaVuMathTeXGyre,
+  Symbola, Quivira and ArialUnicode (for unicode characters). The other
+  `X<fontname>-*` fonts have the same extension fonts, just a different base
+  font.
 
 # Supported Characters
 
