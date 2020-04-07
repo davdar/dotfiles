@@ -19,6 +19,7 @@
                ;
 }
 .test3 {
+  /*
   font-family:  "Menlo"
                ,"Source Code Pro"
                ,"DejaVu Math TeX Gyre"
@@ -27,8 +28,11 @@
                ,"Arial Unicode MS"
                ,"LastResort"
                ;
+  */
+  font-family: "DejaVuSerif", "LastResort";
 }
 .test4 {
+  /*
   font-family:  "Source Code Pro"
                ,"Source Code Pro"
                ,"DejaVu Math TeX Gyre"
@@ -37,18 +41,20 @@
                ,"Arial Unicode MS"
                ,"LastResort"
                ;
+               */
+  font-family: "DejaVuSans", "LastResort";
 }
 .test5 {
-  font-family: "XDejaVuSansMono", "LastResort";
+  font-family: "DejaVuSansMono", "LastResort";
 }
 .test6 {
-  font-family: "XIosevka Term SS02", "LastResort";
+  font-family: "Arial Unicode MS", "Symbola", "LastResort";
 }
 .test7 {
-  font-family: "XMenlo", "LastResort";
+  font-family: "Arial Unicode MS", "Quivira", "LastResort";
 }
 .test8 {
-  font-family: "XSource Code Pro", "LastResort";
+  font-family: "Arial Unicode MS", "LastResort";
 }
 
 /* 2AFB */

@@ -103,26 +103,26 @@ s/C⎬/\\endgroup /g
 s/⟪/{{\\color{\\colorTEXT}\\textnormal{/g
 s/⟫/}}}/g
 
-s/⸨/{{\\color{\\colorMATH}\\ensuremath{/g
-s/⸩/}}}/g
+s/⸨/{{\\color{\\colorMATH}\\ensuremath{\\mathit{/g
+s/⸩/}}}}/g
 
-s/⦑/{{\\color{\\colorSYNTAX}\\mtexttt{/g
+s/⦑/{{\\color{\\colorSYNTAX}\\texttt{/g
 s/⦒/}}}/g
 
-s/‹/{\\mtext{/g
+s/‹/{\\text{/g
 s/›/}}/g
-s/«\*/{\\mtextbf{/g
+s/«\*/{\\textbf{/g
 s/\*»/}}/g
-s/«/{\\mtextit{/g
+s/«/{\\textit{/g
 s/»/}}/g
-s/⋖/{\\mtexttt{/g
+s/⋖/{\\texttt{/g
 s/⋗/}}/g
-s/⦗/{\\mtextsc{ /g
+s/⦗/{\\textsc{ /g
 s/⦘/}}/g
 s/⪡/{\\verb|/g
 s/⪢/|}/g
-s/❪/{\\ensuremath{/g
-s/❫/}}/g
+s/❪/{\\ensuremath{\\mathit{/g
+s/❫/}}}/g
 
 s/⌄/\\footnote/g
 

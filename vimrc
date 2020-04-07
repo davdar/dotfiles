@@ -179,10 +179,15 @@ map <silent> <Leader>[ :NERDTreeToggle<CR>
 " -----------------
 
 " Jumping through error lists
-map <silent> <Leader>k       :lfirst<CR>
-map <silent> <Leader>j       :llast<CR>
-map <silent> <Leader>h       :lprev<CR>
-map <silent> <Leader>l       :lnext<CR>
+" map <silent> <Leader>ek       :lfirst<CR>
+" map <silent> <Leader>ej       :llast<CR>
+" map <silent> <Leader>eh       :lprev<CR>
+" map <silent> <Leader>el       :lnext<CR>
+
+" map <silent> <Leader>ek       :cfirst<CR>
+" map <silent> <Leader>ej       :clast<CR>
+" map <silent> <Leader>eh       :cprev<CR>
+" map <silent> <Leader>el       :cnext<CR>
 
 " -------------
 " -- DIFFING --
@@ -197,11 +202,85 @@ map <silent> <Leader>dk       :diffoff<CR>
 
 highlight link CoCFloating Visual
 
+nmap <silent> <Leader>eh <Plug>(coc-diagnostic-prev)
+nmap <silent> <Leader>el <Plug>(coc-diagnostic-next)
+
+nmap <silent> <Leader>ed <Plug>(coc-definition)
+nmap <silent> <Leader>et <Plug>(coc-type-definition)
+nmap <silent> <Leader>ei <Plug>(coc-implementation)
+nmap <silent> <Leader>er <Plug>(coc-references)
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" --------------------
+" -- LanguageClient --
+" -------------------
+
+" let g:LanguageClient_rootMarkers = ['*.cabal', 'stack.yaml']
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['rls'],
+"     \ 'haskell': ['ghcide', '--lsp'],
+"     \ }
+
+" DONT DO THESE
+" let g:LanguageClient_diagnosticsList = "Location"
+" let g:LanguageClient_useVirtualText = "Diagnostics"
+
+" ---------
+" -- LSP --
+" ---------
+
+" au User lsp_setup call lsp#register_server({
+"     \ 'name': 'ghcide',
+"     \ 'cmd': {server_info->['/Users/daviddarais/.local/bin/ghcide', '--lsp']},
+"     \ 'whitelist': ['haskell'],
+"     \ })
+" 
+" " let g:lsp_diagnostics_echo_cursor = 1
+" let g:lsp_diagnostics_float_cursor = 1
+" " let g:lsp_text_document_did_save_delay = 100
+" 
+" map <silent> <Leader>eh       :LspPreviousError<CR>
+" map <silent> <Leader>el       :LspNextError<CR>
+" 
+" map <silent> <Leader>wh       :LspPreviousWarning<CR>
+" map <silent> <Leader>wl       :LspNextWarning<CR>
+
+" ---------
+" -- ALE --
+" ---------
+
+" let g:ale_linters_explicit = 1
+" let g:ale_linters = { 'haskell': ['ghcide'] }
+" let g:ale_set_quickfix = 1
+" let g:ale_set_highlights = 1
+" let g:ale_cursor_detail = 1
+" let g:ale_echo_cursor = 0
+
+" set splitbelow
+
+" ---------
+" -- LSC --
+" ---------
+
+" let g:lsc_server_commands = 
+"       \ { 'haskell': 
+"       \     { 'command': 'ghcide'
+"       \     , 'suppress_stderr': 'v:true'
+"       \     }
+"       \ }
+
 " ----------------
 " -- TABLE MODE --
 " ----------------
 
-let g:table_mode_corner='|'
+" let g:table_mode_corner='|'
+
+" ----------------
+" -- TABULARIZE --
+" ----------------
+
+map <Leader>t :Tabularize /
 
 " File Hooks
 augroup DD_CUSTOM
