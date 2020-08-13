@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/daviddarais/Projects/courses/2020-01-cs225/hw/src/Lang/Mega'
 let g:netrw_dirhist_3='/Users/daviddarais/Projects/uvmhs/src/UVMHS/Lib'
 let g:netrw_dirhist_2='/Users/daviddarais/Projects/uvmhs/src/UVMHS/Lib/Parser'
 let g:netrw_dirhist_1='/Users/daviddarais/Projects/GDP/paper/tex'

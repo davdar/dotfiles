@@ -163,12 +163,14 @@ s/X⁃/\\cr /g
 s/X⁆/\\end{tabularx}/g
 
 s/Aː\[t\]/\\begin{array}[t]{/g
+s/Aː\[b\]/\\begin{array}[b]{/g
 s/Aː/\\begin{array}{/g
 s/A⁅/}/g
 s/A⁃/\\cr /g
 s/A⁆/\\end{array}/g
 
 s/Tː\[t\]/\\begin{tabular}[t]{/g
+s/Tː\[b\]/\\begin{tabular}[b]{/g
 s/Tː/\\begin{tabular}{/g
 s/T⁅/}/g
 s/T⁃/\\cr /g

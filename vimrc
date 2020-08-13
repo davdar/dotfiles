@@ -80,6 +80,8 @@ set foldmethod=marker          " use {{{ and }}} to mark folds
 set clipboard=unnamed          " use the system clipboard
 set mouse=a                    " allow the use of a mouse
 set cmdheight=2
+set formatoptions=j            " don't line break when inserting text
+set textwidth=69               " match emacs textwidth
 
 " suggested by coc
 
@@ -298,5 +300,7 @@ augroup DD_CUSTOM
   autocmd BufWritePost *vimrc if expand("%") == expand("$MYVIMRC") | source % | endif
 
   " Use different fold markers for latex
-  " autocmd BufReadPost *.tex set foldmarker={-{,}-}
+  autocmd BufReadPost *.tex set foldmarker={-{,}-}
+  " Disable latex auto indenting
+  autocmd BufReadPost *.tex set indentexpr=
 augroup END
