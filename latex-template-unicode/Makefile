@@ -9,6 +9,7 @@ BIB_OUT_FILES := $(subst bib/,out/,$(BIB_SRC_FILES))
 
 SED_FILES := $(sort $(wildcard sed/*.sed))
 
+## change to bibtex for bib building
 # BIBTEX := bibtex
 BIBTEX := touch
 
