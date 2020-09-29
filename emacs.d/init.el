@@ -86,5 +86,5 @@
  )
 
 ; PSL
-(load-library "psl-mode")
-(add-to-list 'auto-mode-alist '("\\.psl\\'" . psl-mode))
+; (load-library "psl-mode")
+; (add-to-list 'auto-mode-alist '("\\.psl\\'" . psl-mode))

@@ -18,27 +18,5 @@
         "haskell"
       ]
     }
-  },
-  "_comment": {
-  "languageserver": {
-    "haskell": {
-      "command": "hie-wrapper",
-      "args": ["--lsp"],
-      "rootPatterns": [
-        "stack.yaml",
-        "package.yaml"
-      ],
-      "filetypes": [
-        "hs",
-        "lhs",
-        "haskell"
-      ],
-      "initializationOptions": {
-        "languageServerHaskell": {
-          "hlintOn": false
-        }
-      }
-    }
-  }
   }
 }
