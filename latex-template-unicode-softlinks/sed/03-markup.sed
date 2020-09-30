@@ -77,13 +77,14 @@ s/B⦔/B⎬⦔/g
 s/C⦓/C⎨⦓/g
 s/C⦔/C⎬⦔/g
 
-s/A⎨/\\begingroup\\renewcommand\\colorMATH{\\colorMATHA}\\renewcommand\\colorSYNTAX{\\colorSYNTAXA}/g
+# without \protect, the \renewcommand will barf when used inside \caption: ¯\_﹙ツ﹚_/¯
+s/A⎨/\\begingroup\\protect\\renewcommand\\colorMATH{\\colorMATHA}\\protect\\renewcommand\\colorSYNTAX{\\colorSYNTAXA}/g
 s/A⎬/\\endgroup /g
 
-s/B⎨/\\begingroup\\renewcommand\\colorMATH{\\colorMATHB}\\renewcommand\\colorSYNTAX{\\colorSYNTAXB}/g
+s/B⎨/\\begingroup\\protect\\renewcommand\\colorMATH{\\colorMATHB}\\protect\\renewcommand\\colorSYNTAX{\\colorSYNTAXB}/g
 s/B⎬/\\endgroup /g
 
-s/C⎨/\\begingroup\\renewcommand\\colorMATH{\\colorMATHC}\\renewcommand\\colorSYNTAX{\\colorSYNTAXC}/g
+s/C⎨/\\begingroup\\protect\\renewcommand\\colorMATH{\\colorMATHC}\\protect\\renewcommand\\colorSYNTAX{\\colorSYNTAXC}/g
 s/C⎬/\\endgroup /g
 
 # ^^^^^^^^^^^ #
