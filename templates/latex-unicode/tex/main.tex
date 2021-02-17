@@ -1,3 +1,25 @@
+%%%%%%%%%
+% FLAGS %
+%%%%%%%%%
+
+% Is this an internal version? (i.e., not public-facing.)
+\ifdefined \isinternal \else \def \isinternal{1} \fi
+
+% Is this an extended version? (e.g., includes appendix.)
+\ifdefined \isextended \else \def \isextended{1} \fi
+
+% Should this be anonymous? (e.g., submitted for blind peer review.)
+\ifdefined \isanonymous \else \def \isanonymous{1} \fi
+
+% Defaults can be overridden from the Makefile
+\newif \ifinternal  \if \isinternal  0 \internalfalse  \else \internaltrue  \fi
+\newif \ifextended  \if \isextended  0 \extendedfalse  \else \extendedtrue  \fi
+\newif \ifanonymous \if \isanonymous 0 \anonymousfalse \else \anonymoustrue \fi
+
+%%%%%%%%%%%%
+% DOCUMENT %
+%%%%%%%%%%%%
+
 \documentclass{article}
 
 \usepackage[T5,T1]{fontenc}
@@ -10,7 +32,10 @@
 % \geometry{margin=1in}
 
 \title{The Title}
-\author{The Author}
+
+\ifanonymous
+  \author{The Author}
+\fi
 
 \begin{document}
 \maketitle
@@ -67,23 +92,25 @@ P⁅Rː*
 P⁆
 
 Tːll
-T⁅ ⸨thing-1⸩   & Math
-T⁃ ⸨‹thing-1›⸩ & Math operator
-T⁃ ⸨«thing-1»⸩ & Math operator italic
-T⁃ ⸨⋖thing-1⋗⸩ & Math operator typewriter
-T⁃ ‹thing-1›   & Text roman
-T⁃ «thing-1»   & Text italic
-T⁃ «*thing-1*» & Text bold
-T⁃ ⋖thing-1⋗ & Text typewriter
-T⁃ ⦗thing-1⦘   & Text small caps small
-T⁃ ⦑thing-1⦒   & Syntax typewriter
-T⁃ ⦑‹thing-1›⦒ & Syntax roman
-T⁃ ⦑«thing-1»⦒ & Syntax italic
+T⁅ ⸨thing-1⸩     & Math
+T⁃ ⸨‹thing-1›⸩   & Math operator
+T⁃ ⸨«thing-1»⸩   & Math operator italic
+T⁃ ⸨⋖thing-1⋗⸩   & Math operator typewriter
+T⁃ ‹thing-1›     & Text roman
+T⁃ «thing-1»     & Text italic
+T⁃ «*thing-1*»   & Text bold
+T⁃ ⋖thing-1⋗     & Text typewriter
+T⁃ ⦗thing-1⦘     & Text small caps small
+T⁃ ⦑thing-1⦒     & Syntax typewriter
+T⁃ ⦑‹thing-1›⦒   & Syntax roman
+T⁃ ⦑«thing-1»⦒   & Syntax italic
 T⁃ ⦑«*thing-1*»⦒ & Syntax bold
-T⁃ ⪡thing-1⪢   & Verbatim
+T⁃ ⪡thing-1⪢     & Verbatim
 T⁆
 
-\input{latex-demo.tex}
+\ifextended
+  \input{latex-demo.tex}
+\fi
 
 \bibliographystyle{plainnat}
 \bibliography{darais}

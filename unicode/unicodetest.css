@@ -1,5 +1,6 @@
 .test1 {
-  font-family:  "DejaVuSansMono"
+  font-family:  "DejaVu Sans Mono", "LastResort";
+  /*
                ,"Source Code Pro"
                ,"DejaVu Math TeX Gyre"
                ,"Symbola"
@@ -7,8 +8,11 @@
                ,"Arial Unicode MS"
                ,"LastResort"
                ;
+               */
 }
 .test2 { 
+  font-family:  "Source Code Pro", "LastResort";
+  /*
   font-family:  "Iosevka Term SS02"
                ,"Source Code Pro"
                ,"DejaVu Math TeX Gyre"
@@ -17,8 +21,10 @@
                ,"Arial Unicode MS"
                ,"LastResort"
                ;
+               */
 }
 .test3 {
+  font-family: "DejaVu Math TeX Gyre", "LastResort";
   /*
   font-family:  "Menlo"
                ,"Source Code Pro"
@@ -29,7 +35,6 @@
                ,"LastResort"
                ;
   */
-  font-family: "DejaVuSerif", "LastResort";
 }
 .test4 {
   /*
@@ -42,16 +47,16 @@
                ,"LastResort"
                ;
                */
-  font-family: "DejaVuSans", "LastResort";
+  font-family: "Arial Unicode MS", "LastResort";
 }
 .test5 {
-  font-family: "DejaVuSansMono", "LastResort";
+  font-family: "Quivira", "LastResort";
 }
 .test6 {
-  font-family: "Arial Unicode MS", "Symbola", "LastResort";
+  font-family: "Symbola", "LastResort";
 }
 .test7 {
-  font-family: "Arial Unicode MS", "Quivira", "LastResort";
+  font-family: "LastResort";
 }
 .test8 {
   font-family: "Arial Unicode MS", "LastResort";

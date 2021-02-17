@@ -1,0 +1,5 @@
+packages: ["."]
+resolver: lts-17.4
+extra-deps:
+  - git: https://github.com/uvm-plaid/uvmhs.git
+    commit: e87cc0be5b5211c519b0721057a4bc3757e0c4fe

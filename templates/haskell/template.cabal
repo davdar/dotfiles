@@ -1,0 +1,39 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: e0b5c0edc31ce523057497d1a6e00a6a9552841751525446c6652f591efb850f
+
+name:           template
+version:        0.0.1.0
+build-type:     Simple
+
+library
+  exposed-modules:
+      Template
+  other-modules:
+      Paths_template
+  hs-source-dirs:
+      src
+  default-extensions: ConstraintKinds DataKinds ExplicitNamespaces FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving ImportQualifiedPost InstanceSigs KindSignatures LambdaCase MonadComprehensions MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures PatternSynonyms PolyKinds QuantifiedConstraints RankNTypes RebindableSyntax ScopedTypeVariables StandaloneDeriving Strict StrictData TemplateHaskell TypeApplications TypeFamilies TypeOperators UndecidableInstances UndecidableSuperClasses UnicodeSyntax ViewPatterns
+  ghc-options: -Wall -Wno-orphans -fspecialise-aggressively -fexpose-all-unfoldings -O2 -optP-Wno-nonportable-include-path
+  build-depends:
+      base
+    , uvmhs
+  default-language: Haskell2010
+
+executable template
+  main-is: Main.hs
+  other-modules:
+      Paths_template
+  hs-source-dirs:
+      main
+  default-extensions: ConstraintKinds DataKinds ExplicitNamespaces FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving ImportQualifiedPost InstanceSigs KindSignatures LambdaCase MonadComprehensions MultiParamTypeClasses MultiWayIf NoImplicitPrelude OverloadedStrings PartialTypeSignatures PatternSynonyms PolyKinds QuantifiedConstraints RankNTypes RebindableSyntax ScopedTypeVariables StandaloneDeriving Strict StrictData TemplateHaskell TypeApplications TypeFamilies TypeOperators UndecidableInstances UndecidableSuperClasses UnicodeSyntax ViewPatterns
+  ghc-options: -Wall -Wno-orphans -fspecialise-aggressively -fexpose-all-unfoldings -O2 -optP-Wno-nonportable-include-path
+  build-depends:
+      base
+    , template
+    , uvmhs
+  default-language: Haskell2010

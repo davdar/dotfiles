@@ -1,1 +1,1 @@
-/Users/daviddarais/Projects/psl/vim/syntax/pantheon.vim
+/Users/darais/Projects/psl/vim/syntax/pantheon.vim

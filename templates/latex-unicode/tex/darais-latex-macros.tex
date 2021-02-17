@@ -3,10 +3,15 @@
 
 \newcommand{\slashedrel}[1]{\mathrel{\centernot{#1}}}
 
-\newcommand{\note}[1]{{\color{red}#1}}
-\newcommand{\todo}[1]{\note{TODO: #1}}
+\ifinternal
+  \newcommand{\note}[1]{{\color{red}#1}}
+  \newcommand{\todo}[1]{\note{TODO: #1}}
+\else
+  \newcommand{\note}[1]{}
+  \newcommand{\todo}[1]{}
+\fi
 
-%\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=0.66pt] (char) {#1};}}
+
 \newcommand*\circled[1]{\textcircled{\raisebox{-0.1pt}{\scalebox{0.66}{#1}}}}
 
 \newcommand{\mtext}[1]{\ifmmode\operatorname{#1}\else\textnormal{#1}\fi}

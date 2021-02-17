@@ -62,6 +62,7 @@ if !has('nvim')
   set cm=blowfish2               " better file encryption
 endif
 
+set nocindent                  " don't do weird indenting for words like 'for'
 set background=light
 set fsync
 set showmatch                  " Flash matching brackets or parantheses
@@ -81,7 +82,7 @@ set clipboard=unnamed          " use the system clipboard
 set mouse=a                    " allow the use of a mouse
 set cmdheight=2
 set formatoptions=j            " don't line break when inserting text
-set textwidth=69               " match emacs textwidth
+set textwidth=80
 
 " suggested by coc
 
@@ -159,15 +160,15 @@ let g:tex_flavor = "latex"
 " -- HASKELL --
 " -------------
 
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_quantification   = 1 " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo      = 1 " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax      = 1 " to enable highlighting of `proc`
 let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+let g:haskell_enable_typeroles        = 1 " to enable highlighting of type roles
+let g:haskell_enable_static_pointers  = 1 " to enable highlighting of `static`
+let g:haskell_backpack                = 1 " to enable highlighting of backpack keywords
 
-let g:haskell_classic_highlighting = 1    " classic highlighting colors
+let g:haskell_classic_highlighting    = 1 " classic highlighting colors
 
 " ---------------
 " -- NERD TREE --
@@ -212,7 +213,7 @@ nmap <silent> <Leader>et <Plug>(coc-type-definition)
 nmap <silent> <Leader>ei <Plug>(coc-implementation)
 nmap <silent> <Leader>er <Plug>(coc-references)
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " --------------------
 " -- LanguageClient --
@@ -303,4 +304,9 @@ augroup DD_CUSTOM
   autocmd BufReadPost *.tex set foldmarker={-{,}-}
   " Disable latex auto indenting
   autocmd BufReadPost *.tex set indentexpr=
+
+  " Disable cindent
+  autocmd BufReadPost *.tex set nocindent
+  autocmd BufReadPost *.bib set nocindent
+  autocmd BufReadPost *.bib set cinwords=
 augroup END

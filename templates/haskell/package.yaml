@@ -1,0 +1,63 @@
+verbatim:
+  cabal-version: 2.2
+
+name: template
+version: 0.0.1.0
+
+default-extensions:
+  - ConstraintKinds
+  - DataKinds
+  - ExplicitNamespaces
+  - FlexibleContexts
+  - FlexibleInstances
+  - FunctionalDependencies
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - ImportQualifiedPost
+  - InstanceSigs
+  - KindSignatures
+  - LambdaCase
+  - MonadComprehensions
+  - MultiParamTypeClasses
+  - MultiWayIf
+  - NoImplicitPrelude
+  - OverloadedStrings
+  - PartialTypeSignatures
+  - PatternSynonyms
+  - PolyKinds
+  - QuantifiedConstraints
+  - RankNTypes
+  - RebindableSyntax
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - Strict
+  - StrictData
+  - TemplateHaskell
+  - TypeApplications
+  - TypeFamilies
+  - TypeOperators
+  - UndecidableInstances
+  - UndecidableSuperClasses
+  - UnicodeSyntax
+  - ViewPatterns
+
+ghc-options:
+  - -Wall
+  - -Wno-orphans
+  - -fspecialise-aggressively
+  - -fexpose-all-unfoldings
+  - -O2
+  - -optP-Wno-nonportable-include-path
+
+dependencies: 
+  - base
+  - uvmhs
+
+library:
+  source-dirs: src
+
+executable:
+  source-dirs: main
+  main: Main.hs
+  dependencies: 
+    - template
