@@ -1,53 +1,20 @@
 .test1 {
-  font-family:  "DejaVu Sans Mono", "LastResort";
-  /*
-               ,"Source Code Pro"
-               ,"DejaVu Math TeX Gyre"
-               ,"Symbola"
-               ,"Quivira"
-               ,"Arial Unicode MS"
-               ,"LastResort"
-               ;
-               */
+  font-family:  "XDejaVuSansMono", "LastResort";
 }
 .test2 { 
-  font-family:  "Source Code Pro", "LastResort";
-  /*
-  font-family:  "Iosevka Term SS02"
-               ,"Source Code Pro"
+  font-family: "DejaVu Sans Mono"
                ,"DejaVu Math TeX Gyre"
-               ,"Symbola"
                ,"Quivira"
+               ,"Symbola"
                ,"Arial Unicode MS"
                ,"LastResort"
                ;
-               */
 }
 .test3 {
-  font-family: "DejaVu Math TeX Gyre", "LastResort";
-  /*
-  font-family:  "Menlo"
-               ,"Source Code Pro"
-               ,"DejaVu Math TeX Gyre"
-               ,"Symbola"
-               ,"Quivira"
-               ,"Arial Unicode MS"
-               ,"LastResort"
-               ;
-  */
+  font-family:  "DejaVu Sans Mono", "LastResort";
 }
 .test4 {
-  /*
-  font-family:  "Source Code Pro"
-               ,"Source Code Pro"
-               ,"DejaVu Math TeX Gyre"
-               ,"Symbola"
-               ,"Quivira"
-               ,"Arial Unicode MS"
-               ,"LastResort"
-               ;
-               */
-  font-family: "Arial Unicode MS", "LastResort";
+  font-family: "DejaVu Math TeX Gyre", "LastResort";
 }
 .test5 {
   font-family: "Quivira", "LastResort";
@@ -56,10 +23,8 @@
   font-family: "Symbola", "LastResort";
 }
 .test7 {
-  font-family: "LastResort";
-}
-.test8 {
   font-family: "Arial Unicode MS", "LastResort";
 }
-
-/* 2AFB */
+.test8 {
+  font-family: "Source Code Pro", "LastResort";
+}

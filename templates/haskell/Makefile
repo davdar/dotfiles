@@ -39,6 +39,7 @@ docs: .stack-work
 .PHONY: clean
 clean:
 	stack clean --full
+	rm -f $(NAME)
 	rm -f $(NAME).cabal
 	rm -rf docs
 
