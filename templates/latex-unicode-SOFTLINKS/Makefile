@@ -83,7 +83,7 @@ LATEX_CMD := \
   \\def\\isinternal{$(INTERNAL)} \
   \\def\\isauthorid{$(AUTHORID)} \
   \\def\\isextended{$(EXTENDED)} \
-  \\input{$(MAIN_SRC)}
+  \\input{$(MAIN_SRC).tex}
 
 #########
 # GLOBS #
