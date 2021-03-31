@@ -8,6 +8,20 @@
 # Don't touch stuff below here if possible
 # ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+# EXAMPLE OVERLEAF CONFIG
+#
+# MAIN_SRC    := <main file>
+# 
+# TEX_SRC_DIR := .
+# STY_SRC_DIR := .
+# BIB_SRC_DIR := .
+# CLS_SRC_DIR := .
+# BST_SRC_DIR := .
+# PDF_SRC_DIR := figures
+# PNG_SRC_DIR := figures
+# 
+# IMG_DST_DIR := figures
+
 ##########
 # CONFIG #
 ##########
@@ -15,8 +29,8 @@
 MAIN_SRC    ?= main
 MAIN_OUT    ?= main
 
-ALL_STYLES  ?= dev anon anon-ext final final-ext
 STYLE       ?= dev
+ALL_STYLES  ?= dev review review-ext draft final
 
 LATEX       ?= pdflatex # xelatex lualatex
 
@@ -41,34 +55,34 @@ OUT_DIR     ?= out
 
 ifeq ($(STYLE), dev)
   INTERNAL  ?= 1
+  AUTHORID  ?= 1
   EXTENDED  ?= 1
-  ANONYMOUS ?= 1
 else ifeq ($(STYLE), anon)
   INTERNAL  ?= 0
+  AUTHORID  ?= 0
   EXTENDED  ?= 0
-  ANONYMOUS ?= 1
 else ifeq ($(STYLE), anon-ext)
   INTERNAL  ?= 0
+  AUTHORID  ?= 0
   EXTENDED  ?= 1
-  ANONYMOUS ?= 1
 else ifeq ($(STYLE), final)
   INTERNAL  ?= 0
+  AUTHORID  ?= 1
   EXTENDED  ?= 0
-  ANONYMOUS ?= 0
 else ifeq ($(STYLE), final-ext)
   INTERNAL  ?= 0
+  AUTHORID  ?= 1
   EXTENDED  ?= 1
-  ANONYMOUS ?= 0
 endif
 
-INTERNAL  ?= 1
-EXTENDED  ?= 1
-ANONYMOUS ?= 1
+INTERNAL ?= 1
+AUTHORID ?= 1
+EXTENDED ?= 1
 
 LATEX_CMD := \
   \\def\\isinternal{$(INTERNAL)} \
+  \\def\\isauthorid{$(AUTHORID)} \
   \\def\\isextended{$(EXTENDED)} \
-  \\def\\isanonymous{$(ANONYMOUS)} \
   \\input{$(MAIN_SRC)}
 
 #########

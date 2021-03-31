@@ -8,13 +8,13 @@
 % Is this an extended version? (e.g., includes appendix.)
 \ifdefined \isextended \else \def \isextended{1} \fi
 
-% Should this be anonymous? (e.g., submitted for blind peer review.)
-\ifdefined \isanonymous \else \def \isanonymous{1} \fi
+% Should authors be identified? (e.g., not submitted for blind peer review.)
+\ifdefined \isauthorid \else \def \isauthorid{1} \fi
 
 % Defaults can be overridden from the Makefile
-\newif \ifinternal  \if \isinternal  0 \internalfalse  \else \internaltrue  \fi
-\newif \ifextended  \if \isextended  0 \extendedfalse  \else \extendedtrue  \fi
-\newif \ifanonymous \if \isanonymous 0 \anonymousfalse \else \anonymoustrue \fi
+\newif \ifinternal \if \isinternal 0 \internalfalse \else \internaltrue \fi
+\newif \ifextended \if \isextended 0 \extendedfalse \else \extendedtrue \fi
+\newif \ifauthorid \if \isauthorid 0 \authoridfalse \else \authoridtrue \fi
 
 %%%%%%%%%%%%
 % DOCUMENT %
@@ -33,7 +33,7 @@
 
 \title{The Title}
 
-\ifanonymous
+\ifauthorid
   \author{The Author}
 \fi
 
