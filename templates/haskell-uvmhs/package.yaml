@@ -1,8 +1,8 @@
 verbatim:
   cabal-version: 2.2
 
-name: template
-version: 0.0.1.0
+name: dum-dum
+version: 0.1.0.0
 
 default-extensions:
   - ConstraintKinds
@@ -44,9 +44,6 @@ default-extensions:
 ghc-options:
   - -Wall
   - -Wno-orphans
-  - -fspecialise-aggressively
-  - -fexpose-all-unfoldings
-  - -O2
   - -optP-Wno-nonportable-include-path
 
 dependencies: 
@@ -60,4 +57,4 @@ executable:
   source-dirs: main
   main: Main.hs
   dependencies: 
-    - template
+    - dum-dum

@@ -82,6 +82,7 @@ set clipboard=unnamed          " use the system clipboard
 set mouse=a                    " allow the use of a mouse
 set cmdheight=2
 set formatoptions=j            " don't line break when inserting text
+set linebreak
 set textwidth=80
 
 " suggested by coc
