@@ -7,3 +7,7 @@
 	path = vim/bundle/haskell-vim
 	url = git@github.com:neovimhaskell/haskell-vim.git
 	shallow = true
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
+	url = https://github.com/preservim/nerdtree.git
+	shallow = true
