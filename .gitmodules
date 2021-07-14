@@ -15,3 +15,7 @@
 	path = vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
 	shallow = true
+[submodule "vim/bundle/vim-markdown"]
+	path = vim/bundle/vim-markdown
+	url = https://github.com/tpope/vim-markdown.git
+	shallow = true
