@@ -11,3 +11,7 @@
 	path = vim/bundle/nerdtree
 	url = https://github.com/preservim/nerdtree.git
 	shallow = true
+[submodule "vim/bundle/tabular"]
+	path = vim/bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+	shallow = true
