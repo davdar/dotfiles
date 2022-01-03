@@ -90,3 +90,4 @@
 ; (add-to-list 'auto-mode-alist '("\\.psl\\'" . psl-mode))
 ; WizPL
 (load-library "wizpl-mode")
+(load-library "nk-mode")

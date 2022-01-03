@@ -1,2 +1,4 @@
-out/
-main.pdf
+/out
+/stg
+/template
+/main-*.pdf

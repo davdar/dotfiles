@@ -96,6 +96,8 @@ set shortmess+=c
 set t_ZH=[3m
 set t_ZR=[23m
 
+syntax spell toplevel
+
 " Make Y behave like C and D
 noremap Y y$
 
@@ -311,3 +313,10 @@ augroup DD_CUSTOM
   autocmd BufReadPost *.bib set nocindent
   autocmd BufReadPost *.bib set cinwords=
 augroup END
+
+" auto reload
+
+function! AutoReload()
+  set autoread
+  au CursorHold,InsertEnter,InsertLeave * checktime
+endfunction

@@ -9,6 +9,10 @@ import Data.Function
 import System.Directory
 
 import qualified Data.Map as Map
+import qualified Data.Set as Set
+import qualified Data.Char as Char
+
+import Debug.Trace (trace)
 
 type UnicodeRep = String
 type EscapeCode = String
@@ -53,14 +57,16 @@ groupsOf n xs =
     else take n xs : groupsOf n (drop n xs)
 
 data LatexMode = T | M
+  deriving (Eq,Ord,Show)
 data LatexRepM = L LatexMode LatexRep
+  deriving (Eq,Ord,Show)
 
 data Code = Code
   { unicodeRep :: UnicodeRep
   , escapeCode :: EscapeCode
   , latexRep :: LatexRepM
   , description :: Description
-  }
+  } deriving (Eq,Ord,Show)
 
 code :: UnicodeRep -> EscapeCode -> Code
 code u e = Code u e (L M "") ""
@@ -361,8 +367,12 @@ genSublimeScript = concat $ intersperse "\n"
 
 quoteL :: String
 quoteL = "⧘"
+
 quoteR :: String
 quoteR = "⧙"
+
+quoteH :: String
+quoteH = "⁂"
 
 genSedEscapeScript :: String
 genSedEscapeScript = do
@@ -370,28 +380,108 @@ genSedEscapeScript = do
   command code
     where
       command :: Code -> String
-      command (Code u e l _) =
-           "s/" ++ quoteL ++ sedEscape u ++ quoteR ++ "/" ++ quoteL ++ sedEscape e ++ quoteR ++ "/g\n"
+      command (Code u e l _) = concat
+        [ "s/" 
+        , quoteL 
+        , sedEscape u 
+        , quoteR 
+        , "/" 
+        , quoteL 
+        , sedEscape e 
+        , quoteR 
+        , "/g\n"
+        ]
 
 genSedUnescapeScript :: String
 genSedUnescapeScript = do
   code <- codes
   command code
-    where
-      command :: Code -> String
-      command (Code u e l _) =
-           "s/" ++ quoteL ++ sedEscape e ++ quoteR ++ "/" ++ sedEscape u ++ "/g\n"
+  where
+    command :: Code -> String
+    command (Code u e l _) = concat
+      [ "s/" 
+      , quoteL 
+      , sedEscape e 
+      , quoteR 
+      , "/" 
+      , sedEscape u 
+      , "/g\n"
+      ]
 
+
+-- :L
+-- s/(⸨⁂[^⸨⸩⁂⧘⧙]*)([↑⇈])([^⸨⸩⁂]*⁂⸩)/\1⧘\2⧙\3/g
+-- tL
 genSedMarkScript :: String
-genSedMarkScript = do
-  code <- codes
-  command code
-    where
-      command :: Code -> String
-      command (Code u e l _) =
-        if u == quoteL || u == quoteR || u == "\\"
-           then ""
-           else "s/" ++ sedEscape u ++ "/" ++ quoteL ++ sedEscape u ++ quoteR ++ "/g\n"
+genSedMarkScript = concat
+  [ ""
+  -- , ":MB\n"
+  -- , "s/(⸨⁂[^⸨⸩⁂⧘⧙]*)([^0-~[:space:]()⸨⸩⁂⧘⧙])([^⸨⸩⁂]*⁂⸩)/\\1⧘\\2⧙\\3/g\n"
+  -- -- , Set.toList $ Set.fromList $ do 
+  -- --         code <- codes
+  -- --         let s = command3 code
+  -- --         filter (\ c -> Char.ord c >= 128) s
+  -- -- --       f1 = if ']' `Set.member` chars then (\ s -> "]" ++ s) else id
+  -- -- --       f2 = if '[' `Set.member` chars then (\ s -> "[" ++ s) else id
+  -- -- --       f3 = if '-' `Set.member` chars then (\ s -> s ++ "-") else id
+  -- -- --       chars' = chars `Set.difference` Set.fromList "[]-"
+  -- -- --   in foldr (.) id [f1,f2,f3] $ Set.toList chars'
+  -- -- , "])([^⸨⸩⁂]*⁂⸩)/\\1⧘\\2⧙\\3/g\n"
+  -- , "tMB\n"
+  -- , "s/⸨⁂|⁂⸩//g\n"
+  , "/^" ++ quoteH ++ "⁅/,/^" ++ quoteH ++ "⁆/{\n"
+  , "  /^" ++ quoteH ++ "⁅|" ++ quoteH ++ "⁆/d\n"
+  , do code <- codes
+       command2 code
+  , "}\n"
+  , "/^" ++ quoteH ++ "/{\n"
+  , do code <- codes
+       command1 code
+  , "}\n"
+  , concat
+      [ "s/^"
+      , quoteH
+      , "\\ //\n"
+      ]
+  , concat
+      [ "s/^"
+      , quoteH
+      , "//\n"
+      ]
+  ]
+  where
+    command3 :: Code -> String
+    command3 (Code u e l _) =
+      if u `elem` [quoteH,quoteL,quoteR,"\\","⸨","⸩","\n","\r"]
+         then ""
+         else u
+    command2 :: Code -> String
+    command2 (Code u e l _) =
+      if u == quoteH || u == quoteL || u == quoteR || u == "\\"
+         then ""
+         else concat
+           [ "  s/" 
+           , sedEscape u 
+           , "/" 
+           , quoteL 
+           , sedEscape u 
+           , quoteR 
+           , "/g\n"
+           ]
+
+    command1 :: Code -> String
+    command1 (Code u e l _) =
+      if u == quoteH || u == quoteL || u == quoteR || u == "\\"
+         then ""
+         else concat
+           [ "  s/" 
+           , sedEscape u 
+           , "/" 
+           , quoteL 
+           , sedEscape u 
+           , quoteR 
+           , "/g\n"
+           ]
 
 genLatexDemo :: String
 genLatexDemo = concat
@@ -1404,16 +1494,16 @@ codes =
   , code "⅀" "bbSigma"
 
   -- Numbers Bold
-  , code "𝟎" "bd0"
-  , code "𝟏" "bd1"
-  , code "𝟐" "bd2"
-  , code "𝟑" "bd3"
-  , code "𝟒" "bd4"
-  , code "𝟓" "bd5"
-  , code "𝟔" "bd6"
-  , code "𝟕" "bd7"
-  , code "𝟖" "bd8"
-  , code "𝟗" "bd9"
+  , lmcodet "𝟎" "bd0" "{\\textbf{0}}"
+  , lmcodet "𝟏" "bd1" "{\\textbf{1}}"
+  , lmcodet "𝟐" "bd2" "{\\textbf{2}}"
+  , lmcodet "𝟑" "bd3" "{\\textbf{3}}"
+  , lmcodet "𝟒" "bd4" "{\\textbf{4}}"
+  , lmcodet "𝟓" "bd5" "{\\textbf{5}}"
+  , lmcodet "𝟔" "bd6" "{\\textbf{6}}"
+  , lmcodet "𝟕" "bd7" "{\\textbf{7}}"
+  , lmcodet "𝟖" "bd8" "{\\textbf{8}}"
+  , lmcodet "𝟗" "bd9" "{\\textbf{9}}"
 
   -- Numbers Blackboard Bold
   , lmcodet "𝟘" "bb0" "{\\mathbb{0}}"

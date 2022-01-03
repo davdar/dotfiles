@@ -1,0 +1,320 @@
+# ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+# Override variables in CONFIG here...
+# ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+# Don't touch stuff below here if possible
+# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+# EXAMPLE OVERLEAF CONFIG
+#
+# MAIN_SRC    := <main file>
+# 
+# TEX_SRC_DIR := .
+# STY_SRC_DIR := .
+# BIB_SRC_DIR := .
+# CLS_SRC_DIR := .
+# BST_SRC_DIR := .
+# IMG_SRC_DIR := figures
+# IMG_DST_DIR := figures
+
+##########
+# CONFIG #
+##########
+
+MAIN_SRC    ?= 00-main
+MAIN_OUT    ?= main
+
+STYLE       ?= dev
+ALL_STYLES  ?= dev final
+
+LATEX       ?= pdflatex # xelatex lualatex
+
+BIBTEX      ?= biber # bibtex bibtex8 touch
+
+TEX_SRC_DIR ?= tex
+GEN_SRC_DIR ?= gen
+STY_SRC_DIR ?= sty
+BIB_SRC_DIR ?= bib
+CLS_SRC_DIR ?= cls
+BST_SRC_DIR ?= bst
+IMG_SRC_DIR ?= img
+
+IMG_DST_DIR ?= .
+
+SED_DIR     ?= sed
+
+DBLP_BIB    ?= dblp.bib
+DBLP_COPY   ?=     # set to empty string for false
+SED_ALL     ?= yup # set to empty string for false
+SED_BIB     ?= yup # set to empty string for false
+
+STG_DIR     ?= stg
+OUT_DIR     ?= out
+CACHE_DIR   ?= __cache
+SCRIPTS_DIR ?= scripts
+
+GEN_SUFFIX  ?= __GEN
+
+ifeq ($(STYLE), dev)
+  INTERNAL  ?= 1
+  AUTHORID  ?= 1
+  EXTENDED  ?= 1
+else ifeq ($(STYLE), final)
+  INTERNAL  ?= 0
+  AUTHORID  ?= 1
+  EXTENDED  ?= 1
+else ifeq ($(STYLE), final-short)
+  INTERNAL  ?= 0
+  AUTHORID  ?= 1
+  EXTENDED  ?= 0
+else ifeq ($(STYLE), anon)
+  INTERNAL  ?= 0
+  AUTHORID  ?= 0
+  EXTENDED  ?= 1
+else ifeq ($(STYLE), anon-short)
+  INTERNAL  ?= 0
+  AUTHORID  ?= 0
+  EXTENDED  ?= 0
+endif
+
+INTERNAL ?= 1
+AUTHORID ?= 1
+EXTENDED ?= 1
+
+LATEX_CMD := \
+  \\def\\isinternal{$(INTERNAL)} \
+  \\def\\isauthorid{$(AUTHORID)} \
+  \\def\\isextended{$(EXTENDED)} \
+  \\input{$(MAIN_SRC).tex}
+
+#########
+# GLOBS #
+#########
+
+GEN_SRC_FILES := $(shell find -L * -type d -name '$(GEN_SRC_DIR)' -maxdepth 0 -exec find -L {} -type f -name '*.tex' \;)
+GEN_OUT_FILES := $(patsubst %.tex,%$(GEN_SUFFIX).tex,$(patsubst $(GEN_SRC_DIR)/%,$(TEX_SRC_DIR)/%,$(GEN_SRC_FILES)))
+
+TEX_SRC_FILES := $(shell find -L * -type d -name '$(TEX_SRC_DIR)' -maxdepth 0 -exec find -L {} -type f -name '*.tex' \;) $(GEN_OUT_FILES)
+TEX_STG_FILES := $(patsubst $(TEX_SRC_DIR)/%,$(STG_DIR)/%,$(TEX_SRC_FILES))
+
+STY_SRC_FILES := $(wildcard $(STY_SRC_DIR)/*.sty)
+STY_STG_FILES := $(patsubst $(STY_SRC_DIR)/%,$(STG_DIR)/%,$(STY_SRC_FILES))
+
+BIB_SRC_FILES := $(filter-out $(BIB_SRC_DIR)/$(DBLP_BIB),$(wildcard $(BIB_SRC_DIR)/*.bib))
+BIB_STG_FILES := $(patsubst $(BIB_SRC_DIR)/%,$(STG_DIR)/%,$(BIB_SRC_FILES)) $(STG_DIR)/$(DBLP_BIB)
+
+CLS_SRC_FILES := $(wildcard $(CLS_SRC_DIR)/*.cls)
+CLS_STG_FILES := $(patsubst $(CLS_SRC_DIR)/%,$(STG_DIR)/%,$(CLS_SRC_FILES))
+
+BST_SRC_FILES := $(wildcard $(BST_SRC_DIR)/*.bst)
+BST_STG_FILES := $(patsubst $(BST_SRC_DIR)/%,$(STG_DIR)/%,$(BST_SRC_FILES))
+
+IMG_SRC_FILES := $(shell find -L $(IMG_SRC_DIR) -type f -name '*.jpg' -o -name '*.png' -o -name '*.pdf')
+
+IMG_STG_FILES := $(patsubst $(IMG_SRC_DIR)/%,$(STG_DIR)/$(IMG_DST_DIR)/%,$(IMG_SRC_FILES))
+
+STG_FILES := \
+  $(TEX_STG_FILES) \
+  $(STY_STG_FILES) \
+  $(BIB_STG_FILES) \
+  $(CLS_STG_FILES) \
+  $(BST_STG_FILES) \
+  $(IMG_STG_FILES)
+
+SED_FILES := $(sort $(wildcard $(SED_DIR)/*.sed))
+
+###########
+# DEFAULT #
+###########
+
+.PHONY: default
+default: $(CACHE_DIR)/dblp-bib $(MAIN_OUT)-$(STYLE).pdf ;
+
+#################
+# AUTOGEN FILES #
+#################
+
+$(TEX_SRC_DIR)/%$(GEN_SUFFIX).tex: $(GEN_SRC_DIR)/%.tex $(SED_FILES)
+	mkdir -p $(@D)
+	rm -f $@
+	touch $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	cat $< >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	@echo "%% AUTO GENERATED DO NOT MODIFY THIS FILE | SOURCE = $< %%" >> $@
+	for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done
+	sed -E -i.bu 's/^\s*$$/\n\%\% AUTO GENERATED DO NOT MODIFY THIS FILE \%\%\n/' $@
+	rm -f $@.bu
+
+###############
+# STAGE FILES #
+###############
+
+$(STG_DIR)/%.tex: $(TEX_SRC_DIR)/%.tex $(SED_FILES)
+	mkdir -p $(@D)
+	cp $< $@
+	$(if $(SED_ALL),for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done)
+	rm -f $@.bu
+
+$(STG_DIR)/%.sty: $(STY_SRC_DIR)/%.sty
+	mkdir -p $(@D)
+	cp $< $@
+
+$(STG_DIR)/$(DBLP_BIB): $(CACHE_DIR)/dblp-bib
+	mkdir -p $(@D)
+	cp $< $@
+
+$(STG_DIR)/%.bib: $(BIB_SRC_DIR)/%.bib $(SED_FILES)
+	mkdir -p $(@D)
+	cp $< $@
+	$(if $(SED_BIB),for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done)
+	rm -f $@.bu
+
+$(STG_DIR)/%.cls: $(CLS_SRC_DIR)/%.cls
+	mkdir -p $(@D)
+	cp $< $@
+
+$(STG_DIR)/%.bst: $(BST_SRC_DIR)/%.bst
+	mkdir -p $(@D)
+	cp $< $@
+
+$(STG_DIR)/$(IMG_DST_DIR)/%.jpg: $(IMG_SRC_DIR)/%.jpg
+	mkdir -p $(@D)
+	cp $< $@
+
+$(STG_DIR)/$(IMG_DST_DIR)/%.png: $(IMG_SRC_DIR)/%.png
+	mkdir -p $(@D)
+	cp $< $@
+
+$(STG_DIR)/$(IMG_DST_DIR)/%.pdf: $(IMG_SRC_DIR)/%.pdf
+	mkdir -p $(@D)
+	cp $< $@
+
+################
+# CACHED FILES #
+################
+
+$(CACHE_DIR)/dblp-list: $(CACHE_DIR)/dblp-bib ;
+
+$(CACHE_DIR)/dblp-bib: $(TEX_SRC_FILES)
+	python3 $(SCRIPTS_DIR)/dblp.py $(CACHE_DIR)/dblp-db $(CACHE_DIR)/dblp-list $(CACHE_DIR)/dblp-bib $^
+	$(if $(DBLP_COPY),cp $@ $(BIB_SRC_FILES)/$(DBLP_BIB))
+
+############
+# BUILDING #
+############
+
+$(OUT_DIR)/$(STYLE)/PHASE1: $(CACHE_DIR)/dblp-list | $(STG_FILES)
+	mkdir -p $(@D)
+	cd $(STG_DIR) && $(LATEX) --output-directory=../$(@D) "$(LATEX_CMD)"
+	touch $@
+
+$(OUT_DIR)/$(STYLE)/PHASE2: $(OUT_DIR)/$(STYLE)/PHASE1
+	(cp $(STG_DIR)/*.bib $(@D)/) | true
+	cd $(@D) && $(BIBTEX) $(MAIN_SRC)
+	touch $@
+
+$(OUT_DIR)/$(STYLE)/PHASE3: $(OUT_DIR)/$(STYLE)/PHASE2
+	cd $(STG_DIR) && $(LATEX) --output-directory=../$(@D) "$(LATEX_CMD)"
+	touch $@
+
+$(OUT_DIR)/$(STYLE)/PHASE4: $(OUT_DIR)/$(STYLE)/PHASE3 $(STG_FILES)
+	cd $(STG_DIR) && $(LATEX) --output-directory=../$(@D) "$(LATEX_CMD)"
+	touch $@
+
+$(OUT_DIR)/$(STYLE)/$(MAIN_SRC).pdf: $(OUT_DIR)/$(STYLE)/PHASE4 ;
+
+$(MAIN_OUT)-$(STYLE).pdf: $(OUT_DIR)/$(STYLE)/$(MAIN_SRC).pdf
+	cp $< $@
+
+.PHONY: again
+again:
+	rm -f $(OUT_DIR)/$(STYLE)/PHASE4
+	make
+
+.PHONY: rebib
+rebib:
+	rm -f $(OUT_DIR)/$(STYLE)/PHASE1
+	make
+
+.PHONY: twice
+twice:
+	make again
+	make again
+
+.PHONY: thrice
+thrice:
+	make twice
+	make again
+
+##########
+# STYLES #
+##########
+
+.PHONY: dev
+dev:
+	make STYLE=dev
+
+.PHONY: final
+final:
+	make STYLE=final
+
+.PHONY: final-short
+final-short:
+	make STYLE=final-short
+
+.PHONY: anon
+anon:
+	make STYLE=anon
+
+.PHONY: anon-short
+anon-short:
+	make STYLE=anon-short
+
+.PHONY: all
+all:
+	$(foreach S,$(ALL_STYLES),make $S;)
+
+.PHONY: clean
+clean:
+	rm -rf $(OUT_DIR)
+	rm -rf $(STG_DIR)
+	rm -f $(GEN_OUT_FILES)
+	rm -f $(MAIN_OUT)-*.pdf
+	rm -f $(CACHE_DIR)/dblp-list
+	rm -f $(CACHE_DIR)/dblp-bib
+
+.PHONY: clean-cache
+clean-cache:
+	rm -rf $(CACHE_DIR)
+
+.PHONY: debug
+debug:
+	@echo GEN_SRC_FILES:$(GEN_SRC_FILES)
+	@echo GEN_STG_FILES:$(GEN_STG_FILES)
+	
+	@echo TEX_SRC_FILES:$(TEX_SRC_FILES)
+	@echo TEX_STG_FILES:$(TEX_STG_FILES)
+	
+	@echo STY_SRC_FILES:$(STY_SRC_FILES)
+	@echo STY_STG_FILES:$(STY_STG_FILES)
+	
+	@echo BIB_SRC_FILES:$(BIB_SRC_FILES)
+	@echo BIB_STG_FILES:$(BIB_STG_FILES)
+	
+	@echo CLS_SRC_FILES:$(CLS_SRC_FILES)
+	@echo CLS_STG_FILES:$(CLS_STG_FILES)
+	
+	@echo BST_SRC_FILES:$(BST_SRC_FILES)
+	@echo BST_STG_FILES:$(BST_STG_FILES)
+	
+	@echo IMG_SRC_FILES:$(IMG_SRC_FILES)
+	@echo IMG_STG_FILES:$(IMG_STG_FILES)

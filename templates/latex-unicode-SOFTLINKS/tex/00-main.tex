@@ -1,0 +1,89 @@
+% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %
+% !! Comment out the following line for a development build (or)               !! %
+% !! Uncomment the following line for a camera ready build                     !! %
+
+% \def\isinternal{0}\def\isextended{1}\def\isauthorid{1}
+
+% !! Do not touch any file that is named `<thing>_AUTOGEN.tex`                 !! %
+% !! These files are automatically generated from `tex_autogen/<thing>.tex`    !! %
+% !! To regenerate them:                                                       !! %
+% !!   1. Download the project to a computer that has Make and LaTeX installed !! %
+% !!   2. Run `make` from the command line at the root of the project          !! %
+% !!   3. Upload the new generated files to Overleaf                           !! %
+% !! Note: (1) and (3) are easy to automate with Overleaf's git integration    !! %
+% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %
+
+%%%%%%%%%
+% FLAGS %
+%%%%%%%%%
+
+% 1. Is this an internal version? (i.e., not public-facing.)
+% 2. Is this an extended version? (e.g., includes appendix.)
+% 3. Should authors be identified? (e.g., not submitted for blind peer review.)
+
+\ifdefined \isinternal \else \def \isinternal{1} \fi
+\ifdefined \isextended \else \def \isextended{1} \fi
+\ifdefined \isauthorid \else \def \isauthorid{1} \fi
+
+% Defaults can be overridden from the Makefile
+\newif \ifinternal \if \isinternal 0 \internalfalse \else \internaltrue \fi
+\newif \ifextended \if \isextended 0 \extendedfalse \else \extendedtrue \fi
+\newif \ifauthorid \if \isauthorid 0 \authoridfalse \else \authoridtrue \fi
+
+%%%%%%%%%%%%
+% DOCUMENT %
+%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+%%%%%%%%%
+% SETUP %
+%%%%%%%%%
+
+% \def\isemulateword{1} % used by `darais/defaults.tex` and `darais/imports.tex`
+
+\input{darais/imports}
+\input{darais/macros}
+\input{local/imports}
+\input{local/macros}
+
+% \usepackage{showframe}
+
+%%%%%%%%%%%%%%%%%
+% HEADER/FOOTER %
+%%%%%%%%%%%%%%%%%
+
+% \lhead{...}
+% \chead{...}
+% \rhead{...}
+% \lfoot{...}
+% \cfoot{...}
+% \rfoot{...}
+
+%%%%%%%%%%%%%
+% BIB SETUP %
+%%%%%%%%%%%%%
+
+% \addbibresource{dblp.bib}
+
+%%%%%%%%
+% BODY %
+%%%%%%%%
+
+\begin{document}
+
+\input{darais/defaults}
+\input{local/defaults}
+
+
+% \tableofcontents
+
+BODY 
+
+% \printbibliography
+
+% \begin{appendices}
+% \end{appendices}
+
+\end{document}
+\endinput

@@ -1,0 +1,35 @@
+1 2 3
+1 2 3
+foo
+1 2 3
+1 2 3
+bar
+1 2 3
+1 2 3
+XX A A
+thing thing A
+XX A B
+
+BEFORE
+↑
+→
+∪
+AFTER
+
+BEFORE
+⁂⁅
+↑
+→
+∪
+⁂⁆
+AFTER
+
+AGAIN
+⁂ ↑
+↑
+⁂ ∪
+∪
+AGAIN
+
+
+stuff outside ↑⇈↑ stuff inside ⸨⁂ ¬ thing ↑⇈↑()[] ⁂⸩ outside ¬()[] ↑⇈↑
