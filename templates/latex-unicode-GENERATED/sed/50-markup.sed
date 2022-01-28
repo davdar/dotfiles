@@ -19,8 +19,8 @@ s/⇣-\*/\\underline /g
 s/⇣w\*/\\underbrace/g
 s/⇣e\*/\\underbracket/g
 
-s/⇡/\\overset /g
-s/⇣/\\underset /g
+s/⇡/\\oversetOn /g
+s/⇣/\\undersetOn /g
 
 s/“/``/g
 s/”/''/g
@@ -38,58 +38,6 @@ s/⦅𝔶/~\\citeyearpar{/g
 s/⦅/~\\citep{/g
 s/⦆/}/g
 
-# COLOR MODES #
-# ⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄⌄ #
-
-s/A⸨/{A⎨⸨/g
-s/A⸩/⸩A⎬}/g
-
-s/B⸨/{B⎨⸨/g
-s/B⸩/⸩B⎬}/g
-
-s/C⸨/{C⎨⸨/g
-s/C⸩/⸩C⎬}/g
-
-s/A⟪/{A⎨⟪/g
-s/A⟫/⟫A⎬}/g
-
-s/B⟪/{B⎨⟪/g
-s/B⟫/⟫B⎬}/g
-
-s/C⟪/{C⎨⟪/g
-s/C⟫/⟫C⎬}/g
-
-s/A⦑/{A⎨⦑/g
-s/A⦒/⦒A⎬}/g
-
-s/B⦑/{B⎨⦑/g
-s/B⦒/⦒B⎬}/g
-
-s/C⦑/{C⎨⦑/g
-s/C⦒/⦒C⎬}/g
-
-s/A⦓/A⎨⦓/g
-s/A⦔/A⎬⦔/g
-
-s/B⦓/B⎨⦓/g
-s/B⦔/B⎬⦔/g
-
-s/C⦓/C⎨⦓/g
-s/C⦔/C⎬⦔/g
-
-# without \protect, the \renewcommand will barf when used inside \caption: ¯\_﹙ツ﹚_/¯
-s/A⎨/\\begingroup\\protect\\renewcommand\\colorMATH{\\colorMATHA}\\protect\\renewcommand\\colorSYNTAX{\\colorSYNTAXA}/g
-s/A⎬/\\endgroup /g
-
-s/B⎨/\\begingroup\\protect\\renewcommand\\colorMATH{\\colorMATHB}\\protect\\renewcommand\\colorSYNTAX{\\colorSYNTAXB}/g
-s/B⎬/\\endgroup /g
-
-s/C⎨/\\begingroup\\protect\\renewcommand\\colorMATH{\\colorMATHC}\\protect\\renewcommand\\colorSYNTAX{\\colorSYNTAXC}/g
-s/C⎬/\\endgroup /g
-
-# ^^^^^^^^^^^ #
-# COLOR MODES # 
-
 # ⟪ text color + textrm    ⟫
 # ⦑ syntax color + texttt  ⦒
 # ⸨ math color + math mode ⸩
@@ -101,29 +49,29 @@ s/C⎬/\\endgroup /g
 # ⦗  textsc     ⦘
 # ❪  math mode  ❫
 
-s/⟪/{{\\color{\\colorTEXT}\\textnormal{/g
-s/⟫/}}}/g
+s/⟪/\\daraisTEXT{/g
+s/⟫/}/g
 
-s/⸨/{{\\color{\\colorMATH}\\ensuremath{\\mathit{/g
-s/⸩/}}}}/g
+s/⸨/\\daraisMATH{/g
+s/⸩/}/g
 
-s/⦑/{{\\color{\\colorSYNTAX}\\texttt{/g
-s/⦒/}}}/g
+s/⦑/\\daraisSTAX{/g
+s/⦒/}/g
 
-s/‹/{\\text{/g
+s/‹/{\\daraisModeRM{/g
 s/›/}}/g
-s/«\*/{\\textbf{/g
+s/«\*/{\\daraisModeBF{/g
 s/\*»/}}/g
-s/«/{\\textit{/g
+s/«/{\\daraisModeIT{/g
 s/»/}}/g
-s/⋖/{\\texttt{/g
+s/⋖/{\\daraisModeTT{/g
 s/⋗/}}/g
-s/⦗/{\\textsc{ /g
+s/⦗/{\\daraisModeSC{/g
 s/⦘/}}/g
-s/⪡/{\\verb|/g
-s/⪢/|}/g
-s/❪/{\\ensuremath{\\mathit{/g
-s/❫/}}}/g
+s/❪/{\\daraisModeMM{/g
+s/❫/}}/g
+s/⪡/{\\verb/g
+s/⪢/}/g
 
 s/𝔠/\\inlinecode/g
 
