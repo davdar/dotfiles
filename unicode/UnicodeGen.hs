@@ -24,6 +24,7 @@ main = do
   checkUnique
   writeFile "unicode.el" genEmacsScript
   writeFile "unicode.vim" genVimScript
+  writeFile "DefaultKeyBindings.dict" genDict
   writeFile "latex-unicode.sed" genSedScript
   writeFile "latex-unicode-escape.sed" genSedEscapeScript
   writeFile "latex-unicode-unescape.sed" genSedUnescapeScript
@@ -146,6 +147,14 @@ emacsEscape = concatMap escapeChar
     escapeChar '\"' = "\\\""
     escapeChar c = [c]
 
+dictEscape :: String -> String
+dictEscape = concatMap dictEscapeChar
+
+dictEscapeChar :: Char -> String
+dictEscapeChar '"' = "\\\""
+dictEscapeChar '\\' = "\\\\"
+dictEscapeChar c = [c]
+
 sedEscape :: String -> String
 sedEscape = concatMap escapeChar
   where
@@ -256,6 +265,46 @@ genEmacsScript = concat $ intersperse "\n"
   where
     command :: Code -> String
     command (Code u e _ _) = " (\"" ++ emacsEscape ("\\" ++ e) ++ "\" [\"" ++ emacsEscape u ++ "\"])" ++ "\n"
+
+data Trie
+  = InsertText UnicodeRep
+  | Node (Map.Map Char Trie)
+
+-- For ("and", '꘍'), builds the Trie {'a': {'n': {'d': '꘍'}}}.
+singletonTrie :: EscapeCode -> UnicodeRep -> Trie
+singletonTrie [] r = InsertText r
+singletonTrie (c:cs) r = Node (Map.singleton c (singletonTrie cs r))
+
+mergeTries :: Trie -> Trie -> Trie
+mergeTries (InsertText a) (InsertText b) = error (a <> " and " <> b <> " have the same input string")
+-- When a command has the same prefix as a longer command, we indicate we want
+-- the shorter one by pressing '<SPACE>'.
+mergeTries (InsertText r) t@(Node _) = mergeTries (singletonTrie " " r) t
+mergeTries t@(Node _) (InsertText r) = mergeTries t (singletonTrie " " r)
+mergeTries (Node m1) (Node m2) = Node (Map.unionWith mergeTries m1 m2)
+
+insertCode :: Code -> Trie -> Trie
+insertCode c = go (escapeCode c) (unicodeRep c)
+  where
+    go :: EscapeCode -> UnicodeRep -> Trie -> Trie
+    go [] r _ = error ("Empty input for output " <> r)
+    go (c:cs) r (InsertText r') = error "Working trie should be a Node"
+    go (c:cs) r (Node m) = Node (Map.insertWith mergeTries c (singletonTrie cs r) m)
+
+indent :: String -> String
+indent = unlines . (("  " <>) <$>) . lines
+
+trieToString :: Trie -> String
+trieToString (InsertText r) = "(\"insertText:\", \"" <> dictEscape r <> "\")"
+trieToString (Node m) = "{\n" <> indent (intercalate "\n" (map entryToString (Map.assocs m))) <> "}"
+  where
+    entryToString :: (Char, Trie) -> String
+    entryToString (c, t) = "\"" <> dictEscapeChar c <> "\" = " <> trieToString t <> ";"
+
+genDict :: String
+genDict =
+  let trie = foldr insertCode (Node mempty) codes in
+  trieToString (Node (Map.singleton '§' trie))
 
 genSedScript :: String
 genSedScript = do
