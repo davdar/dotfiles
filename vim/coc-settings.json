@@ -1,13 +1,17 @@
 {
-  "languageserver": {
+"languageserver": {
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
       "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
-      "filetypes": ["haskell", "lhaskell"],
-      "initializationOptions": {
-        "haskell": {
-          "hlintOn": false
+      "filetypes": ["hs", "lhs", "haskell", "lhaskell"],
+      "settings": {
+        "haskell" : {
+          "plugin": {
+            "hlint": {
+              "globalOn": false
+            }
+          }
         }
       }
     }

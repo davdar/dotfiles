@@ -33,14 +33,21 @@ LATEX       ?= pdflatex # xelatex lualatex
 BIBTEX      ?= biber # bibtex bibtex8 touch
 
 TEX_SRC_DIR ?= tex
+TEX_DST_DIR ?= .
+
+BIB_SRC_DIR ?= bib
+BIB_DST_DIR ?= .
+
+IMG_SRC_DIR ?= img
+IMG_DST_DIR ?= .
+
+PDF_SRC_DIR ?= pdf
+PDF_DST_DIR ?= .
+
 GEN_SRC_DIR ?= gen
 STY_SRC_DIR ?= sty
-BIB_SRC_DIR ?= bib
 CLS_SRC_DIR ?= cls
 BST_SRC_DIR ?= bst
-IMG_SRC_DIR ?= img
-
-IMG_DST_DIR ?= .
 
 SED_DIR     ?= sed
 
@@ -86,7 +93,7 @@ LATEX_CMD := \
   \\def\\isinternal{$(INTERNAL)} \
   \\def\\isauthorid{$(AUTHORID)} \
   \\def\\isextended{$(EXTENDED)} \
-  \\input{$(MAIN_SRC).tex}
+  \\input{$(TEX_DST_DIR)/$(MAIN_SRC).tex}
 
 #########
 # GLOBS #
@@ -96,13 +103,13 @@ GEN_SRC_FILES := $(shell find -L * -type d -name '$(GEN_SRC_DIR)' -maxdepth 0 -e
 GEN_OUT_FILES := $(patsubst %.tex,%$(GEN_SUFFIX).tex,$(patsubst $(GEN_SRC_DIR)/%,$(TEX_SRC_DIR)/%,$(GEN_SRC_FILES)))
 
 TEX_SRC_FILES := $(shell find -L * -type d -name '$(TEX_SRC_DIR)' -maxdepth 0 -exec find -L {} -type f -name '*.tex' \;) $(GEN_OUT_FILES)
-TEX_STG_FILES := $(patsubst $(TEX_SRC_DIR)/%,$(STG_DIR)/%,$(TEX_SRC_FILES))
+TEX_STG_FILES := $(patsubst $(TEX_SRC_DIR)/%,$(STG_DIR)/$(TEX_DST_DIR)/%,$(TEX_SRC_FILES))
 
 STY_SRC_FILES := $(wildcard $(STY_SRC_DIR)/*.sty)
 STY_STG_FILES := $(patsubst $(STY_SRC_DIR)/%,$(STG_DIR)/%,$(STY_SRC_FILES))
 
 BIB_SRC_FILES := $(filter-out $(BIB_SRC_DIR)/$(DBLP_BIB),$(wildcard $(BIB_SRC_DIR)/*.bib))
-BIB_STG_FILES := $(patsubst $(BIB_SRC_DIR)/%,$(STG_DIR)/%,$(BIB_SRC_FILES)) $(STG_DIR)/$(DBLP_BIB)
+BIB_STG_FILES := $(patsubst $(BIB_SRC_DIR)/%,$(STG_DIR)/$(BIB_DST_DIR)/%,$(BIB_SRC_FILES)) $(STG_DIR)/$(BIB_DST_DIR)/$(DBLP_BIB)
 
 CLS_SRC_FILES := $(wildcard $(CLS_SRC_DIR)/*.cls)
 CLS_STG_FILES := $(patsubst $(CLS_SRC_DIR)/%,$(STG_DIR)/%,$(CLS_SRC_FILES))
@@ -110,9 +117,11 @@ CLS_STG_FILES := $(patsubst $(CLS_SRC_DIR)/%,$(STG_DIR)/%,$(CLS_SRC_FILES))
 BST_SRC_FILES := $(wildcard $(BST_SRC_DIR)/*.bst)
 BST_STG_FILES := $(patsubst $(BST_SRC_DIR)/%,$(STG_DIR)/%,$(BST_SRC_FILES))
 
-IMG_SRC_FILES := $(shell find -L $(IMG_SRC_DIR) -type f -name '*.jpg' -o -name '*.png' -o -name '*.pdf')
-
+IMG_SRC_FILES := $(shell find -L $(IMG_SRC_DIR) -type f -name '*.jpg' -o -name '*.png')
 IMG_STG_FILES := $(patsubst $(IMG_SRC_DIR)/%,$(STG_DIR)/$(IMG_DST_DIR)/%,$(IMG_SRC_FILES))
+
+PDF_SRC_FILES := $(shell find -L $(PDF_SRC_DIR) -type f -name '*.pdf')
+PDF_STG_FILES := $(patsubst $(PDF_SRC_DIR)/%,$(STG_DIR)/$(PDF_DST_DIR)/%,$(PDF_SRC_FILES))
 
 STG_FILES := \
   $(TEX_STG_FILES) \
@@ -120,7 +129,8 @@ STG_FILES := \
   $(BIB_STG_FILES) \
   $(CLS_STG_FILES) \
   $(BST_STG_FILES) \
-  $(IMG_STG_FILES)
+  $(IMG_STG_FILES) \
+  $(PDF_STG_FILES)
 
 SED_FILES := $(sort $(wildcard $(SED_DIR)/*.sed))
 
@@ -158,7 +168,7 @@ $(TEX_SRC_DIR)/%$(GEN_SUFFIX).tex: $(GEN_SRC_DIR)/%.tex $(SED_FILES)
 # STAGE FILES #
 ###############
 
-$(STG_DIR)/%.tex: $(TEX_SRC_DIR)/%.tex $(SED_FILES)
+$(STG_DIR)/$(TEX_DST_DIR)/%.tex: $(TEX_SRC_DIR)/%.tex $(SED_FILES)
 	mkdir -p $(@D)
 	cp $< $@
 	$(if $(SED_ALL),for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done)
@@ -168,11 +178,11 @@ $(STG_DIR)/%.sty: $(STY_SRC_DIR)/%.sty
 	mkdir -p $(@D)
 	cp $< $@
 
-$(STG_DIR)/$(DBLP_BIB): $(CACHE_DIR)/dblp-bib
+$(STG_DIR)/$(BIB_DST_DIR)/$(DBLP_BIB): $(CACHE_DIR)/dblp-bib
 	mkdir -p $(@D)
 	cp $< $@
 
-$(STG_DIR)/%.bib: $(BIB_SRC_DIR)/%.bib $(SED_FILES)
+$(STG_DIR)/$(BIB_DST_DIR)/%.bib: $(BIB_SRC_DIR)/%.bib $(SED_FILES)
 	mkdir -p $(@D)
 	cp $< $@
 	$(if $(SED_BIB),for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done)
@@ -194,7 +204,7 @@ $(STG_DIR)/$(IMG_DST_DIR)/%.png: $(IMG_SRC_DIR)/%.png
 	mkdir -p $(@D)
 	cp $< $@
 
-$(STG_DIR)/$(IMG_DST_DIR)/%.pdf: $(IMG_SRC_DIR)/%.pdf
+$(STG_DIR)/$(PDF_DST_DIR)/%.pdf: $(PDF_SRC_DIR)/%.pdf
 	mkdir -p $(@D)
 	cp $< $@
 
@@ -206,7 +216,7 @@ $(CACHE_DIR)/dblp-list: $(CACHE_DIR)/dblp-bib ;
 
 $(CACHE_DIR)/dblp-bib: $(TEX_SRC_FILES)
 	python3 $(SCRIPTS_DIR)/dblp.py $(CACHE_DIR)/dblp-db $(CACHE_DIR)/dblp-list $(CACHE_DIR)/dblp-bib $^
-	$(if $(DBLP_COPY),cp $@ $(BIB_SRC_FILES)/$(DBLP_BIB))
+	$(if $(DBLP_COPY),cp $@ $(BIB_SRC_DIR)/$(DBLP_BIB))
 
 ############
 # BUILDING #
@@ -218,7 +228,8 @@ $(OUT_DIR)/$(STYLE)/PHASE1: $(CACHE_DIR)/dblp-list | $(STG_FILES)
 	touch $@
 
 $(OUT_DIR)/$(STYLE)/PHASE2: $(OUT_DIR)/$(STYLE)/PHASE1
-	(cp $(STG_DIR)/*.bib $(@D)/) | true
+	mkdir -p $(@D)/$(BIB_DST_DIR)
+	(cp $(STG_DIR)/$(BIB_DST_DIR)/*.bib $(@D)/$(BIB_DST_DIR)/) | true
 	cd $(@D) && $(BIBTEX) $(MAIN_SRC)
 	touch $@
 
@@ -318,3 +329,6 @@ debug:
 	
 	@echo IMG_SRC_FILES:$(IMG_SRC_FILES)
 	@echo IMG_STG_FILES:$(IMG_STG_FILES)
+	
+	@echo PDF_SRC_FILES:$(PDF_SRC_FILES)
+	@echo PDF_STG_FILES:$(PDF_STG_FILES)
