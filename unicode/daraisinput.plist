@@ -8818,6 +8818,18 @@
   </dict>
   <dict>
     <key>phrase</key>
+    <string>Ä</string>
+    <key>shortcut</key>
+    <string>\A..</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ç</string>
+    <key>shortcut</key>
+    <string>\C,</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
     <string>È</string>
     <key>shortcut</key>
     <string>\E`</string>
@@ -8827,6 +8839,66 @@
     <string>É</string>
     <key>shortcut</key>
     <string>\E&apos;</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ê</string>
+    <key>shortcut</key>
+    <string>\E^</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Í</string>
+    <key>shortcut</key>
+    <string>\I&apos;</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ì</string>
+    <key>shortcut</key>
+    <string>\I`</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ï</string>
+    <key>shortcut</key>
+    <string>\I..</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ô</string>
+    <key>shortcut</key>
+    <string>\O^</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ö</string>
+    <key>shortcut</key>
+    <string>\O..</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ú</string>
+    <key>shortcut</key>
+    <string>\U&apos;</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ù</string>
+    <key>shortcut</key>
+    <string>\U`</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Û</string>
+    <key>shortcut</key>
+    <string>\U^</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>Ü</string>
+    <key>shortcut</key>
+    <string>\U..</string>
   </dict>
   <dict>
     <key>phrase</key>
@@ -8842,6 +8914,18 @@
   </dict>
   <dict>
     <key>phrase</key>
+    <string>ä</string>
+    <key>shortcut</key>
+    <string>\a..</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>ç</string>
+    <key>shortcut</key>
+    <string>\c,</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
     <string>è</string>
     <key>shortcut</key>
     <string>\e`</string>
@@ -8854,15 +8938,57 @@
   </dict>
   <dict>
     <key>phrase</key>
+    <string>ê</string>
+    <key>shortcut</key>
+    <string>\e^</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>í</string>
+    <key>shortcut</key>
+    <string>\i&apos;</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>ì</string>
+    <key>shortcut</key>
+    <string>\i`</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>ï</string>
+    <key>shortcut</key>
+    <string>\i..</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>ô</string>
+    <key>shortcut</key>
+    <string>\o^</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
     <string>ö</string>
     <key>shortcut</key>
     <string>\o..</string>
   </dict>
   <dict>
     <key>phrase</key>
-    <string>ä</string>
+    <string>ú</string>
     <key>shortcut</key>
-    <string>\a..</string>
+    <string>\u&apos;</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>ù</string>
+    <key>shortcut</key>
+    <string>\u`</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>û</string>
+    <key>shortcut</key>
+    <string>\u^</string>
   </dict>
   <dict>
     <key>phrase</key>
@@ -8887,30 +9013,6 @@
     <string>ễ</string>
     <key>shortcut</key>
     <string>\e^~</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>ú</string>
-    <key>shortcut</key>
-    <string>\u&apos;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>ï</string>
-    <key>shortcut</key>
-    <string>\i..</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>í</string>
-    <key>shortcut</key>
-    <string>\i&apos;</string>
-  </dict>
-  <dict>
-    <key>phrase</key>
-    <string>ì</string>
-    <key>shortcut</key>
-    <string>\i`</string>
   </dict>
   <dict>
     <key>phrase</key>
