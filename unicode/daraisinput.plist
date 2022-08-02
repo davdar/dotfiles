@@ -1902,7 +1902,7 @@
     <key>phrase</key>
     <string>∖</string>
     <key>shortcut</key>
-    <string>\set\</string>
+    <string>\set\\</string>
   </dict>
   <dict>
     <key>phrase</key>
@@ -2196,7 +2196,7 @@
     <key>phrase</key>
     <string>⦸</string>
     <key>shortcut</key>
-    <string>\o\</string>
+    <string>\o\\</string>
   </dict>
   <dict>
     <key>phrase</key>
@@ -2292,7 +2292,7 @@
     <key>phrase</key>
     <string>⧅</string>
     <key>shortcut</key>
-    <string>\s\</string>
+    <string>\s\\</string>
   </dict>
   <dict>
     <key>phrase</key>

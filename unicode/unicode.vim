@@ -314,7 +314,7 @@ noremap! \par ∥
 noremap! \% ÷
 noremap! \%% ٪
 noremap! \/ ∕
-noremap! \set\ ∖
+noremap! \set\\ ∖
 noremap! \// ⫽
 noremap! \& ⅋
 noremap! \/// ⫻
@@ -363,7 +363,7 @@ noremap! \o-- ⊝
 noremap! \ot ⎊
 noremap! \o\| ⦶
 noremap! \o\|\| ⦷
-noremap! \o\ ⦸
+noremap! \o\\ ⦸
 noremap! \obot ⦹
 noremap! \o% ⦼
 noremap! \o< ⧀
@@ -379,7 +379,7 @@ noremap! \s. ⊡
 noremap! \sand ⟎
 noremap! \sor ⟏
 noremap! \s/ ⧄
-noremap! \s\ ⧅
+noremap! \s\\ ⧅
 noremap! \s* ⧆
 noremap! \so ⧇
 noremap! \ss ⧈
