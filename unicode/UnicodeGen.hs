@@ -153,6 +153,7 @@ dictEscape = concatMap dictEscapeChar
 dictEscapeChar :: Char -> String
 dictEscapeChar '"' = "\\\""
 dictEscapeChar '\\' = "\\\\"
+dictEscapeChar '^' = "\\\\^"
 dictEscapeChar c = [c]
 
 sedEscape :: String -> String
