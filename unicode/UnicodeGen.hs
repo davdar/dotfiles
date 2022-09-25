@@ -24,6 +24,7 @@ main = do
   checkUnique
   writeFile "unicode.el" genEmacsScript
   writeFile "unicode.vim" genVimScript
+  writeFile ".XCompose" genXCompose
   writeFile "DefaultKeyBindings.dict" genDict
   writeFile "latex-unicode.sed" genSedScript
   writeFile "latex-unicode-escape.sed" genSedEscapeScript
@@ -147,6 +148,40 @@ emacsEscape = concatMap escapeChar
     escapeChar '\"' = "\\\""
     escapeChar c = [c]
 
+xComposeEscapeChar :: Char -> String
+xComposeEscapeChar c = case c of
+  ' ' -> wrap "space"
+  '_' -> wrap "underscore"
+  '-' -> wrap "minus"
+  ',' -> wrap "comma"
+  ':' -> wrap "colon"
+  '.' -> wrap "period"
+  '"' -> wrap "quotedbl"
+  '(' -> wrap "parenleft"
+  ')' -> wrap "parenright"
+  '[' -> wrap "bracketleft"
+  ']' -> wrap "bracketright"
+  '{' -> wrap "braceleft"
+  '}' -> wrap "braceright"
+  '@' -> wrap "at"
+  '*' -> wrap "asterisk"
+  '/' -> wrap "slash"
+  '\'' -> wrap "apostrophe"
+  '\\' -> wrap "backslash"
+  '&' -> wrap "ampersand"
+  '#' -> wrap "numbersign"
+  '`' -> wrap "grave"
+  '^' -> wrap "asciicircum"
+  '<' -> wrap "less"
+  '=' -> wrap "equal"
+  '>' -> wrap "greater"
+  '|' -> wrap "bar"
+  '~' -> wrap "asciitilde"
+  '$' -> wrap "dollar"
+  c -> wrap [c]
+  where
+    wrap s = "<" ++ s ++ "> "
+
 dictEscape :: String -> String
 dictEscape = concatMap dictEscapeChar
 
@@ -266,6 +301,22 @@ genEmacsScript = concat $ intersperse "\n"
   where
     command :: Code -> String
     command (Code u e _ _) = " (\"" ++ emacsEscape ("\\" ++ e) ++ "\" [\"" ++ emacsEscape u ++ "\"])" ++ "\n"
+
+genXCompose :: String
+genXCompose = do
+  code <- codes
+  command code
+    where
+      command :: Code -> String
+      command (Code u e _ _) =
+        "<Multi_key> " ++ concatMap xComposeEscapeChar e ++ confirmation e ++ ": \"" ++ u ++ "\"\n"
+      -- At least WinCompose is eager, so overlapping prefixes must be
+      -- distinguished by confirming the shorter prefix with a space
+      confirmation :: String -> String
+      confirmation code =
+        if any (\(Code _ c _ _) -> (code `isPrefixOf` c) && (code /= c)) codes
+          then "<space> "
+          else ""
 
 data Trie
   = InsertText UnicodeRep
