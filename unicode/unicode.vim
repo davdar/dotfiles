@@ -1468,6 +1468,7 @@ noremap! \wcz ⓩ
 noremap! \A` À
 noremap! \A' Á
 noremap! \A.. Ä
+noremap! \A^ Â
 noremap! \C, Ç
 noremap! \E` È
 noremap! \E' É
@@ -1484,6 +1485,7 @@ noremap! \U.. Ü
 noremap! \a` à
 noremap! \a' á
 noremap! \a.. ä
+noremap! \a^ â
 noremap! \c, ç
 noremap! \e` è
 noremap! \e' é

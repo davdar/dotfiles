@@ -265,6 +265,7 @@
       "." = {
         "." = ("insertText:", "Ä");
       };
+      "\\^" = ("insertText:", "Â");
       "`" = ("insertText:", "À");
       "l" = {
         "p" = {
@@ -778,6 +779,7 @@
       "." = {
         "." = ("insertText:", "ä");
       };
+      "\\^" = ("insertText:", "â");
       "`" = ("insertText:", "à");
       "e" = ("insertText:", "æ");
       "l" = {

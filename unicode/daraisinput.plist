@@ -8824,6 +8824,12 @@
   </dict>
   <dict>
     <key>phrase</key>
+    <string>Â</string>
+    <key>shortcut</key>
+    <string>\A^</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
     <string>Ç</string>
     <key>shortcut</key>
     <string>\C,</string>
@@ -8917,6 +8923,12 @@
     <string>ä</string>
     <key>shortcut</key>
     <string>\a..</string>
+  </dict>
+  <dict>
+    <key>phrase</key>
+    <string>â</string>
+    <key>shortcut</key>
+    <string>\a^</string>
   </dict>
   <dict>
     <key>phrase</key>
