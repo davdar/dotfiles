@@ -1,1 +1,0 @@
-/Users/darais/Projects/psl/vim/ftdetect/pantheonSecurity.vim

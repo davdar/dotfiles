@@ -85,6 +85,16 @@ set formatoptions=j            " don't line break when inserting text
 set linebreak
 set textwidth=80
 
+" show symbol for wrapped lines
+set showbreak=⇢
+set breakat&
+set breakat-=.
+" make up/down not skip soft wrapped lines
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
 " suggested by coc
 
 set updatetime=300
@@ -159,6 +169,12 @@ map <silent> <Leader>R :call MyGlobalSubstitute()<CR>
 " Make .tex files open as "latex" files
 let g:tex_flavor = "latex"
 
+" --------------
+" -- MARKDOWN --
+" --------------
+
+let g:markdown_fenced_languages = ["python","{code-cell} ipython3=python"]
+
 " -------------
 " -- HASKELL --
 " -------------
@@ -213,8 +229,9 @@ nmap <silent> <Leader>el <Plug>(coc-diagnostic-next)
 
 nmap <silent> <Leader>ed <Plug>(coc-definition)
 nmap <silent> <Leader>et <Plug>(coc-type-definition)
-nmap <silent> <Leader>ei <Plug>(coc-implementation)
 nmap <silent> <Leader>er <Plug>(coc-references)
+
+nmap <silent> <Leader>e<space> :call CocActionAsync('doHover')<CR>
 
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 

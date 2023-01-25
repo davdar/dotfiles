@@ -1,1 +1,1 @@
-/Users/darais/Projects/5stars/repo/vim/ftdetect/nk.vim
+/Users/daviddarais/Projects/5stars/repo/vim/ftdetect/nk.vim

@@ -1,3 +1,5 @@
+% PARAMETER: \isemulateword
+
 \setlength\arraycolsep{0pt}
 
 \if \isemulateword 1
@@ -22,102 +24,59 @@
 
 \fi
 
-%%%%%%%%%%%%%%%%%%%%
-% paragraph indent %
-%%%%%%%%%%%%%%%%%%%%
+\newcommand{\debugshowlengths}[0]{
+  \begingroup
+  \tt
+  \begin{tabular}{l@{\quad}l}
+    % tabular/array spacing
+       tabcolsep             & \the\tabcolsep
+    \\ arraycolsep           & \the\arraycolsep
+    \\ arraystretch          & \arraystretch
+    % paragraph indent
+    \\ parindent             & \the\parindent
+    % paragraph spacing
+    \\ parskip               & \the\parskip
+    % display math spacing
+    \\ abovedisplayskip      & \the\abovedisplayskip
+    \\ belowdisplayskip      & \the\belowdisplayskip
+    \\ abovedisplayshortskip & \the\abovedisplayshortskip
+    \\ belowdisplayshortskip & \the\belowdisplayshortskip
+    % float and caption spacing
+    \\ floatsep              & \the\floatsep         % space between floats
+    \\ textfloatsep          & \the\textfloatsep     % space between text & last-top/first-bot float
+    \\ intextsep             & \the\intextsep        % space on top/bot of in-text float
+    \\ dbltextfloatsep       & \the\dbltextfloatsep  % \textfloatsep for 2-col
+    \\ dblfloatsep           & \the\dblfloatsep      % \floatsep for 2-col
+    \\ abovecaptionskip      & \the\abovecaptionskip % space above caption
+    \\ belowcaptionskip      & \the\belowcaptionskip % space below caption
+    % fbox spacing
+    \\ topsep                & \the\topsep
+    \\ fboxrule              & \the\fboxrule
+    \\ fboxsep               & \the\fboxsep
+    % framed spacing
+    \\ OuterFrameSep         & \the\OuterFrameSep
+    \\ FrameRule             & \the\FrameRule
+    \\ FrameSep              & \the\FrameSep
+  \end{tabular}
+  \endgroup
+}
 
-% [defaults 1col:10pt]
-% \setlength{\parindent}{15pt}
-
-% [defaults 1col:11pt]
-% \setlength{\parindent}{17pt}
-
-% [defaults 1col:12pt]
-% \setlength{\parindent}{1.5em}
-
-% [defaults 2col]
-% \setlength{\parindent}{1em}
-
-%%%%%%%%%%%%%%%%%%%%%
-% paragraph spacing %
-%%%%%%%%%%%%%%%%%%%%%
-
-% [defaults]
-% \setlength{\parskip}{0pt plus 1pt}
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-% display math spacing %
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-% [defaults 1col:10pt]
-% \setlength\abovedisplayskip{10.0pt plus 2.0pt minus 5.0pt}
-% \setlength\belowdisplayskip{10.0pt plus 2.0pt minus 5.0pt}
-% \setlength\abovedisplayshortskip{0.0pt plus 3.0pt}
-% \setlength\belowdisplayshortskip{6.0pt plus 3.0pt minus 3.0pt}
-
-% [defaults 1col:11pt]
-% \setlength\abovedisplayskip{11.0pt plus 3.0pt minus 6.0pt}
-% \setlength\belowdisplayskip{11.0pt plus 3.0pt minus 6.0pt}
-% \setlength\abovedisplayshortskip{0.0pt plus 3.0pt}
-% \setlength\belowdisplayshortskip{6.5pt plus 3.5pt minus 3.0pt}
-
-% [defaults 1col:12pt]
-% \setlength\abovedisplayskip{12.0pt plus 3.0pt minus 7.0pt}
-% \setlength\belowdisplayskip{12.0pt plus 3.0pt minus 7.0pt}
-% \setlength\abovedisplayshortskip{0.0pt plus 3.0pt}
-% \setlength\belowdisplayshortskip{6.5pt plus 3.5pt minus 3.0pt}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% array and tabular environment spacing %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% default section styles %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % [defaults]
-% \setlength\arraycolsep{6pt}
-% \setlength{\tabcolsep}{6pt}
-% \renewcommand\arraystretch{1}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% float environment and caption spacing %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% [defaults]
-% \setlength\floatsep{12.0pt plus 2.0pt minus 2.0pt}        % sp between flt
-% \setlength\textfloatsep{20.0pt plus 2.0pt minus 4.0pt}    % sp between txt & last-top/first-bot flt
-% \setlength\intextsep{12.0pt plus 2.0pt minus 2.0pt}       % sp on top/bot of in-text flt
-% \setlength\dbltextfloatsep{20.0pt plus 2.0pt minus 4.0pt} % \textfloatsep for 2-col
-% \setlength\dblfloatsep{12.0pt plus 2.0pt minus 2.0pt}     % \floatsep for 2-col
-% \setlength\abovecaptionskip{10.0pt}                       % sp above caption
-% \setlength\belowcaptionskip{0.0pt}                        % sp below caption
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% framed environment spacing %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+% \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+% \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+% \titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+% \titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+% \titleformat{\subparagraph}[runin]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
 
 % [defaults]
-% \setlength\OuterFrameSep{\topsep}
-% \setlength\FrameRule{\fboxrule}
-% \setlength\FrameSep{\fboxsep}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% section environment style %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% [defaults]
-% \titleformat*{\section}{\normalfont\Large\bfseries}
-% \titleformat*{\subsection}{\normalfont\large\bfseries}
-% \titleformat*{\subsubsection}{\normalfont\normalsize\bfseries}
-% \titleformat*{\paragraph}{\normalfont\normalsize\bfseries}
-% \titleformat*{\subparagraph}{\normalfont\normalsize\bfseries}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% section environment spacing %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% [defaults]
-% \titlespacing*{\chapter}{0pt}{50pt}{40pt}
-% \titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-% \titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-% \titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
-% \titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
-% \titlespacing*{\subparagraph}{\parindent}{3.25ex plus 1ex minus .2ex}{1em}
+% \titlespacing*{\chapter}      {0pt}       {50pt}{40pt}
+% \titlespacing*{\section}      {0pt}       {3.50ex plus 1ex minus 0.2ex}{2.3ex plus 0.2ex}
+% \titlespacing*{\subsection}   {0pt}       {3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+% \titlespacing*{\subsubsection}{0pt}       {3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+% \titlespacing*{\paragraph}    {0pt}       {3.25ex plus 1ex minus 0.2ex}{1em}
+% \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus 0.2ex}{1em}

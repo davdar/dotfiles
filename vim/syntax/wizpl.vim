@@ -1,1 +1,1 @@
-/Users/darais/Projects/wizpl/vim/syntax/wizpl.vim
+/Users/daviddarais/Projects/wizpl/vim/syntax/wizpl.vim

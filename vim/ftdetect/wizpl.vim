@@ -1,1 +1,1 @@
-/Users/darais/Projects/wizpl/vim/ftdetect/wizpl.vim
+/Users/daviddarais/Projects/wizpl/vim/ftdetect/wizpl.vim

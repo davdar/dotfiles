@@ -1,8 +1,8 @@
 % !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %
-% !! Comment out the following line for a development build (or)               !! %
-% !! Uncomment the following line for a camera ready build                     !! %
+% !! Uncomment the following line for a camera ready build (or)                !! %
+% !! Comment out the following line for a development build                    !! %
 
-% \def\isinternal{0}\def\isextended{1}\def\isauthorid{1}
+% \def\isinternal{0}\def\isextended{1}\def\ishidename{0}
 
 % !! Do not touch any file that is named `<thing>_AUTOGEN.tex`                 !! %
 % !! These files are automatically generated from `tex_autogen/<thing>.tex`    !! %
@@ -17,18 +17,20 @@
 % FLAGS %
 %%%%%%%%%
 
-% 1. Is this an internal version? (i.e., not public-facing.)
-% 2. Is this an extended version? (e.g., includes appendix.)
-% 3. Should authors be identified? (e.g., not submitted for blind peer review.)
+% 1. Is this an internal version?  (i.e., not public-facing.)
+% 2. Is this an extended version?  (e.g., includes appendix.)
+% 3. Should authors be anonymized? (e.g., submitted for blind peer review.)
 
 \ifdefined \isinternal \else \def \isinternal{1} \fi
 \ifdefined \isextended \else \def \isextended{1} \fi
-\ifdefined \isauthorid \else \def \isauthorid{1} \fi
+\ifdefined \ishidename \else \def \ishidename{0} \fi
 
 % Defaults can be overridden from the Makefile
-\newif \ifinternal \if \isinternal 0 \internalfalse \else \internaltrue \fi
-\newif \ifextended \if \isextended 0 \extendedfalse \else \extendedtrue \fi
-\newif \ifauthorid \if \isauthorid 0 \authoridfalse \else \authoridtrue \fi
+\newif \ifinternal \if \isinternal 1 \internaltrue \else \internalfalse \fi
+\newif \ifextended \if \isextended 1 \extendedtrue \else \extendedfalse \fi
+\newif \ifhidename \if \ishidename 1 \hidenametrue \else \hidenamefalse \fi
+
+\def\isemulateword{0} % used by `darais/defaults.tex` and `darais/imports.tex`
 
 %%%%%%%%%%%%
 % DOCUMENT %
@@ -40,7 +42,7 @@
 % SETUP %
 %%%%%%%%%
 
-% \def\isemulateword{1} % used by `darais/defaults.tex` and `darais/imports.tex`
+% \def\isemulateword{1}
 
 \input{darais/imports}
 \input{darais/macros}
@@ -78,7 +80,7 @@
 
 % \tableofcontents
 
-BODY 
+\debugshowlengths{} 
 
 % \printbibliography
 

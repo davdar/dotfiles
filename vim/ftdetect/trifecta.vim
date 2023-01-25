@@ -1,0 +1,1 @@
+/Users/daviddarais/Projects/trifecta/interpreter/vim/ftdetect/trifecta.vim

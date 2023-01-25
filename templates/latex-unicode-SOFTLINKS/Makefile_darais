@@ -1,40 +1,83 @@
-# ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-# Override variables in CONFIG here...
-# ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+# `make`         : build the default style (e.g., `dev`)
+# `make <style>` : build a non-default style
+# `make again`   : rebuild once and *don't* rebuild the bib
+# `make twice`   : rebuild twice and *don't* rebuild the bib
+# `make thrice`  : rebuild thrice and *don't* rebuild the bib
+# `make rebib`   : rebuild and *do* rebuild the bib
 
-# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-# Don't touch stuff below here if possible
-# ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
-# EXAMPLE OVERLEAF CONFIG
-#
-# MAIN_SRC    := <main file>
-# 
-# TEX_SRC_DIR := .
-# STY_SRC_DIR := .
-# BIB_SRC_DIR := .
-# CLS_SRC_DIR := .
-# BST_SRC_DIR := .
-# IMG_SRC_DIR := figures
-# IMG_DST_DIR := figures
+
 
 ##########
 # CONFIG #
 ##########
 
-MAIN_SRC    ?= 00-main
-MAIN_OUT    ?= main
+#--------#
+# STYLES #
+#--------#
 
-STYLE       ?= dev
+# `make all` will call `make $X` for $X in $(ALL_STYLES)
 ALL_STYLES  ?= dev final
 
-LATEX       ?= pdflatex # xelatex lualatex
+# `make` (default target) will call `make $(STYLE)`
+STYLE       ?= dev
 
-BIBTEX      ?= biber # bibtex bibtex8 touch
+# initialize latex variables from $(STYLE)
+#
+# INTERNAL: if YES, this is an internal copy, e.g., shows comments
+# EXTENDED: if YES, include all extra content, e.g., appendicies
+# HIDENAME: if YES, this copy should hide author identities
+#
+# respective latex variables:
+#
+# \isinternal
+# \isextended
+# \isnoauthor
+#
+ifeq ($(STYLE), dev)
+  INTERNAL ?= 1 # YES internal copy (show comments)
+  EXTENDED ?= 1 # YES extended content (appendicies, etc.)
+  HIDENAME ?= 0 # NO  anonymized authors
+else ifeq ($(STYLE), final)
+  INTERNAL ?= 0 # NO  internal copy (hide comments)
+  EXTENDED ?= 1 # YES extended content (appendicies, etc.)
+  BLINDIDS ?= 0 # NO  anonymized authors
+else ifeq ($(STYLE), final-anon)
+  INTERNAL ?= 0 # NO  internal copy (hide comments)
+  EXTENDED ?= 1 # YES extended content (appendicies, etc.)
+  HIDENAME ?= 1 # YES anonymized authors
+else ifeq ($(STYLE), final-short)
+  INTERNAL ?= 0 # NO  internal copy (hide comments)
+  EXTENDED ?= 0 # NO  extended content (appendicies, etc.)
+  HIDENAME ?= 0 # NO  anonymized authors
+else ifeq ($(STYLE), final-anon-short)
+  INTERNAL ?= 0 # NO  internal copy (hide comments)
+  EXTENDED ?= 0 # NO  extended content (appendicies, etc.)
+  HIDENAME ?= 1 # YES anonymized authors
+else
+  INTERNAL ?= 1
+  EXTENDED ?= 1
+  HIDENAME ?= 0
+endif
 
+#---------------#
+# FINDING FILES #
+#---------------#
+
+# the "main" `*.tex` input source is `$(MAIN_SRC).tex`
+MAIN_SRC    ?= 00-main
+
+# when generating an ouput PDF, name it `$(MAIN_OUT).pdf`
+MAIN_OUT    ?= main
+
+# `*.tex` input source files live in `./$(TEX_SRC_DIR)/`
 TEX_SRC_DIR ?= tex
+
+# import other `*.tex` files as `\input{$(TEX_DST_DIR)/<foo>}`
 TEX_DST_DIR ?= .
 
+
+# similar to above but for `*.bib`, …, `*.bst`
 BIB_SRC_DIR ?= bib
 BIB_DST_DIR ?= .
 
@@ -44,55 +87,69 @@ IMG_DST_DIR ?= .
 PDF_SRC_DIR ?= pdf
 PDF_DST_DIR ?= .
 
-GEN_SRC_DIR ?= gen
 STY_SRC_DIR ?= sty
 CLS_SRC_DIR ?= cls
 BST_SRC_DIR ?= bst
 
-SED_DIR     ?= sed
+#-------------------#
+# SED PREPROCESSING #
+#-------------------#
 
-DBLP_BIB    ?= dblp.bib
-DBLP_COPY   ?=     # set to empty string for false
-SED_ALL     ?= yup # set to empty string for false
-SED_BIB     ?= yup # set to empty string for false
-
-STG_DIR     ?= stg
-OUT_DIR     ?= out
-CACHE_DIR   ?= __cache
-SCRIPTS_DIR ?= scripts
-
+# `<foo.tex>` files that live in `./$(GEN_SRC_DIR)/` will be 
+# - preprocessed with `sed` 
+# - then renamed to `<foo$(GEN_SUFFIX).tex>
+# - then copied to `./$(TEX_SRC_DIR)/` 
+# (e.g., so overleaf can see sed-preprocessed files)
+GEN_SRC_DIR ?= gen
 GEN_SUFFIX  ?= __GEN
 
-ifeq ($(STYLE), dev)
-  INTERNAL  ?= 1
-  AUTHORID  ?= 1
-  EXTENDED  ?= 1
-else ifeq ($(STYLE), final)
-  INTERNAL  ?= 0
-  AUTHORID  ?= 1
-  EXTENDED  ?= 1
-else ifeq ($(STYLE), final-short)
-  INTERNAL  ?= 0
-  AUTHORID  ?= 1
-  EXTENDED  ?= 0
-else ifeq ($(STYLE), anon)
-  INTERNAL  ?= 0
-  AUTHORID  ?= 0
-  EXTENDED  ?= 1
-else ifeq ($(STYLE), anon-short)
-  INTERNAL  ?= 0
-  AUTHORID  ?= 0
-  EXTENDED  ?= 0
-endif
+# use `*.sed` in $(SED_DIR) when preprocessing `*.tex` (and maybe `*.bib`) files
+SED_DIR     ?= sed
 
-INTERNAL ?= 1
-AUTHORID ?= 1
-EXTENDED ?= 1
+# during `sed` preprocessing, stage files in `./$(STG_DIR)/`
+STG_DIR     ?= stg
 
+# before building with `pdflatex`, stage files in `./$(OUT_DIR)/`
+OUT_DIR     ?= out
+
+#---------------#
+# AUTO DBLP BIB #
+#---------------#
+
+# look for the `dblp.py` script in `$(SCRIPTS_DIR)`
+SCRIPTS_DIR ?= scripts
+
+# include auto dblp bib as `\addbibresource{$(DBLP_BIB)}`
+DBLP_BIB    ?= dblp.bib
+
+# use $(CACHE_DIR) to cache downloaded bib entries
+CACHE_DIR   ?= __cache
+
+# if nonempty, generate a copy of $(DBLP_BIB) in $(BIB_SRC_DIR) 
+# (e.g., so overleaf can find automatically generated bib files)
+DBLP_COPY   ?=     # set to empty string for false
+
+# if nonempty, preprocess all `*.tex` files with `sed`
+SED_TEX     ?= YES # set to empty string for false
+
+# if nonempty, preprocess all `*.bib` files with `sed`
+SED_BIB     ?=     # set to empty string for false
+
+#----------#
+# COMMANDS #
+#----------#
+
+# use `$(LATEX) <foo.tex>` when compiling <foo.tex>
+LATEX       ?= pdflatex # xelatex lualatex
+
+# use `$(BIBTEX) <foo>` when processing bibliography for <foo>
+BIBTEX      ?= biber # bibtex bibtex8 touch
+
+# call `pdflatex $(LATEX_CMD)` when building a PDF
 LATEX_CMD := \
   \\def\\isinternal{$(INTERNAL)} \
-  \\def\\isauthorid{$(AUTHORID)} \
   \\def\\isextended{$(EXTENDED)} \
+  \\def\\ishidename{$(HIDENAME)} \
   \\input{$(TEX_DST_DIR)/$(MAIN_SRC).tex}
 
 #########
@@ -171,7 +228,7 @@ $(TEX_SRC_DIR)/%$(GEN_SUFFIX).tex: $(GEN_SRC_DIR)/%.tex $(SED_FILES)
 $(STG_DIR)/$(TEX_DST_DIR)/%.tex: $(TEX_SRC_DIR)/%.tex $(SED_FILES)
 	mkdir -p $(@D)
 	cp $< $@
-	$(if $(SED_ALL),for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done)
+	$(if $(SED_TEX),for s in $(SED_FILES) ; do sed -E -i.bu -f $$s $@ ; done)
 	rm -f $@.bu
 
 $(STG_DIR)/%.sty: $(STY_SRC_DIR)/%.sty
@@ -251,11 +308,6 @@ again:
 	rm -f $(OUT_DIR)/$(STYLE)/PHASE4
 	make
 
-.PHONY: rebib
-rebib:
-	rm -f $(OUT_DIR)/$(STYLE)/PHASE1
-	make
-
 .PHONY: twice
 twice:
 	make again
@@ -265,6 +317,11 @@ twice:
 thrice:
 	make twice
 	make again
+
+.PHONY: rebib
+rebib:
+	rm -f $(OUT_DIR)/$(STYLE)/PHASE1
+	make
 
 ##########
 # STYLES #
@@ -278,17 +335,17 @@ dev:
 final:
 	make STYLE=final
 
+.PHONY: final-anon
+final-anon:
+	make STYLE=final-anon
+
 .PHONY: final-short
 final-short:
 	make STYLE=final-short
 
-.PHONY: anon
-anon:
-	make STYLE=anon
-
-.PHONY: anon-short
-anon-short:
-	make STYLE=anon-short
+.PHONY: final-anon-short
+final-anon-short:
+	make STYLE=final-anon-short
 
 .PHONY: all
 all:
