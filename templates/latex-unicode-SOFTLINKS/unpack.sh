@@ -54,5 +54,3 @@ non_ow_copy $PWD/template/tex $1 00-main.tex
 non_ow_copy $PWD/template/tex $1 local/defaults.tex
 non_ow_copy $PWD/template/tex $1 local/imports.tex
 non_ow_copy $PWD/template/tex $1 local/macros.tex
-
-chmod 555 $PWD/template
