@@ -353,16 +353,19 @@ all:
 
 .PHONY: clean
 clean:
-	rm -rf $(OUT_DIR)
-	rm -rf $(STG_DIR)
-	rm -f $(GEN_OUT_FILES)
-	rm -f $(MAIN_OUT)-*.pdf
-	rm -f $(CACHE_DIR)/dblp-list
-	rm -f $(CACHE_DIR)/dblp-bib
+	rm -rf ./$(OUT_DIR)
+	rm -rf ./$(STG_DIR)
+	rm -f  $(patsubst %,./%,$(GEN_OUT_FILES))
+	rm -f  ./$(MAIN_OUT)-*.pdf
+	rm -f  ./$(CACHE_DIR)/dblp-list
+	rm -f  ./$(CACHE_DIR)/dblp-bib
 
 .PHONY: clean-cache
 clean-cache:
-	rm -rf $(CACHE_DIR)
+	rm -rf ./$(CACHE_DIR)
+
+.PHONY: clean-all
+clean-all: clean-cache clean
 
 .PHONY: debug
 debug:
