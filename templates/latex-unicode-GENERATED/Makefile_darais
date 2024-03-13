@@ -35,25 +35,25 @@ STYLE       ?= dev
 # \isnoauthor
 #
 ifeq ($(STYLE), dev)
-  INTERNAL ?= 1 # YES internal copy (show comments)
-  EXTENDED ?= 1 # YES extended content (appendicies, etc.)
-  HIDENAME ?= 0 # NO  anonymized authors
+  INTERNAL ?= 1
+  EXTENDED ?= 1
+  HIDENAME ?= 0
 else ifeq ($(STYLE), final)
-  INTERNAL ?= 0 # NO  internal copy (hide comments)
-  EXTENDED ?= 1 # YES extended content (appendicies, etc.)
-  BLINDIDS ?= 0 # NO  anonymized authors
+  INTERNAL ?= 0
+  EXTENDED ?= 1
+  BLINDIDS ?= 0
 else ifeq ($(STYLE), final-anon)
-  INTERNAL ?= 0 # NO  internal copy (hide comments)
-  EXTENDED ?= 1 # YES extended content (appendicies, etc.)
-  HIDENAME ?= 1 # YES anonymized authors
+  INTERNAL ?= 0
+  EXTENDED ?= 1
+  HIDENAME ?= 1
 else ifeq ($(STYLE), final-short)
-  INTERNAL ?= 0 # NO  internal copy (hide comments)
-  EXTENDED ?= 0 # NO  extended content (appendicies, etc.)
-  HIDENAME ?= 0 # NO  anonymized authors
+  INTERNAL ?= 0
+  EXTENDED ?= 0
+  HIDENAME ?= 0
 else ifeq ($(STYLE), final-anon-short)
-  INTERNAL ?= 0 # NO  internal copy (hide comments)
-  EXTENDED ?= 0 # NO  extended content (appendicies, etc.)
-  HIDENAME ?= 1 # YES anonymized authors
+  INTERNAL ?= 0
+  EXTENDED ?= 0
+  HIDENAME ?= 1
 else
   INTERNAL ?= 1
   EXTENDED ?= 1

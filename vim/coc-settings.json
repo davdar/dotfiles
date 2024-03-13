@@ -10,6 +10,9 @@
           "plugin": {
             "hlint": {
               "globalOn": false
+            },
+            "stan": {
+              "globalOn": false
             }
           }
         }

@@ -25,9 +25,6 @@
 
 \newcommand{\slashedrel}[1]{\mathrel{\centernot{#1}}}
 
-\newcommand{\undersetOn}[2]{\underset{#2}{#1}}
-\newcommand{\oversetOn}[2]{\overset{#2}{#1}}
-
 \newcommand\dpl{\lstinline[language=dpl]}
 
 %%%%%%%%%%
@@ -62,7 +59,7 @@
 \newcommand{\daraisMATH}[1]{{\color{\colorMATH}\ifmmode\mathnormal{#1}\else\(\mathnormal{#1}\)\fi}}
 \newcommand{\daraisSTAX}[1]{{\color{\colorSYNTAX}\textnormal{\texttt{#1}}}}
 
-\newcommand{\daraisModeRM}[1]{\ifmmode\operatorname{\mathnormal{#1}}\else\textnormal{#1}\fi}
+\newcommand{\daraisModeRM}[1]{\ifmmode\operatorname{\mathrm{#1}}\else\textrm{#1}\fi}
 \newcommand{\daraisModeIT}[1]{\ifmmode\operatorname{\mathit{#1}}\else\textit{#1}\fi}
 \newcommand{\daraisModeBF}[1]{\ifmmode\operatorname{\mathbf{#1}}\else\textbf{#1}\fi}
 \newcommand{\daraisModeTT}[1]{\ifmmode\operatorname{\mathtt{#1}}\else\texttt{#1}\fi}

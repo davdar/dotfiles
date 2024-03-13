@@ -83,7 +83,7 @@ set mouse=a                    " allow the use of a mouse
 set cmdheight=2
 set formatoptions=j            " don't line break when inserting text
 set linebreak
-set textwidth=80
+set textwidth=70
 
 " show symbol for wrapped lines
 set showbreak=⇢
@@ -94,6 +94,9 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+
+" https://vi.stackexchange.com/questions/4054/case-sensitive-with-ignorecase-on
+nnoremap <silent> * *N:let @/.='\C'<CR>n
 
 " suggested by coc
 
@@ -110,6 +113,8 @@ syntax spell toplevel
 
 " Make Y behave like C and D
 noremap Y y$
+
+set cinwords=
 
 " -----------------------
 " -- EASY TEXT REPLACE --
@@ -173,7 +178,7 @@ let g:tex_flavor = "latex"
 " -- MARKDOWN --
 " --------------
 
-let g:markdown_fenced_languages = ["python","{code-cell} ipython3=python"]
+let g:markdown_fenced_languages = ["python","R"]
 
 " -------------
 " -- HASKELL --
@@ -215,8 +220,8 @@ map <silent> <Leader>[ :NERDTreeToggle<CR>
 " -- DIFFING --
 " -------------
 
-map <silent> <Leader>dj       :diffthis<CR>
-map <silent> <Leader>dk       :diffoff<CR>
+" map <silent> <Leader>dj       :diffthis<CR>
+" map <silent> <Leader>dk       :diffoff<CR>
 
 " ---------
 " -- COC --
@@ -224,14 +229,37 @@ map <silent> <Leader>dk       :diffoff<CR>
 
 highlight link CoCFloating Visual
 
-nmap <silent> <Leader>eh <Plug>(coc-diagnostic-prev)
-nmap <silent> <Leader>el <Plug>(coc-diagnostic-next)
+nnoremap <silent> } <Plug>(coc-diagnostic-next)
+nnoremap <silent> { <Plug>(coc-diagnostic-prev)
 
-nmap <silent> <Leader>ed <Plug>(coc-definition)
-nmap <silent> <Leader>et <Plug>(coc-type-definition)
-nmap <silent> <Leader>er <Plug>(coc-references)
+nnoremap <silent> <Leader>l :CocList diagnostics<CR>
+nnoremap <silent> <Leader>d <Plug>(coc-definition)
+nnoremap <silent> <Leader>t <Plug>(coc-type-definition)
+nnoremap <silent> <Leader>i <Plug>(coc-implementation)
+nnoremap <silent> <Leader>f <Plug>(coc-references)
+nnoremap <silent> <Leader><Space> :call CocActionAsync('doHover')<CR>
+nnoremap <silent> <Leader>h :call CocActionAsync('highlight')<CR>
 
-nmap <silent> <Leader>e<space> :call CocActionAsync('doHover')<CR>
+" ---------
+" -- COQ --
+" ---------
+
+highlight CoqtailChecked cterm=NONE ctermbg=white
+
+function! DaraisSetupBufEnterCoq()
+  nnoremap <silent> <buffer> <Leader><Space> <Plug>CoqToLine
+  nnoremap <silent> <buffer> } <Plug>CoqNext
+  nnoremap <silent> <buffer> { <Plug>CoqUndo
+  highlight Error cterm=bold ctermfg=darkred ctermbg=lightred
+endfunction
+
+function! DaraisDetupBufLeaveCoq()
+  highlight Error cterm=NONE ctermfg=white ctermbg=red
+endfunction
+
+autocmd BufEnter *.v call DaraisSetupBufEnterCoq()
+autocmd BufLeave *.v call DaraisDetupBufLeaveCoq()
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -297,13 +325,13 @@ nmap <silent> <Leader>e<space> :call CocActionAsync('doHover')<CR>
 " -- TABLE MODE --
 " ----------------
 
-" let g:table_mode_corner='|'
+let g:table_mode_corner='|'
 
 " ----------------
 " -- TABULARIZE --
 " ----------------
 
-map <Leader>t :Tabularize /
+" map <Leader>t :Tabularize /
 
 " File Hooks
 augroup DD_CUSTOM
@@ -337,3 +365,11 @@ function! AutoReload()
   set autoread
   au CursorHold,InsertEnter,InsertLeave * checktime
 endfunction
+
+function! SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
+
+" snippets:
+" :runtime syntax/hitest.vim  --  show all highlight groups

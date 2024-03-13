@@ -19,8 +19,8 @@ s/⇣-\*/\\underline /g
 s/⇣w\*/\\underbrace/g
 s/⇣e\*/\\underbracket/g
 
-s/⇡/\\oversetOn /g
-s/⇣/\\undersetOn /g
+s/⇡/\\overset /g
+s/⇣/\\underset /g
 
 s/“/``/g
 s/”/''/g
